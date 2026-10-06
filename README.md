@@ -1,6 +1,6 @@
 # One marketplace chat, nine builds
 
-Evidence repo for a Stream blog article comparing Sendbird with seven alternatives and a vendor-free build. The same buyer/seller chat (one listing, one order, three users) is built on every platform behind one `ChatAdapter` interface, checked with the same Playwright suite, and measured with the same benchmark harness.
+Evidence repo for a Stream blog article comparing Sendbird with seven alternatives and a vendor-free build. The same buyer/seller chat (one listing, one order, three users) is built on every platform behind one `ChatAdapter` interface, and checked with the same Playwright suite. Performance benchmarks were deliberately not run (see below).
 
 Platforms: `native`, `sendbird`, `stream`, `talkjs`, `cometchat`, `twilio`, `pubnub`, `ably`, `rocketchat`.
 
