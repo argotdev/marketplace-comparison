@@ -1,0 +1,12 @@
+{
+  "platform": "twilio",
+  "requirements": {
+    "1": { "status": "native", "note": "Conversation with uniqueName order-<id>, JSON attributes {orderId, listingId}, two chat participants (created server-side when missing)" },
+    "2": { "status": "built", "note": "no custom message type: card in message JSON attributes (4 KB); server updates attributes via REST, clients get messageUpdated. Rendering is entirely ours", "loc": 20 },
+    "3": { "status": "built", "note": "no moderation: pre-event onMessageAdd webhook rewrites the body with our regex mask (Twilio's documented modify response); no report API, our queue. Needs an https PUBLIC_URL", "loc": 25 },
+    "4": { "status": "built", "note": "no email: post-event onMessageAdded webhook + Reachability (User.isOnline) -> Mailpit. Web push via FCM is native but not run (no Firebase credentials)", "loc": 15 },
+    "5": { "status": "built", "note": "no translation: our server provider, translations in message attributes; not run without TRANSLATION_PROVIDER", "loc": 10 },
+    "6": { "status": "native", "note": "conversation.add('agent_sam') (falls back to REST participants.create); up to 1000 participants, 50 non-chat. Twist: addPhoneParticipant adds the seller's phone over SMS/WhatsApp (costs money; not run until confirmed)" },
+    "7": { "status": "native", "note": "read horizon via setAllMessagesRead + participantUpdated(lastReadMessageIndex) (SDK does not set it automatically); typing() signal; media via FormData with 300 s temporary URLs. Chat-side delivery receipts do not exist" }
+  }
+}

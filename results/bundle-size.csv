@@ -9,3 +9,5 @@ talkjs,core,@talkjs/core,1.12.0,274766,63178,2026-10-06T19:24:52.149Z,"TalkJS: @
 talkjs,kit,@talkjs/react-components,0.3.9,1484008,370753,2026-10-06T19:24:52.149Z,"TalkJS Components SDK: @talkjs/react-components Chatbox + default.css (renders in the page, not an iframe), React externalised."
 cometchat,core,@cometchat/chat-sdk-javascript,4.2.0,920059,133684,2026-10-06T19:29:29.700Z,CometChat: @cometchat/chat-sdk-javascript init + login + send + listener.
 cometchat,kit,@cometchat/chat-uikit-react,7.2.3,6746318,1654612,2026-10-06T19:29:29.700Z,"CometChat UI Kit v7: CometChatProvider + MessageList + MessageComposer (CSS is injected by the kit), React externalised."
+twilio,core,@twilio/conversations,3.0.1,902090,166158,2026-10-06T19:32:42.354Z,Twilio Conversations (classic): @twilio/conversations Client + getConversationByUniqueName + sendMessage + messageAdded.
+twilio,kit,,,not run,not run,2026-10-06T19:32:42.354Z,no React UI kit for this platform

@@ -34,13 +34,13 @@ cometchat,4,Push + email fallback,not run,not run,not run: no keys in .env (adap
 cometchat,5,Auto-translation,not run,not run,"not run: no keys in .env (adapter written). Designed as native: Message Translation extension (Build plan): sender-side callExtension v2/translate, stored in metadata['message-translation'] per the docs pattern; reader picks language. Falls back to our provider if the extension is off"
 cometchat,6,Escalation to agent,not run,not run,"not run: no keys in .env (adapter written). Designed as native: addMembersToGroup(guid, [agent_sam as PARTICIPANT]); history fetched with MessagesRequestBuilder"
 cometchat,7,"Receipts, typing, attachments",not run,not run,not run: no keys in .env (adapter written). Designed as native: markAsRead(message) + onMessagesRead receipts; startTyping/endTyping + onTypingStarted/Ended; MediaMessage(IMAGE) upload
-twilio,1,1:1 order channel,not run,not run,adapter not written
-twilio,2,Order card with live status,not run,not run,adapter not written
-twilio,3,Moderation + user report,not run,not run,adapter not written
-twilio,4,Push + email fallback,not run,not run,adapter not written
-twilio,5,Auto-translation,not run,not run,adapter not written
-twilio,6,Escalation to agent,not run,not run,adapter not written
-twilio,7,"Receipts, typing, attachments",not run,not run,adapter not written
+twilio,1,1:1 order channel,not run,not run,"not run: no keys in .env (adapter written). Designed as native: Conversation with uniqueName order-<id>, JSON attributes {orderId, listingId}, two chat participants (created server-side when missing)"
+twilio,2,Order card with live status,not run,not run,"not run: no keys in .env (adapter written). Designed as built: no custom message type: card in message JSON attributes (4 KB); server updates attributes via REST, clients get messageUpdated. Rendering is entirely ours (20 LOC)"
+twilio,3,Moderation + user report,not run,not run,"not run: no keys in .env (adapter written). Designed as built: no moderation: pre-event onMessageAdd webhook rewrites the body with our regex mask (Twilio's documented modify response); no report API, our queue. Needs an https PUBLIC_URL (25 LOC)"
+twilio,4,Push + email fallback,not run,not run,not run: no keys in .env (adapter written). Designed as built: no email: post-event onMessageAdded webhook + Reachability (User.isOnline) -> Mailpit. Web push via FCM is native but not run (no Firebase credentials) (15 LOC)
+twilio,5,Auto-translation,not run,not run,"not run: no keys in .env (adapter written). Designed as built: no translation: our server provider, translations in message attributes; not run without TRANSLATION_PROVIDER (10 LOC)"
+twilio,6,Escalation to agent,not run,not run,"not run: no keys in .env (adapter written). Designed as native: conversation.add('agent_sam') (falls back to REST participants.create); up to 1000 participants, 50 non-chat. Twist: addPhoneParticipant adds the seller's phone over SMS/WhatsApp (costs money; not run until confirmed)"
+twilio,7,"Receipts, typing, attachments",not run,not run,not run: no keys in .env (adapter written). Designed as native: read horizon via setAllMessagesRead + participantUpdated(lastReadMessageIndex) (SDK does not set it automatically); typing() signal; media via FormData with 300 s temporary URLs. Chat-side delivery receipts do not exist
 pubnub,1,1:1 order channel,not run,not run,adapter not written
 pubnub,2,Order card with live status,not run,not run,adapter not written
 pubnub,3,Moderation + user report,not run,not run,adapter not written

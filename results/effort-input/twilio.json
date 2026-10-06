@@ -1,0 +1,5 @@
+{
+  "dashboardStepsBeforeFirstMessage": 3,
+  "backendNeededForFirstMessage": true,
+  "notes": "Steps: copy Account SID and Auth Token, create an API key, copy the Conversations Service SID. A backend is mandatory: the browser cannot mint Access Tokens. Reachability and webhooks are set by our setup script over REST."
+}
