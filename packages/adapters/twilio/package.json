@@ -1,0 +1,20 @@
+{
+  "name": "@mkt/adapter-twilio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./kit": "./src/kit/index.tsx"
+  },
+  "dependencies": {
+    "@mkt/shared": "*",
+    "@twilio/conversations": "3.0.1"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  }
+}

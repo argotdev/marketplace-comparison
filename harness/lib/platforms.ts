@@ -4,10 +4,16 @@
  */
 export interface PlatformFacts {
   name: string;
-  /** How translation is satisfied in the adapter. `built` needs TRANSLATION_PROVIDER in .env. */
-  translation: 'native' | 'built' | 'none';
-  /** How the email fallback is satisfied. */
-  email: 'native' | 'built-webhook' | 'built-client' | 'none';
+  /**
+   * How translation is satisfied in the adapter. `built` and `native-needs-provider` need
+   * TRANSLATION_PROVIDER (or the vendor's own provider key) in .env, otherwise the check is `not run`.
+   */
+  translation: 'native' | 'native-needs-provider' | 'built' | 'none';
+  /**
+   * How the email fallback is satisfied. `native-external` = the vendor sends email itself from its own
+   * infrastructure, so Mailpit cannot receive it; the check records the vendor's notification webhook instead.
+   */
+  email: 'native' | 'native-external' | 'built-webhook' | 'built-client' | 'none';
   /** Documented client-side send rate limit used to pace the ordering burst (messages per second). */
   maxSendPerSec: number;
   /** npm package whose version is reported in results. */
@@ -47,5 +53,62 @@ export const PLATFORM_FACTS: Record<string, PlatformFacts> = {
     sdkPackage: 'stream-chat',
     kitPackage: 'stream-chat-react',
     vendorHosts: ['stream-io-api.com', 'stream-io-cdn.com', 'getstream.io'],
+  },
+  talkjs: {
+    name: 'TalkJS (Components SDK: @talkjs/core + @talkjs/react-components)',
+    translation: 'native',
+    email: 'native-external',
+    // No documented Data API send limit; REST is 9 req/s sustained. Paced at 5/s to stay under the REST figure.
+    maxSendPerSec: 5,
+    sdkPackage: '@talkjs/core',
+    kitPackage: '@talkjs/react-components',
+    vendorHosts: ['talkjs.com'],
+  },
+  cometchat: {
+    name: 'CometChat',
+    translation: 'native',
+    email: 'built-webhook',
+    // No documented WebSocket send limit; REST is 20k/min standard operations. Paced at 5/s.
+    maxSendPerSec: 5,
+    sdkPackage: '@cometchat/chat-sdk-javascript',
+    kitPackage: '@cometchat/chat-uikit-react',
+    vendorHosts: ['cometchat.io', 'cometchat.com', 'cc-cluster-2.io', 'cc-edge-2.io'],
+  },
+  twilio: {
+    name: 'Twilio Conversations (classic)',
+    translation: 'built',
+    email: 'built-webhook',
+    // Documented: 30 actions per second per conversation. Paced at 20/s.
+    maxSendPerSec: 20,
+    sdkPackage: '@twilio/conversations',
+    vendorHosts: ['twilio.com'],
+  },
+  pubnub: {
+    name: 'PubNub (Chat SDK)',
+    translation: 'built',
+    email: 'built-webhook',
+    // Documented guidance: keep publish rates at 10 to 15 messages per second per channel. Paced at 10/s.
+    maxSendPerSec: 10,
+    sdkPackage: '@pubnub/chat',
+    vendorHosts: ['pndsn.com', 'pubnub.com'],
+  },
+  ably: {
+    name: 'Ably (Chat SDK)',
+    translation: 'built',
+    email: 'built-webhook',
+    // Documented: 50 messages per second per channel and per connection on every plan. Paced at 25/s.
+    maxSendPerSec: 25,
+    sdkPackage: '@ably/chat',
+    kitPackage: '@ably/chat-react-ui-kit',
+    vendorHosts: ['ably.io', 'ably-realtime.com', 'ably.net', 'ably.com'],
+  },
+  rocketchat: {
+    name: 'Rocket.Chat (self-hosted, DDP + REST)',
+    translation: 'native-needs-provider',
+    email: 'native',
+    // Default DDP limit per user per method is 20 calls / 10 s (2/s). Our compose raises it; paced at 5/s and recorded.
+    maxSendPerSec: 5,
+    sdkPackage: '@mkt/adapter-rocketchat',
+    vendorHosts: ['localhost:3000'],
   },
 };

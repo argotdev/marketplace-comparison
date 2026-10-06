@@ -1,0 +1,23 @@
+{
+  "name": "@mkt/adapter-cometchat",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./kit": "./src/kit/index.tsx"
+  },
+  "dependencies": {
+    "@cometchat/calls-sdk-javascript": "5.0.6",
+    "@cometchat/chat-sdk-javascript": "4.2.0",
+    "@cometchat/chat-uikit-react": "7.2.3",
+    "@mkt/shared": "*",
+    "dompurify": "3.4.16"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  }
+}

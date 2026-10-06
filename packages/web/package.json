@@ -10,9 +10,15 @@
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
+    "@mkt/adapter-ably": "*",
+    "@mkt/adapter-cometchat": "*",
     "@mkt/adapter-native": "*",
+    "@mkt/adapter-pubnub": "*",
+    "@mkt/adapter-rocketchat": "*",
     "@mkt/adapter-sendbird": "*",
     "@mkt/adapter-stream": "*",
+    "@mkt/adapter-talkjs": "*",
+    "@mkt/adapter-twilio": "*",
     "@mkt/shared": "*",
     "react": "19.3.0",
     "react-dom": "19.3.0",

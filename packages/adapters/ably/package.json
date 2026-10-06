@@ -1,0 +1,22 @@
+{
+  "name": "@mkt/adapter-ably",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./kit": "./src/kit/index.tsx"
+  },
+  "dependencies": {
+    "@ably/chat": "1.4.0",
+    "@ably/chat-react-ui-kit": "0.3.0",
+    "@mkt/shared": "*",
+    "ably": "2.29.0"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  }
+}

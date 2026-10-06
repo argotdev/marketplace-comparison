@@ -11,12 +11,16 @@
   "dependencies": {
     "@mkt/shared": "*",
     "@stream-io/node-sdk": "0.8.11",
+    "ably": "2.29.0",
     "cors": "2.8.6",
     "dotenv": "18.0.5",
     "express": "5.2.1",
+    "jose": "6.2.12",
     "nodemailer": "10.0.15",
+    "pubnub": "13.0.3",
     "stream-chat": "9.54.0",
-    "tsx": "4.23.15"
+    "tsx": "4.23.15",
+    "twilio": "6.1.2"
   },
   "devDependencies": {
     "@types/cors": "2.8.19",

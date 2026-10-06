@@ -12,7 +12,9 @@
     "packages/adapters/*",
     "harness"
   ],
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "build": "npm run build -ws --if-present",
     "typecheck": "tsc -b",
