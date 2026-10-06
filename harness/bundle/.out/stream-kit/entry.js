@@ -3,7 +3,6 @@ import we, { Component as F0, Fragment as Yd, createContext as Pn, createElement
 import { Fragment as Re, jsx as m, jsxs as z } from "react/jsx-runtime";
 import * as $0 from "react-dom";
 import { createPortal as B0, flushSync as j0 } from "react-dom";
-import "stream-chat-react/dist/css/v2/index.css";
 var z0 = Object.create, Io = Object.defineProperty, V0 = Object.getOwnPropertyDescriptor, H0 = Object.getOwnPropertyNames, q0 = Object.getPrototypeOf, um = Object.prototype.hasOwnProperty, Oy = (e, t, n) => () => {
   if (n) throw n[0];
   try {
@@ -1754,7 +1753,7 @@ var gm = "1.20.0", pf = 65536, WD = {
   for (; o--; )
     s = i[o], l = c.get(s), l === void 0 && c.set(s, l = o ? /* @__PURE__ */ new Map() : YD(t)), c = l;
   return l;
-}, Wde = l1(), vm = {
+}, qde = l1(), vm = {
   http: null,
   xhr: OD,
   fetch: { get: l1 }
@@ -12264,7 +12263,7 @@ var bb = class {
   constructor(e, t, n = Um, a = $m, r = !1, i = yb) {
     this.name = e, this.action = i, this.owner = r, this.priority = t, this.resources = n, this.roles = a;
   }
-}, Gde = new bb("Allow all", 999, Um, $m, !1, yb), Kde = new bb("Deny all", 1, Um, $m, !1, T3), Ch = (e) => new Date(e.end_at).getTime() < Date.now();
+}, Wde = new bb("Allow all", 999, Um, $m, !1, yb), Gde = new bb("Deny all", 1, Um, $m, !1, T3), Ch = (e) => new Date(e.end_at).getTime() < Date.now();
 function rg(e) {
   return !e || e.type === "deleted" || !e.shared_location?.end_at ? !1 : !Ch(e.shared_location);
 }
@@ -22854,7 +22853,7 @@ var Sd = (e, t) => {
     fn: n.fn,
     options: [e, t]
   };
-}, W8 = "ArrowLeft", G8 = "ArrowRight", K8 = "ArrowUp", Y8 = "ArrowDown", Q8 = [W8, G8], Z8 = [K8, Y8], Yde = [...Q8, ...Z8], J8 = { ...Ve }, Hg = !1, X8 = 0, qg = () => "floating-ui-" + Math.random().toString(36).slice(2, 6) + X8++;
+}, W8 = "ArrowLeft", G8 = "ArrowRight", K8 = "ArrowUp", Y8 = "ArrowDown", Q8 = [W8, G8], Z8 = [K8, Y8], Kde = [...Q8, ...Z8], J8 = { ...Ve }, Hg = !1, X8 = 0, qg = () => "floating-ui-" + Math.random().toString(36).slice(2, 6) + X8++;
 function e4() {
   const [e, t] = Ve.useState(() => Hg ? qg() : void 0);
   return Nh(() => {
@@ -23280,11 +23279,11 @@ var Zo = pa(function() {
   return mp(/^iPad/i) || Zo() && navigator.maxTouchPoints > 1;
 }), nw = pa(function() {
   return M4() || tw();
-}), Qde = pa(function() {
+}), Yde = pa(function() {
   return Zo() || nw();
 }), $h = pa(function() {
   return Jc(/AppleWebKit/i) && (nw() || !pp());
-}), Zde = pa(function() {
+}), Qde = pa(function() {
   return $h() && !pp() && !rw();
 }), pp = pa(function() {
   return Jc(/Chrome|CriOS|CrMo/i);
@@ -43113,7 +43112,7 @@ var xv = {}, Md = (e) => !We(e) && typeof e != "boolean" && typeof e != "number"
       resolvedLanguage: this.resolvedLanguage
     };
   }
-}, yn = mee.createInstance(), Jde = yn.createInstance, Xde = yn.dir, ehe = yn.init, the = yn.loadResources, nhe = yn.reloadResources, ahe = yn.use, rhe = yn.changeLanguage, ihe = yn.getFixedT, ohe = yn.t, she = yn.exists, lhe = yn.setDefaultNamespace, che = yn.hasLoadedNamespace, uhe = yn.loadNamespaces, dhe = yn.loadLanguages, pee = /* @__PURE__ */ Ae(((e, t) => {
+}, yn = mee.createInstance(), Zde = yn.createInstance, Jde = yn.dir, Xde = yn.init, ehe = yn.loadResources, the = yn.reloadResources, nhe = yn.use, ahe = yn.changeLanguage, rhe = yn.getFixedT, ihe = yn.t, ohe = yn.exists, she = yn.setDefaultNamespace, lhe = yn.hasLoadedNamespace, che = yn.loadNamespaces, uhe = yn.loadLanguages, pee = /* @__PURE__ */ Ae(((e, t) => {
   (function(n, a) {
     typeof e == "object" && typeof t < "u" ? t.exports = a() : typeof define == "function" && define.amd ? define(a) : (n = typeof globalThis < "u" ? globalThis : n || self).dayjs_plugin_updateLocale = a();
   })(e, (function() {
@@ -44234,7 +44233,7 @@ var xv = {}, Md = (e) => !We(e) && typeof e != "boolean" && typeof e != "number"
       }
     };
   }));
-})), Pee = /* @__PURE__ */ Ft(pee(), 1), Lee = /* @__PURE__ */ Ft(fee(), 1), Oee = /* @__PURE__ */ Ft(gee(), 1), Iee = /* @__PURE__ */ Ft(vee(), 1), Fee = /* @__PURE__ */ Ft(yee(), 1), Nee = /* @__PURE__ */ Ft(bee(), 1), hhe = _ee(), mhe = wee(), phe = Cee(), fhe = Dee(), ghe = See(), vhe = xee(), yhe = kee(), bhe = Eee(), _he = Mee(), whe = Ree(), Che = Aee(), Dhe = Tee(), Ht = "translation", Ov = "en";
+})), Pee = /* @__PURE__ */ Ft(pee(), 1), Lee = /* @__PURE__ */ Ft(fee(), 1), Oee = /* @__PURE__ */ Ft(gee(), 1), Iee = /* @__PURE__ */ Ft(vee(), 1), Fee = /* @__PURE__ */ Ft(yee(), 1), Nee = /* @__PURE__ */ Ft(bee(), 1), dhe = _ee(), hhe = wee(), mhe = Cee(), phe = Dee(), fhe = See(), ghe = xee(), vhe = kee(), yhe = Eee(), bhe = Mee(), _he = Ree(), whe = Aee(), Che = Tee(), Ht = "translation", Ov = "en";
 It.default.extend(Pee.default);
 It.default.extend(Fee.default);
 It.default.extend(Nee.default);
@@ -58068,7 +58067,7 @@ var mde = (e, t) => {
     children: t
   });
 }, jde = we.memo(Bde);
-function She({ apiKey: e, channelId: t }) {
+function Dhe({ apiKey: e, channelId: t }) {
   const n = A3.getInstance(e);
   return /* @__PURE__ */ m($de, {
     client: n,
@@ -58079,5 +58078,5 @@ function She({ apiKey: e, channelId: t }) {
   });
 }
 export {
-  She as Kit
+  Dhe as Kit
 };

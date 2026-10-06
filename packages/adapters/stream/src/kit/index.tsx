@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { StreamChat, type Channel as StreamChannel } from 'stream-chat';
 import { Chat, Channel, Window, MessageList, MessageComposer, Attachment, WithComponents, type AttachmentProps } from 'stream-chat-react';
 import '../stream-types.ts';
-import 'stream-chat-react/dist/css/v2/index.css';
+import 'stream-chat-react/dist/css/index.css';
 import { channelIdForOrder, ORDER_CARD_TYPE, serverApi, USERS, type OrderCard as OrderCardData, type UserId } from '@mkt/shared';
 import { OrderCard } from './OrderCard.tsx';
 import { CHANNEL_TYPE } from '../index.ts';

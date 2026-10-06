@@ -3,5 +3,5 @@ native,core,@mkt/adapter-native,0.1.0,8781,2798,2026-10-06T18:44:23.003Z,"Native
 native,kit,,,not run,not run,2026-10-06T18:44:23.003Z,no React UI kit for this platform
 sendbird,core,@sendbird/chat,4.22.13,1239486,208905,2026-10-06T18:54:30.239Z,Sendbird: @sendbird/chat with GroupChannelModule only (no OpenChannel/Feed modules).
 sendbird,kit,@sendbird/uikit-react,3.20.0,2591180,478100,2026-10-06T18:54:30.239Z,"Sendbird UIKit for React: SendbirdProvider + GroupChannel + CSS, React externalised."
-stream,core,stream-chat,9.54.0,453895,113037,2026-10-06T19:01:49.357Z,"Stream: stream-chat JS client, connect + watch + send + message.new."
-stream,kit,stream-chat-react,14.12.2,not run,not run,2026-10-06T19:01:49.357Z,build failed: Build failed with 1 error:
+stream,core,stream-chat,9.54.0,453895,113037,2026-10-06T19:03:07.133Z,"Stream: stream-chat JS client, connect + watch + send + message.new."
+stream,kit,stream-chat-react,14.12.2,2627240,610306,2026-10-06T19:03:07.133Z,"stream-chat-react: Chat + Channel + Window + MessageList + MessageComposer + CSS, React externalised."
