@@ -1,0 +1,5 @@
+{
+  "dashboardStepsBeforeFirstMessage": 4,
+  "backendNeededForFirstMessage": "no (publish/subscribe keys alone work until Access Manager is enabled); yes for PAM tokens as used here",
+  "notes": "Steps: create app + keyset, copy publish/subscribe/secret keys, enable App Context + Message Persistence (+ Presence, Files, Access Manager for the full build), paste the moderation Function. Events & Actions listener is a further step for the email fallback."
+}

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { LISTING, ORDER_STATUSES, serverApi, type Order } from '@mkt/shared';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { LISTING, ORDER_STATUSES, serverApi, type Order, type UserId } from '@mkt/shared';
 
 /** Order page: the order service's view, plus a slot for the PubNub courier-location marker. */
 export function OrderPage() {
   const { id = '' } = useParams();
+  const [sp] = useSearchParams();
   const [order, setOrder] = useState<Order | null>(null);
   const [courier, setCourier] = useState<{ lat: number; lng: number } | null>(null);
 
@@ -12,8 +13,20 @@ export function OrderPage() {
     serverApi.order(id).then((o) => setOrder(o as Order));
   }, [id]);
 
+  // ?platform=pubnub: subscribe to the courier channel over PubNub so the marker moves on this page too.
   useEffect(() => {
-    // The PubNub build publishes courier coordinates; its kit registers window.__courier to feed this page.
+    if (sp.get('platform') !== 'pubnub') return;
+    let stop: (() => void) | undefined;
+    (async () => {
+      const [{ Chat }, courier, t] = await Promise.all([import('@pubnub/chat'), import('@mkt/adapter-pubnub/courier'), serverApi.token('pubnub', 'seller_ben' as UserId)]);
+      const chat = await Chat.init({ publishKey: t.extra?.publishKey ?? '', subscribeKey: t.extra?.subscribeKey ?? '', userId: 'order_page_seller_ben', authKey: t.token });
+      stop = courier.watchCourier(chat, id);
+    })().catch((e) => console.warn('[courier]', (e as Error).message));
+    return () => stop?.();
+  }, [id, sp]);
+
+  useEffect(() => {
+    // The PubNub build publishes courier coordinates; the adapter page and the hook above set window.__courier.
     const t = window.setInterval(() => {
       const c = (window as unknown as { __courier?: { lat: number; lng: number } }).__courier;
       if (c) setCourier(c);

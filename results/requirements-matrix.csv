@@ -41,13 +41,13 @@ twilio,4,Push + email fallback,not run,not run,not run: no keys in .env (adapter
 twilio,5,Auto-translation,not run,not run,"not run: no keys in .env (adapter written). Designed as built: no translation: our server provider, translations in message attributes; not run without TRANSLATION_PROVIDER (10 LOC)"
 twilio,6,Escalation to agent,not run,not run,"not run: no keys in .env (adapter written). Designed as native: conversation.add('agent_sam') (falls back to REST participants.create); up to 1000 participants, 50 non-chat. Twist: addPhoneParticipant adds the seller's phone over SMS/WhatsApp (costs money; not run until confirmed)"
 twilio,7,"Receipts, typing, attachments",not run,not run,not run: no keys in .env (adapter written). Designed as native: read horizon via setAllMessagesRead + participantUpdated(lastReadMessageIndex) (SDK does not set it automatically); typing() signal; media via FormData with 300 s temporary URLs. Chat-side delivery receipts do not exist
-pubnub,1,1:1 order channel,not run,not run,adapter not written
-pubnub,2,Order card with live status,not run,not run,adapter not written
-pubnub,3,Moderation + user report,not run,not run,adapter not written
-pubnub,4,Push + email fallback,not run,not run,adapter not written
-pubnub,5,Auto-translation,not run,not run,adapter not written
-pubnub,6,Escalation to agent,not run,not run,adapter not written
-pubnub,7,"Receipts, typing, attachments",not run,not run,adapter not written
+pubnub,1,1:1 order channel,not run,not run,"not run: no keys in .env (adapter written). Designed as native: Chat SDK createGroupConversation({ users, channelId: order-<id>, channelData.custom: { orderId, listingId } }); App Context memberships; custom is scalar-only"
+pubnub,2,Order card with live status,not run,not run,"not run: no keys in .env (adapter written). Designed as built: card in message meta (SDK); meta is immutable, so the update is a message action of type order_card (same primitive the SDK uses for edits) added by the server; clients fold the latest action into the card via message.onUpdated (30 LOC)"
+pubnub,3,Moderation + user report,not run,not run,"not run: no keys in .env (adapter written). Designed as built: Before Publish Function with our regex mask (pubnub.function.js, pasted into the Admin Portal); Chat SDK message.report lands on PUBNUB_INTERNAL_MODERATION_<channel> (SDK) and is mirrored to our queue. Channel Monitor dashboard and Auto Moderation are paid (35 LOC)"
+pubnub,4,Push + email fallback,not run,not run,"not run: no keys in .env (adapter written). Designed as built: no email, no web push: Events & Actions 'Message sent' webhook + whereNow presence -> Mailpit (needs https PUBLIC_URL and a configured listener) (20 LOC)"
+pubnub,5,Auto-translation,not run,not run,"not run: no keys in .env (adapter written). Designed as built: no translation: our server provider, translations in meta; PubNub's path would be a Function calling Google/Amazon/Microsoft Translate (10 LOC)"
+pubnub,6,Escalation to agent,not run,not run,"not run: no keys in .env (adapter written). Designed as native: channel.invite(agentUser) (needs manage in the PAM token, granted); getHistory for earlier messages (25 per call, paginated)"
+pubnub,7,"Receipts, typing, attachments",not run,not run,"not run: no keys in .env (adapter written). Designed as native: read receipts: membership.setLastReadMessage + onReadReceiptReceived (SDK, stored as membership custom); typing: startTyping/stopTyping/onTypingChanged (SDK, signals); files: MessageDraft.files (SDK, 5 MB)"
 ably,1,1:1 order channel,not run,not run,adapter not written
 ably,2,Order card with live status,not run,not run,adapter not written
 ably,3,Moderation + user report,not run,not run,adapter not written

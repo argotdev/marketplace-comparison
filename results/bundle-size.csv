@@ -11,3 +11,5 @@ cometchat,core,@cometchat/chat-sdk-javascript,4.2.0,920059,133684,2026-10-06T19:
 cometchat,kit,@cometchat/chat-uikit-react,7.2.3,6746318,1654612,2026-10-06T19:29:29.700Z,"CometChat UI Kit v7: CometChatProvider + MessageList + MessageComposer (CSS is injected by the kit), React externalised."
 twilio,core,@twilio/conversations,3.0.1,902090,166158,2026-10-06T19:32:42.354Z,Twilio Conversations (classic): @twilio/conversations Client + getConversationByUniqueName + sendMessage + messageAdded.
 twilio,kit,,,not run,not run,2026-10-06T19:32:42.354Z,no React UI kit for this platform
+pubnub,core,@pubnub/chat,1.0.4,1143256,229985,2026-10-06T19:36:44.293Z,PubNub: @pubnub/chat (Chat SDK) over pubnub core; init + getChannel + sendText + onMessageReceived.
+pubnub,kit,,,not run,not run,2026-10-06T19:36:44.293Z,no React UI kit for this platform
