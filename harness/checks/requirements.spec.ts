@@ -208,6 +208,10 @@ test('5. Auto-translation es<->en', async ({ browser }) => {
     note('not run: platform has no translation feature and no TRANSLATION_PROVIDER is set in .env');
     test.skip();
   }
+  if (facts.translation === 'native-needs-provider' && !translationProvider) {
+    note('not run: the platform translates natively but needs a provider API key, and none is set in .env');
+    test.skip();
+  }
   const buyer = await open(browser, 'buyer_ana');
   const seller = await open(browser, 'seller_ben');
   const es = '¿Todavía está disponible el cuadro de 54 cm?';
