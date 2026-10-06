@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@mkt/adapter-native": "*",
+    "@mkt/adapter-sendbird": "*",
+    "@mkt/adapter-stream": "*",
     "@mkt/shared": "*",
     "react": "19.3.0",
     "react-dom": "19.3.0",

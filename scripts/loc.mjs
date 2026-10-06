@@ -38,9 +38,11 @@ function countDir(dir) {
 
 const out = {};
 for (const platform of readdirSync(resolve(root, 'packages/adapters')).sort()) {
-  const adapter = countDir(resolve(root, 'packages/adapters', platform, 'src'));
+  const srcDir = resolve(root, 'packages/adapters', platform, 'src');
+  // Adapter = everything under src/ except the kit view, which lives in src/kit/.
+  const adapter = countDir(srcDir) - countDir(join(srcDir, 'kit'));
   const server = existsSync(resolve(root, 'packages/server/src/vendors', `${platform}.ts`)) ? countFile(resolve(root, 'packages/server/src/vendors', `${platform}.ts`)) : 0;
-  const kitDir = resolve(root, 'packages/web/src/kits', platform);
+  const kitDir = join(srcDir, 'kit');
   const kit = countDir(kitDir);
   const cardFile = ['OrderCard.tsx', 'OrderCardMessage.tsx'].map((f) => join(kitDir, f)).find((f) => existsSync(f));
   const kitCard = cardFile ? countFile(cardFile) : 0;

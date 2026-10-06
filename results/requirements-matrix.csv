@@ -6,13 +6,13 @@ native,4,Push + email fallback,built,pass,email via nodemailer to Mailpit when R
 native,5,Auto-translation,not run,skip,sender attaches translations from server provider; reader picks their language. Not run: no TRANSLATION_PROVIDER in .env (60 LOC) | check: not run: platform has no translation feature and no TRANSLATION_PROVIDER is set in .env
 native,6,Escalation to agent,built,pass,add_member inserts agent into channel_members; history query returns all earlier rows (379 LOC)
 native,7,"Receipts, typing, attachments",built,pass,read_state table + typing fan-out over Redis; attachments stored as BYTEA and served over HTTP (379 LOC)
-sendbird,1,1:1 order channel,not run,not run,adapter not written
-sendbird,2,Order card with live status,not run,not run,adapter not written
-sendbird,3,Moderation + user report,not run,not run,adapter not written
-sendbird,4,Push + email fallback,not run,not run,adapter not written
-sendbird,5,Auto-translation,not run,not run,adapter not written
-sendbird,6,Escalation to agent,not run,not run,adapter not written
-sendbird,7,"Receipts, typing, attachments",not run,not run,adapter not written
+sendbird,1,1:1 order channel,not run,not run,"not run: no keys in .env (adapter written). Designed as native: group channel with deterministic channelUrl, customType order, data {orderId, listingId}, invitedUserIds buyer+seller"
+sendbird,2,Order card with live status,not run,not run,not run: no keys in .env (adapter written). Designed as native: user message with customType order_card and JSON data; order service edits it with PUT /v3/group_channels/{url}/messages/{id}; onMessageUpdated on both clients
+sendbird,3,Moderation + user report,not run,not run,"not run: no keys in .env (adapter written). Designed as native: profanity filter regex_filters (RE2) type=replace on channel type order via Platform API; channel.reportUser -> dashboard + user:report webhook. Advanced Moderation (rules, tickets, keyword detection) is an Enterprise add-on"
+sendbird,4,Push + email fallback,not run,not run,not run: no keys in .env (adapter written). Designed as built: JS SDK has no browser push; email built from group_channel:message_send webhook + GET /v3/users/{id} is_online -> Mailpit (40 LOC)
+sendbird,5,Auto-translation,not run,not run,not run: no keys in .env (adapter written). Designed as gated: translationTargetLanguages on send; docs say enabling requires contacting sales. Built fallback (translations in data) used if a provider is set [needs: Pro plan + sales enablement]
+sendbird,6,Escalation to agent,not run,not run,not run: no keys in .env (adapter written). Designed as native: channel.inviteWithUserIds(['agent_sam']); chat history visible to new members by default. Sendbird Desk would create a ticket channel instead; Desk is a separate product (gated)
+sendbird,7,"Receipts, typing, attachments",not run,not run,"not run: no keys in .env (adapter written). Designed as native: markAsRead + onUserMarkedRead, startTyping/endTyping + onTypingStatusUpdated, sendFileMessage"
 stream,1,1:1 order channel,not run,not run,adapter not written
 stream,2,Order card with live status,not run,not run,adapter not written
 stream,3,Moderation + user report,not run,not run,adapter not written

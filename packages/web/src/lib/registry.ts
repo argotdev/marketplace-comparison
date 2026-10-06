@@ -14,7 +14,7 @@ export interface KitProps {
 /** Dynamic imports keep each vendor SDK out of every other platform's page. */
 export const adapters: Record<PlatformId, (() => Promise<AdapterModule>) | null> = {
   native: () => import('@mkt/adapter-native'),
-  sendbird: null,
+  sendbird: () => import('@mkt/adapter-sendbird'),
   stream: null,
   talkjs: null,
   cometchat: null,
@@ -27,7 +27,7 @@ export const adapters: Record<PlatformId, (() => Promise<AdapterModule>) | null>
 /** Kit views: vendor UI kits mounted with the order card rendered through the kit's own API. */
 export const kits: Record<PlatformId, (() => Promise<{ default: ComponentType<KitProps> }>) | null> = {
   native: null,
-  sendbird: null,
+  sendbird: () => import('@mkt/adapter-sendbird/kit'),
   stream: null,
   talkjs: null,
   cometchat: null,

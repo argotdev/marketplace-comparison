@@ -5,5 +5,11 @@
     "kitView": 0,
     "kitOrderCardRenderer": 0,
     "nativeServer": 379
+  },
+  "sendbird": {
+    "adapter": 219,
+    "serverVendor": 156,
+    "kitView": 52,
+    "kitOrderCardRenderer": 16
   }
 }

@@ -28,4 +28,14 @@ export const PLATFORM_FACTS: Record<string, PlatformFacts> = {
     maxSendPerSec: 50,
     sdkPackage: '@mkt/adapter-native',
   },
+  sendbird: {
+    name: 'Sendbird Chat',
+    translation: 'native',
+    email: 'built-webhook',
+    // Client SDK limit: five messages per second per user and per channel.
+    maxSendPerSec: 5,
+    sdkPackage: '@sendbird/chat',
+    kitPackage: '@sendbird/uikit-react',
+    vendorHosts: ['sendbird.com'],
+  },
 };

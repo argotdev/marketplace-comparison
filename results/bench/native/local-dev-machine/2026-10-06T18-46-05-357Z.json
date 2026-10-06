@@ -1,0 +1,1959 @@
+{
+  "meta": {
+    "platform": "native",
+    "startedAt": "2026-10-06T18:46:05.357Z",
+    "regionLabel": "local-dev-machine",
+    "machine": {
+      "platform": "darwin 27.0.0",
+      "arch": "arm64",
+      "cpu": "Apple M4 Pro",
+      "cores": 14,
+      "memGb": 48,
+      "node": "v24.16.0"
+    },
+    "network": {
+      "city": "Baltimore",
+      "region": "Maryland",
+      "country": "US",
+      "org": "AS7922 Comcast Cable Communications, LLC",
+      "source": "ipinfo.io (IP address not stored)"
+    },
+    "vendor": {
+      "region": "local docker",
+      "plan": "n/a"
+    },
+    "sdk": {
+      "package": "@mkt/adapter-native",
+      "version": "0.1.0"
+    },
+    "browser": "Chromium 153.0.8010.12"
+  },
+  "orderId": "ord_bench_mux14r7h",
+  "params": {
+    "RUNS": 30,
+    "MESSAGES": 200,
+    "WARMUP": 10,
+    "BURST": 50,
+    "API_CALLS": 50
+  },
+  "payload": {
+    "orderId": "ord_bench_mux14r7h",
+    "listingTitle": "Used road bike, 54cm",
+    "priceUsd": 240,
+    "imageUrl": "/listing-bike.png",
+    "status": "placed"
+  },
+  "hookOverheadMs": {
+    "n": 20,
+    "min": 0.4219590000000153,
+    "p50": 0.5217499999999973,
+    "p95": 12.604750000000081,
+    "p99": 12.866958000000068,
+    "max": 12.866958000000068,
+    "mean": 2.1058875
+  },
+  "connect": {
+    "samples": [
+      {
+        "run": 0,
+        "connectMs": 17.014083000000028
+      },
+      {
+        "run": 1,
+        "connectMs": 9.280249999999796
+      },
+      {
+        "run": 2,
+        "connectMs": 8.74070800000004
+      },
+      {
+        "run": 3,
+        "connectMs": 6.580458999999792
+      },
+      {
+        "run": 4,
+        "connectMs": 8.193666000000121
+      },
+      {
+        "run": 5,
+        "connectMs": 7.836667000000034
+      },
+      {
+        "run": 6,
+        "connectMs": 7.70895900000005
+      },
+      {
+        "run": 7,
+        "connectMs": 9.582875000000058
+      },
+      {
+        "run": 8,
+        "connectMs": 6.547582999999577
+      },
+      {
+        "run": 9,
+        "connectMs": 8.957957999999962
+      },
+      {
+        "run": 10,
+        "connectMs": 7.003791999999521
+      },
+      {
+        "run": 11,
+        "connectMs": 4.776667000000089
+      },
+      {
+        "run": 12,
+        "connectMs": 5.774124999999913
+      },
+      {
+        "run": 13,
+        "connectMs": 5.3258330000007845
+      },
+      {
+        "run": 14,
+        "connectMs": 7.733333999999559
+      },
+      {
+        "run": 15,
+        "connectMs": 8.106791999999587
+      },
+      {
+        "run": 16,
+        "connectMs": 7.3689159999994445
+      },
+      {
+        "run": 17,
+        "connectMs": 6.38695799999914
+      },
+      {
+        "run": 18,
+        "connectMs": 6.605915999998615
+      },
+      {
+        "run": 19,
+        "connectMs": 8.214457999998558
+      },
+      {
+        "run": 20,
+        "connectMs": 8.950417000000016
+      },
+      {
+        "run": 21,
+        "connectMs": 6.590874999999869
+      },
+      {
+        "run": 22,
+        "connectMs": 8.125958999999057
+      },
+      {
+        "run": 23,
+        "connectMs": 4.844999999999345
+      },
+      {
+        "run": 24,
+        "connectMs": 7.116541999999754
+      },
+      {
+        "run": 25,
+        "connectMs": 7.258207999999286
+      },
+      {
+        "run": 26,
+        "connectMs": 7.13550000000032
+      },
+      {
+        "run": 27,
+        "connectMs": 8.319625000000087
+      },
+      {
+        "run": 28,
+        "connectMs": 7.003624999999374
+      },
+      {
+        "run": 29,
+        "connectMs": 8.979041999999026
+      }
+    ],
+    "summary": {
+      "n": 30,
+      "min": 4.776667000000089,
+      "p50": 7.3689159999994445,
+      "p95": 9.582875000000058,
+      "p99": 17.014083000000028,
+      "max": 17.014083000000028,
+      "mean": 7.73549306666636
+    },
+    "errors": 0
+  },
+  "latency": {
+    "samples": [
+      {
+        "i": 0,
+        "warmup": true,
+        "latencyMs": 13.038624999999229,
+        "sendResolveMs": 10.120875000000524,
+        "received": true
+      },
+      {
+        "i": 1,
+        "warmup": true,
+        "latencyMs": 17.461417000002257,
+        "sendResolveMs": 12.20941700000185,
+        "received": true
+      },
+      {
+        "i": 2,
+        "warmup": true,
+        "latencyMs": 9.197124999998778,
+        "sendResolveMs": 5.814915999999357,
+        "received": true
+      },
+      {
+        "i": 3,
+        "warmup": true,
+        "latencyMs": 16.132832999999664,
+        "sendResolveMs": 9.126374999999825,
+        "received": true
+      },
+      {
+        "i": 4,
+        "warmup": true,
+        "latencyMs": 8.83966700000019,
+        "sendResolveMs": 5.281209000000672,
+        "received": true
+      },
+      {
+        "i": 5,
+        "warmup": true,
+        "latencyMs": 8.317250000000058,
+        "sendResolveMs": 5.490791000000172,
+        "received": true
+      },
+      {
+        "i": 6,
+        "warmup": true,
+        "latencyMs": 13.167708000000857,
+        "sendResolveMs": 9.3248330000024,
+        "received": true
+      },
+      {
+        "i": 7,
+        "warmup": true,
+        "latencyMs": 12.364708000000974,
+        "sendResolveMs": 7.176250000000437,
+        "received": true
+      },
+      {
+        "i": 8,
+        "warmup": true,
+        "latencyMs": 9.476416999998037,
+        "sendResolveMs": 5.821208999997907,
+        "received": true
+      },
+      {
+        "i": 9,
+        "warmup": true,
+        "latencyMs": 6.696875000001455,
+        "sendResolveMs": 4.438417000001209,
+        "received": true
+      },
+      {
+        "i": 10,
+        "warmup": false,
+        "latencyMs": 13.219874999998865,
+        "sendResolveMs": 8.865582999998878,
+        "received": true
+      },
+      {
+        "i": 11,
+        "warmup": false,
+        "latencyMs": 13.126333000000159,
+        "sendResolveMs": 8.13366600000154,
+        "received": true
+      },
+      {
+        "i": 12,
+        "warmup": false,
+        "latencyMs": 12.152458000000479,
+        "sendResolveMs": 8.531999999999243,
+        "received": true
+      },
+      {
+        "i": 13,
+        "warmup": false,
+        "latencyMs": 13.7064160000009,
+        "sendResolveMs": 7.888875000000553,
+        "received": true
+      },
+      {
+        "i": 14,
+        "warmup": false,
+        "latencyMs": 10.773291999998037,
+        "sendResolveMs": 8.57274999999936,
+        "received": true
+      },
+      {
+        "i": 15,
+        "warmup": false,
+        "latencyMs": 13.085124999997788,
+        "sendResolveMs": 8.098791999997047,
+        "received": true
+      },
+      {
+        "i": 16,
+        "warmup": false,
+        "latencyMs": 11.500790999998571,
+        "sendResolveMs": 8.496165999997174,
+        "received": true
+      },
+      {
+        "i": 17,
+        "warmup": false,
+        "latencyMs": 15.3447079999969,
+        "sendResolveMs": 9.474249999999302,
+        "received": true
+      },
+      {
+        "i": 18,
+        "warmup": false,
+        "latencyMs": 9.545208999996248,
+        "sendResolveMs": 6.462124999998196,
+        "received": true
+      },
+      {
+        "i": 19,
+        "warmup": false,
+        "latencyMs": 11.133709000001545,
+        "sendResolveMs": 8.52295900000172,
+        "received": true
+      },
+      {
+        "i": 20,
+        "warmup": false,
+        "latencyMs": 14.667625000001863,
+        "sendResolveMs": 8.362833999999566,
+        "received": true
+      },
+      {
+        "i": 21,
+        "warmup": false,
+        "latencyMs": 13.201916999998502,
+        "sendResolveMs": 9.171082999993814,
+        "received": true
+      },
+      {
+        "i": 22,
+        "warmup": false,
+        "latencyMs": 10.286083999999391,
+        "sendResolveMs": 4.932791999999608,
+        "received": true
+      },
+      {
+        "i": 23,
+        "warmup": false,
+        "latencyMs": 12.827832999995735,
+        "sendResolveMs": 8.44266599999537,
+        "received": true
+      },
+      {
+        "i": 24,
+        "warmup": false,
+        "latencyMs": 11.454125000003842,
+        "sendResolveMs": 8.522125000003143,
+        "received": true
+      },
+      {
+        "i": 25,
+        "warmup": false,
+        "latencyMs": 11.031374999998661,
+        "sendResolveMs": 6.883625000002212,
+        "received": true
+      },
+      {
+        "i": 26,
+        "warmup": false,
+        "latencyMs": 11.919042000001355,
+        "sendResolveMs": 6.431041999996523,
+        "received": true
+      },
+      {
+        "i": 27,
+        "warmup": false,
+        "latencyMs": 10.38575000000128,
+        "sendResolveMs": 7.924333000002662,
+        "received": true
+      },
+      {
+        "i": 28,
+        "warmup": false,
+        "latencyMs": 8.097916999999143,
+        "sendResolveMs": 5.901749999997264,
+        "received": true
+      },
+      {
+        "i": 29,
+        "warmup": false,
+        "latencyMs": 7.474708999994618,
+        "sendResolveMs": 5.031624999995984,
+        "received": true
+      },
+      {
+        "i": 30,
+        "warmup": false,
+        "latencyMs": 15.72587499999645,
+        "sendResolveMs": 11.855792000002111,
+        "received": true
+      },
+      {
+        "i": 31,
+        "warmup": false,
+        "latencyMs": 7.195416999995359,
+        "sendResolveMs": 5.108958999997412,
+        "received": true
+      },
+      {
+        "i": 32,
+        "warmup": false,
+        "latencyMs": 13.760458000004292,
+        "sendResolveMs": 9.039000000004307,
+        "received": true
+      },
+      {
+        "i": 33,
+        "warmup": false,
+        "latencyMs": 17.28145900000527,
+        "sendResolveMs": 7.164334000000963,
+        "received": true
+      },
+      {
+        "i": 34,
+        "warmup": false,
+        "latencyMs": 10.277083000000857,
+        "sendResolveMs": 7.843582999994396,
+        "received": true
+      },
+      {
+        "i": 35,
+        "warmup": false,
+        "latencyMs": 10.120791999994253,
+        "sendResolveMs": 8.457749999994121,
+        "received": true
+      },
+      {
+        "i": 36,
+        "warmup": false,
+        "latencyMs": 7.132165999995777,
+        "sendResolveMs": 4.0702909999963595,
+        "received": true
+      },
+      {
+        "i": 37,
+        "warmup": false,
+        "latencyMs": 12.244125000004715,
+        "sendResolveMs": 10.387666000002355,
+        "received": true
+      },
+      {
+        "i": 38,
+        "warmup": false,
+        "latencyMs": 13.608749999999418,
+        "sendResolveMs": 8.529708000001847,
+        "received": true
+      },
+      {
+        "i": 39,
+        "warmup": false,
+        "latencyMs": 9.566959000003408,
+        "sendResolveMs": 6.281416999998328,
+        "received": true
+      },
+      {
+        "i": 40,
+        "warmup": false,
+        "latencyMs": 11.167875000006461,
+        "sendResolveMs": 8.351375000005646,
+        "received": true
+      },
+      {
+        "i": 41,
+        "warmup": false,
+        "latencyMs": 8.925125000001572,
+        "sendResolveMs": 6.38154200000281,
+        "received": true
+      },
+      {
+        "i": 42,
+        "warmup": false,
+        "latencyMs": 9.670083999997587,
+        "sendResolveMs": 7.031749999994645,
+        "received": true
+      },
+      {
+        "i": 43,
+        "warmup": false,
+        "latencyMs": 11.002874999998312,
+        "sendResolveMs": 6.063999999998487,
+        "received": true
+      },
+      {
+        "i": 44,
+        "warmup": false,
+        "latencyMs": 10.138417000001937,
+        "sendResolveMs": 7.084917000000132,
+        "received": true
+      },
+      {
+        "i": 45,
+        "warmup": false,
+        "latencyMs": 8.212625000000116,
+        "sendResolveMs": 6.653250000003027,
+        "received": true
+      },
+      {
+        "i": 46,
+        "warmup": false,
+        "latencyMs": 12.333917000003566,
+        "sendResolveMs": 8.50037500000326,
+        "received": true
+      },
+      {
+        "i": 47,
+        "warmup": false,
+        "latencyMs": 10.026499999999942,
+        "sendResolveMs": 7.334290999999212,
+        "received": true
+      },
+      {
+        "i": 48,
+        "warmup": false,
+        "latencyMs": 14.017040999999153,
+        "sendResolveMs": 8.878208000001905,
+        "received": true
+      },
+      {
+        "i": 49,
+        "warmup": false,
+        "latencyMs": 14.47741600000154,
+        "sendResolveMs": 8.075041000003694,
+        "received": true
+      },
+      {
+        "i": 50,
+        "warmup": false,
+        "latencyMs": 9.241125000000466,
+        "sendResolveMs": 6.525125000000116,
+        "received": true
+      },
+      {
+        "i": 51,
+        "warmup": false,
+        "latencyMs": 14.493290999991586,
+        "sendResolveMs": 9.858707999999751,
+        "received": true
+      },
+      {
+        "i": 52,
+        "warmup": false,
+        "latencyMs": 14.592833000002429,
+        "sendResolveMs": 9.119916999989073,
+        "received": true
+      },
+      {
+        "i": 53,
+        "warmup": false,
+        "latencyMs": 8.293665999997756,
+        "sendResolveMs": 6.0633749999979045,
+        "received": true
+      },
+      {
+        "i": 54,
+        "warmup": false,
+        "latencyMs": 12.760332999998354,
+        "sendResolveMs": 6.310624999998254,
+        "received": true
+      },
+      {
+        "i": 55,
+        "warmup": false,
+        "latencyMs": 9.823833000002196,
+        "sendResolveMs": 6.46304100000998,
+        "received": true
+      },
+      {
+        "i": 56,
+        "warmup": false,
+        "latencyMs": 13.00441699998919,
+        "sendResolveMs": 8.405375000002095,
+        "received": true
+      },
+      {
+        "i": 57,
+        "warmup": false,
+        "latencyMs": 11.333542000007583,
+        "sendResolveMs": 9.172167000011541,
+        "received": true
+      },
+      {
+        "i": 58,
+        "warmup": false,
+        "latencyMs": 11.266459000005852,
+        "sendResolveMs": 7.445208999997703,
+        "received": true
+      },
+      {
+        "i": 59,
+        "warmup": false,
+        "latencyMs": 9.942625000010594,
+        "sendResolveMs": 6.3182920000108425,
+        "received": true
+      },
+      {
+        "i": 60,
+        "warmup": false,
+        "latencyMs": 6.835417000009329,
+        "sendResolveMs": 4.10754199999792,
+        "received": true
+      },
+      {
+        "i": 61,
+        "warmup": false,
+        "latencyMs": 16.61154099999112,
+        "sendResolveMs": 8.513416000001598,
+        "received": true
+      },
+      {
+        "i": 62,
+        "warmup": false,
+        "latencyMs": 13.411624999993364,
+        "sendResolveMs": 8.734874999994645,
+        "received": true
+      },
+      {
+        "i": 63,
+        "warmup": false,
+        "latencyMs": 14.117624999998952,
+        "sendResolveMs": 6.883916999999201,
+        "received": true
+      },
+      {
+        "i": 64,
+        "warmup": false,
+        "latencyMs": 13.32958299999882,
+        "sendResolveMs": 9.346124999996391,
+        "received": true
+      },
+      {
+        "i": 65,
+        "warmup": false,
+        "latencyMs": 14.266959000000497,
+        "sendResolveMs": 9.600500000000466,
+        "received": true
+      },
+      {
+        "i": 66,
+        "warmup": false,
+        "latencyMs": 12.862917000005837,
+        "sendResolveMs": 7.7679170000046724,
+        "received": true
+      },
+      {
+        "i": 67,
+        "warmup": false,
+        "latencyMs": 13.577833999996074,
+        "sendResolveMs": 8.847374999997555,
+        "received": true
+      },
+      {
+        "i": 68,
+        "warmup": false,
+        "latencyMs": 14.990208000002895,
+        "sendResolveMs": 9.854458000001614,
+        "received": true
+      },
+      {
+        "i": 69,
+        "warmup": false,
+        "latencyMs": 10.306041999996523,
+        "sendResolveMs": 8.00449999999546,
+        "received": true
+      },
+      {
+        "i": 70,
+        "warmup": false,
+        "latencyMs": 7.58987499999057,
+        "sendResolveMs": 5.603374999991502,
+        "received": true
+      },
+      {
+        "i": 71,
+        "warmup": false,
+        "latencyMs": 11.754958999998053,
+        "sendResolveMs": 8.820959000004223,
+        "received": true
+      },
+      {
+        "i": 72,
+        "warmup": false,
+        "latencyMs": 10.239375000004657,
+        "sendResolveMs": 7.780792000005022,
+        "received": true
+      },
+      {
+        "i": 73,
+        "warmup": false,
+        "latencyMs": 10.209499999997206,
+        "sendResolveMs": 6.452417000007699,
+        "received": true
+      },
+      {
+        "i": 74,
+        "warmup": false,
+        "latencyMs": 9.499207999993814,
+        "sendResolveMs": 7.220291999998153,
+        "received": true
+      },
+      {
+        "i": 75,
+        "warmup": false,
+        "latencyMs": 11.886624999999185,
+        "sendResolveMs": 7.383541999995941,
+        "received": true
+      },
+      {
+        "i": 76,
+        "warmup": false,
+        "latencyMs": 8.280417000001762,
+        "sendResolveMs": 5.620208000007551,
+        "received": true
+      },
+      {
+        "i": 77,
+        "warmup": false,
+        "latencyMs": 11.669999999998254,
+        "sendResolveMs": 7.992583999992348,
+        "received": true
+      },
+      {
+        "i": 78,
+        "warmup": false,
+        "latencyMs": 13.65845800000534,
+        "sendResolveMs": 7.858582999993814,
+        "received": true
+      },
+      {
+        "i": 79,
+        "warmup": false,
+        "latencyMs": 11.720625000001746,
+        "sendResolveMs": 8.27400000000489,
+        "received": true
+      },
+      {
+        "i": 80,
+        "warmup": false,
+        "latencyMs": 9.017041999992216,
+        "sendResolveMs": 6.382666999998037,
+        "received": true
+      },
+      {
+        "i": 81,
+        "warmup": false,
+        "latencyMs": 9.927416999998968,
+        "sendResolveMs": 7.468124999999418,
+        "received": true
+      },
+      {
+        "i": 82,
+        "warmup": false,
+        "latencyMs": 13.886792000004789,
+        "sendResolveMs": 7.691833000004408,
+        "received": true
+      },
+      {
+        "i": 83,
+        "warmup": false,
+        "latencyMs": 9.994959000003291,
+        "sendResolveMs": 5.8903339999960735,
+        "received": true
+      },
+      {
+        "i": 84,
+        "warmup": false,
+        "latencyMs": 9.649665999997524,
+        "sendResolveMs": 6.664791000002879,
+        "received": true
+      },
+      {
+        "i": 85,
+        "warmup": false,
+        "latencyMs": 16.004541999995126,
+        "sendResolveMs": 8.74162499999511,
+        "received": true
+      },
+      {
+        "i": 86,
+        "warmup": false,
+        "latencyMs": 5.744625000006636,
+        "sendResolveMs": 4.009500000000116,
+        "received": true
+      },
+      {
+        "i": 87,
+        "warmup": false,
+        "latencyMs": 12.523916999998619,
+        "sendResolveMs": 9.518041999996058,
+        "received": true
+      },
+      {
+        "i": 88,
+        "warmup": false,
+        "latencyMs": 11.005415999999968,
+        "sendResolveMs": 8.786665999999968,
+        "received": true
+      },
+      {
+        "i": 89,
+        "warmup": false,
+        "latencyMs": 12.32041699999536,
+        "sendResolveMs": 9.495458999997936,
+        "received": true
+      },
+      {
+        "i": 90,
+        "warmup": false,
+        "latencyMs": 9.28399999999965,
+        "sendResolveMs": 4.199666999993497,
+        "received": true
+      },
+      {
+        "i": 91,
+        "warmup": false,
+        "latencyMs": 7.770542000012938,
+        "sendResolveMs": 6.301792000012938,
+        "received": true
+      },
+      {
+        "i": 92,
+        "warmup": false,
+        "latencyMs": 11.355584000004455,
+        "sendResolveMs": 7.216125000006286,
+        "received": true
+      },
+      {
+        "i": 93,
+        "warmup": false,
+        "latencyMs": 9.410583000004408,
+        "sendResolveMs": 5.934166000006371,
+        "received": true
+      },
+      {
+        "i": 94,
+        "warmup": false,
+        "latencyMs": 11.482666000010795,
+        "sendResolveMs": 8.466832999998587,
+        "received": true
+      },
+      {
+        "i": 95,
+        "warmup": false,
+        "latencyMs": 13.313500000003842,
+        "sendResolveMs": 6.903542000000016,
+        "received": true
+      },
+      {
+        "i": 96,
+        "warmup": false,
+        "latencyMs": 11.838499999998021,
+        "sendResolveMs": 7.082374999998137,
+        "received": true
+      },
+      {
+        "i": 97,
+        "warmup": false,
+        "latencyMs": 11.437833000003593,
+        "sendResolveMs": 8.682875000013155,
+        "received": true
+      },
+      {
+        "i": 98,
+        "warmup": false,
+        "latencyMs": 5.542457999996259,
+        "sendResolveMs": 4.111624999990454,
+        "received": true
+      },
+      {
+        "i": 99,
+        "warmup": false,
+        "latencyMs": 16.771208999998635,
+        "sendResolveMs": 9.013458999994327,
+        "received": true
+      },
+      {
+        "i": 100,
+        "warmup": false,
+        "latencyMs": 8.849082999993698,
+        "sendResolveMs": 4.94199999999546,
+        "received": true
+      },
+      {
+        "i": 101,
+        "warmup": false,
+        "latencyMs": 7.8422909999935655,
+        "sendResolveMs": 5.976041000001715,
+        "received": true
+      },
+      {
+        "i": 102,
+        "warmup": false,
+        "latencyMs": 13.669167000000016,
+        "sendResolveMs": 7.573374999992666,
+        "received": true
+      },
+      {
+        "i": 103,
+        "warmup": false,
+        "latencyMs": 13.811084000000847,
+        "sendResolveMs": 7.196416999999201,
+        "received": true
+      },
+      {
+        "i": 104,
+        "warmup": false,
+        "latencyMs": 10.016791999994894,
+        "sendResolveMs": 7.279083000001265,
+        "received": true
+      },
+      {
+        "i": 105,
+        "warmup": false,
+        "latencyMs": 12.295666999998502,
+        "sendResolveMs": 7.8222919999971054,
+        "received": true
+      },
+      {
+        "i": 106,
+        "warmup": false,
+        "latencyMs": 9.891665999995894,
+        "sendResolveMs": 3.816540999992867,
+        "received": true
+      },
+      {
+        "i": 107,
+        "warmup": false,
+        "latencyMs": 15.23283399999491,
+        "sendResolveMs": 8.283416999998735,
+        "received": true
+      },
+      {
+        "i": 108,
+        "warmup": false,
+        "latencyMs": 11.176874999990105,
+        "sendResolveMs": 9.064124999989872,
+        "received": true
+      },
+      {
+        "i": 109,
+        "warmup": false,
+        "latencyMs": 14.02841700000863,
+        "sendResolveMs": 8.96875,
+        "received": true
+      },
+      {
+        "i": 110,
+        "warmup": false,
+        "latencyMs": 8.050208000000566,
+        "sendResolveMs": 4.464917000004789,
+        "received": true
+      },
+      {
+        "i": 111,
+        "warmup": false,
+        "latencyMs": 7.445624999993015,
+        "sendResolveMs": 5.446291999993264,
+        "received": true
+      },
+      {
+        "i": 112,
+        "warmup": false,
+        "latencyMs": 11.483458999995491,
+        "sendResolveMs": 7.82170899999619,
+        "received": true
+      },
+      {
+        "i": 113,
+        "warmup": false,
+        "latencyMs": 8.27812499999709,
+        "sendResolveMs": 5.754624999986845,
+        "received": true
+      },
+      {
+        "i": 114,
+        "warmup": false,
+        "latencyMs": 13.851458999997703,
+        "sendResolveMs": 8.814583999992465,
+        "received": true
+      },
+      {
+        "i": 115,
+        "warmup": false,
+        "latencyMs": 12.600875000003725,
+        "sendResolveMs": 8.954291000001831,
+        "received": true
+      },
+      {
+        "i": 116,
+        "warmup": false,
+        "latencyMs": 12.531041999987792,
+        "sendResolveMs": 7.651167000003625,
+        "received": true
+      },
+      {
+        "i": 117,
+        "warmup": false,
+        "latencyMs": 12.3866669999843,
+        "sendResolveMs": 9.084999999991851,
+        "received": true
+      },
+      {
+        "i": 118,
+        "warmup": false,
+        "latencyMs": 10.68583399997442,
+        "sendResolveMs": 7.0147089999809396,
+        "received": true
+      },
+      {
+        "i": 119,
+        "warmup": false,
+        "latencyMs": 11.898082999978215,
+        "sendResolveMs": 9.73741699999664,
+        "received": true
+      },
+      {
+        "i": 120,
+        "warmup": false,
+        "latencyMs": 7.438084000023082,
+        "sendResolveMs": 5.40166699999827,
+        "received": true
+      },
+      {
+        "i": 121,
+        "warmup": false,
+        "latencyMs": 10.684375000011642,
+        "sendResolveMs": 8.613083000003826,
+        "received": true
+      },
+      {
+        "i": 122,
+        "warmup": false,
+        "latencyMs": 12.819167000008747,
+        "sendResolveMs": 8.977500000008149,
+        "received": true
+      },
+      {
+        "i": 123,
+        "warmup": false,
+        "latencyMs": 10.011666000005789,
+        "sendResolveMs": 6.517583000008017,
+        "received": true
+      },
+      {
+        "i": 124,
+        "warmup": false,
+        "latencyMs": 13.301792000012938,
+        "sendResolveMs": 8.653499999985797,
+        "received": true
+      },
+      {
+        "i": 125,
+        "warmup": false,
+        "latencyMs": 12.4490409999853,
+        "sendResolveMs": 9.377749999985099,
+        "received": true
+      },
+      {
+        "i": 126,
+        "warmup": false,
+        "latencyMs": 10.515542000008281,
+        "sendResolveMs": 6.773583000001963,
+        "received": true
+      },
+      {
+        "i": 127,
+        "warmup": false,
+        "latencyMs": 13.297583999985363,
+        "sendResolveMs": 9.757458999985829,
+        "received": true
+      },
+      {
+        "i": 128,
+        "warmup": false,
+        "latencyMs": 8.998458000016399,
+        "sendResolveMs": 7.2587080000084825,
+        "received": true
+      },
+      {
+        "i": 129,
+        "warmup": false,
+        "latencyMs": 13.758166999992682,
+        "sendResolveMs": 8.676875000004657,
+        "received": true
+      },
+      {
+        "i": 130,
+        "warmup": false,
+        "latencyMs": 5.889249999978347,
+        "sendResolveMs": 4.495332999998936,
+        "received": true
+      },
+      {
+        "i": 131,
+        "warmup": false,
+        "latencyMs": 12.73404200002551,
+        "sendResolveMs": 7.649709000019357,
+        "received": true
+      },
+      {
+        "i": 132,
+        "warmup": false,
+        "latencyMs": 15.319791000016266,
+        "sendResolveMs": 7.609166000009282,
+        "received": true
+      },
+      {
+        "i": 133,
+        "warmup": false,
+        "latencyMs": 13.830749999993714,
+        "sendResolveMs": 9.058208000002196,
+        "received": true
+      },
+      {
+        "i": 134,
+        "warmup": false,
+        "latencyMs": 10.92391700000735,
+        "sendResolveMs": 7.350875000003725,
+        "received": true
+      },
+      {
+        "i": 135,
+        "warmup": false,
+        "latencyMs": 7.748958999989554,
+        "sendResolveMs": 4.934791999985464,
+        "received": true
+      },
+      {
+        "i": 136,
+        "warmup": false,
+        "latencyMs": 8.156209000007948,
+        "sendResolveMs": 4.982125000009546,
+        "received": true
+      },
+      {
+        "i": 137,
+        "warmup": false,
+        "latencyMs": 6.817332999984501,
+        "sendResolveMs": 4.550291999999899,
+        "received": true
+      },
+      {
+        "i": 138,
+        "warmup": false,
+        "latencyMs": 8.866959000006318,
+        "sendResolveMs": 6.142542000015965,
+        "received": true
+      },
+      {
+        "i": 139,
+        "warmup": false,
+        "latencyMs": 12.557375000003958,
+        "sendResolveMs": 9.688125000015134,
+        "received": true
+      },
+      {
+        "i": 140,
+        "warmup": false,
+        "latencyMs": 6.43854200001806,
+        "sendResolveMs": 3.7710000000079162,
+        "received": true
+      },
+      {
+        "i": 141,
+        "warmup": false,
+        "latencyMs": 13.835916000010911,
+        "sendResolveMs": 9.069625000003725,
+        "received": true
+      },
+      {
+        "i": 142,
+        "warmup": false,
+        "latencyMs": 7.759707999997772,
+        "sendResolveMs": 3.9519169999985024,
+        "received": true
+      },
+      {
+        "i": 143,
+        "warmup": false,
+        "latencyMs": 11.77791599999182,
+        "sendResolveMs": 7.179915999993682,
+        "received": true
+      },
+      {
+        "i": 144,
+        "warmup": false,
+        "latencyMs": 11.41083300000173,
+        "sendResolveMs": 9.155166999989888,
+        "received": true
+      },
+      {
+        "i": 145,
+        "warmup": false,
+        "latencyMs": 11.648875000013504,
+        "sendResolveMs": 6.977207999996608,
+        "received": true
+      },
+      {
+        "i": 146,
+        "warmup": false,
+        "latencyMs": 12.763833000004524,
+        "sendResolveMs": 8.335791999998037,
+        "received": true
+      },
+      {
+        "i": 147,
+        "warmup": false,
+        "latencyMs": 8.071374999999534,
+        "sendResolveMs": 5.673792000015965,
+        "received": true
+      },
+      {
+        "i": 148,
+        "warmup": false,
+        "latencyMs": 12.52400000000489,
+        "sendResolveMs": 7.282333000010112,
+        "received": true
+      },
+      {
+        "i": 149,
+        "warmup": false,
+        "latencyMs": 13.573082999995677,
+        "sendResolveMs": 8.562166999996407,
+        "received": true
+      },
+      {
+        "i": 150,
+        "warmup": false,
+        "latencyMs": 6.289541000005556,
+        "sendResolveMs": 4.473790999996709,
+        "received": true
+      },
+      {
+        "i": 151,
+        "warmup": false,
+        "latencyMs": 13.822000000014668,
+        "sendResolveMs": 7.647666000004392,
+        "received": true
+      },
+      {
+        "i": 152,
+        "warmup": false,
+        "latencyMs": 13.268582999997307,
+        "sendResolveMs": 7.249499999976251,
+        "received": true
+      },
+      {
+        "i": 153,
+        "warmup": false,
+        "latencyMs": 12.156708000024082,
+        "sendResolveMs": 8.37437500001397,
+        "received": true
+      },
+      {
+        "i": 154,
+        "warmup": false,
+        "latencyMs": 11.925958999985596,
+        "sendResolveMs": 8.690458999975817,
+        "received": true
+      },
+      {
+        "i": 155,
+        "warmup": false,
+        "latencyMs": 12.18712499999674,
+        "sendResolveMs": 6.586874999979045,
+        "received": true
+      },
+      {
+        "i": 156,
+        "warmup": false,
+        "latencyMs": 10.528292000002693,
+        "sendResolveMs": 7.6370829999796115,
+        "received": true
+      },
+      {
+        "i": 157,
+        "warmup": false,
+        "latencyMs": 13.018875000008848,
+        "sendResolveMs": 9.302666000003228,
+        "received": true
+      },
+      {
+        "i": 158,
+        "warmup": false,
+        "latencyMs": 13.25595799999428,
+        "sendResolveMs": 7.965624999982538,
+        "received": true
+      },
+      {
+        "i": 159,
+        "warmup": false,
+        "latencyMs": 11.07112499998766,
+        "sendResolveMs": 7.551708999992115,
+        "received": true
+      },
+      {
+        "i": 160,
+        "warmup": false,
+        "latencyMs": 6.119708999991417,
+        "sendResolveMs": 4.430791999999201,
+        "received": true
+      },
+      {
+        "i": 161,
+        "warmup": false,
+        "latencyMs": 9.325875000009546,
+        "sendResolveMs": 7.163624999986496,
+        "received": true
+      },
+      {
+        "i": 162,
+        "warmup": false,
+        "latencyMs": 15.460083999991184,
+        "sendResolveMs": 9.36370899999747,
+        "received": true
+      },
+      {
+        "i": 163,
+        "warmup": false,
+        "latencyMs": 12.926416000002064,
+        "sendResolveMs": 8.860290999989957,
+        "received": true
+      },
+      {
+        "i": 164,
+        "warmup": false,
+        "latencyMs": 12.80120899999747,
+        "sendResolveMs": 8.08716700001969,
+        "received": true
+      },
+      {
+        "i": 165,
+        "warmup": false,
+        "latencyMs": 12.348832999996375,
+        "sendResolveMs": 9.149457999999868,
+        "received": true
+      },
+      {
+        "i": 166,
+        "warmup": false,
+        "latencyMs": 14.163291999982903,
+        "sendResolveMs": 9.129291999997804,
+        "received": true
+      },
+      {
+        "i": 167,
+        "warmup": false,
+        "latencyMs": 14.297541999985697,
+        "sendResolveMs": 7.945707999984734,
+        "received": true
+      },
+      {
+        "i": 168,
+        "warmup": false,
+        "latencyMs": 14.413540999987163,
+        "sendResolveMs": 9.182457999995677,
+        "received": true
+      },
+      {
+        "i": 169,
+        "warmup": false,
+        "latencyMs": 15.364999999990687,
+        "sendResolveMs": 8.11899999997695,
+        "received": true
+      },
+      {
+        "i": 170,
+        "warmup": false,
+        "latencyMs": 6.257417000015266,
+        "sendResolveMs": 3.7565840000170283,
+        "received": true
+      },
+      {
+        "i": 171,
+        "warmup": false,
+        "latencyMs": 7.217917000001762,
+        "sendResolveMs": 4.444542000012007,
+        "received": true
+      },
+      {
+        "i": 172,
+        "warmup": false,
+        "latencyMs": 14.826207999984035,
+        "sendResolveMs": 9.999374999984866,
+        "received": true
+      },
+      {
+        "i": 173,
+        "warmup": false,
+        "latencyMs": 13.77516600000672,
+        "sendResolveMs": 8.618249999999534,
+        "received": true
+      },
+      {
+        "i": 174,
+        "warmup": false,
+        "latencyMs": 13.463832999987062,
+        "sendResolveMs": 8.086249999993015,
+        "received": true
+      },
+      {
+        "i": 175,
+        "warmup": false,
+        "latencyMs": 11.236375000007683,
+        "sendResolveMs": 7.932499999995343,
+        "received": true
+      },
+      {
+        "i": 176,
+        "warmup": false,
+        "latencyMs": 13.234958999993978,
+        "sendResolveMs": 8.172541999985697,
+        "received": true
+      },
+      {
+        "i": 177,
+        "warmup": false,
+        "latencyMs": 9.88987499999348,
+        "sendResolveMs": 7.248374999995576,
+        "received": true
+      },
+      {
+        "i": 178,
+        "warmup": false,
+        "latencyMs": 12.34237500000745,
+        "sendResolveMs": 8.702583000005689,
+        "received": true
+      },
+      {
+        "i": 179,
+        "warmup": false,
+        "latencyMs": 12.925667000003159,
+        "sendResolveMs": 7.7529170000052545,
+        "received": true
+      },
+      {
+        "i": 180,
+        "warmup": false,
+        "latencyMs": 7.549499999993714,
+        "sendResolveMs": 5.707916999992449,
+        "received": true
+      },
+      {
+        "i": 181,
+        "warmup": false,
+        "latencyMs": 6.302709000010509,
+        "sendResolveMs": 4.486834000010276,
+        "received": true
+      },
+      {
+        "i": 182,
+        "warmup": false,
+        "latencyMs": 11.819167000008747,
+        "sendResolveMs": 9.846667000005255,
+        "received": true
+      },
+      {
+        "i": 183,
+        "warmup": false,
+        "latencyMs": 20.89558300000499,
+        "sendResolveMs": 10.79483299999265,
+        "received": true
+      },
+      {
+        "i": 184,
+        "warmup": false,
+        "latencyMs": 9.66704099997878,
+        "sendResolveMs": 6.8439999999827705,
+        "received": true
+      },
+      {
+        "i": 185,
+        "warmup": false,
+        "latencyMs": 12.814666999998735,
+        "sendResolveMs": 7.9649999999965075,
+        "received": true
+      },
+      {
+        "i": 186,
+        "warmup": false,
+        "latencyMs": 10.524499999999534,
+        "sendResolveMs": 7.432708000007551,
+        "received": true
+      },
+      {
+        "i": 187,
+        "warmup": false,
+        "latencyMs": 12.171541999996407,
+        "sendResolveMs": 7.533499999990454,
+        "received": true
+      },
+      {
+        "i": 188,
+        "warmup": false,
+        "latencyMs": 15.944166000001132,
+        "sendResolveMs": 10.66154099997948,
+        "received": true
+      },
+      {
+        "i": 189,
+        "warmup": false,
+        "latencyMs": 9.102790999982972,
+        "sendResolveMs": 6.640625,
+        "received": true
+      },
+      {
+        "i": 190,
+        "warmup": false,
+        "latencyMs": 5.888000000006286,
+        "sendResolveMs": 4.323208000016166,
+        "received": true
+      },
+      {
+        "i": 191,
+        "warmup": false,
+        "latencyMs": 10.196416999999201,
+        "sendResolveMs": 6.393792000017129,
+        "received": true
+      },
+      {
+        "i": 192,
+        "warmup": false,
+        "latencyMs": 14.057750000007218,
+        "sendResolveMs": 12.125457999994978,
+        "received": true
+      },
+      {
+        "i": 193,
+        "warmup": false,
+        "latencyMs": 11.13441700002295,
+        "sendResolveMs": 7.4256250000034925,
+        "received": true
+      },
+      {
+        "i": 194,
+        "warmup": false,
+        "latencyMs": 9.601916999992682,
+        "sendResolveMs": 7.211999999999534,
+        "received": true
+      },
+      {
+        "i": 195,
+        "warmup": false,
+        "latencyMs": 17.695540999993682,
+        "sendResolveMs": 15.87537500000326,
+        "received": true
+      },
+      {
+        "i": 196,
+        "warmup": false,
+        "latencyMs": 9.306749999988824,
+        "sendResolveMs": 7.096625000005588,
+        "received": true
+      },
+      {
+        "i": 197,
+        "warmup": false,
+        "latencyMs": 11.581250000017462,
+        "sendResolveMs": 8.011375000001863,
+        "received": true
+      },
+      {
+        "i": 198,
+        "warmup": false,
+        "latencyMs": 13.342582999990555,
+        "sendResolveMs": 7.769957999989856,
+        "received": true
+      },
+      {
+        "i": 199,
+        "warmup": false,
+        "latencyMs": 11.6840830000001,
+        "sendResolveMs": 7.923999999999069,
+        "received": true
+      },
+      {
+        "i": 200,
+        "warmup": false,
+        "latencyMs": 7.25304199999664,
+        "sendResolveMs": 4.237958000012441,
+        "received": true
+      },
+      {
+        "i": 201,
+        "warmup": false,
+        "latencyMs": 8.19891700000153,
+        "sendResolveMs": 6.075582999998005,
+        "received": true
+      },
+      {
+        "i": 202,
+        "warmup": false,
+        "latencyMs": 6.48475000000326,
+        "sendResolveMs": 4.48083400001633,
+        "received": true
+      },
+      {
+        "i": 203,
+        "warmup": false,
+        "latencyMs": 12.43049999998766,
+        "sendResolveMs": 8.116874999977881,
+        "received": true
+      },
+      {
+        "i": 204,
+        "warmup": false,
+        "latencyMs": 7.386166999989655,
+        "sendResolveMs": 5.16945799998939,
+        "received": true
+      },
+      {
+        "i": 205,
+        "warmup": false,
+        "latencyMs": 12.945540999993682,
+        "sendResolveMs": 7.820874999975786,
+        "received": true
+      },
+      {
+        "i": 206,
+        "warmup": false,
+        "latencyMs": 10.479040999984136,
+        "sendResolveMs": 7.942249999992782,
+        "received": true
+      },
+      {
+        "i": 207,
+        "warmup": false,
+        "latencyMs": 13.947875000012573,
+        "sendResolveMs": 6.473750000004657,
+        "received": true
+      },
+      {
+        "i": 208,
+        "warmup": false,
+        "latencyMs": 9.706500000000233,
+        "sendResolveMs": 7.31108299997868,
+        "received": true
+      },
+      {
+        "i": 209,
+        "warmup": false,
+        "latencyMs": 11.504209000006085,
+        "sendResolveMs": 7.247667000017827,
+        "received": true
+      }
+    ],
+    "summary": {
+      "n": 200,
+      "min": 5.542457999996259,
+      "p50": 11.581250000017462,
+      "p95": 15.3447079999969,
+      "p99": 17.28145900000527,
+      "max": 20.89558300000499,
+      "mean": 11.375760034999585
+    },
+    "sendResolve": {
+      "n": 200,
+      "min": 3.7565840000170283,
+      "p50": 7.691833000004408,
+      "p95": 9.757458999985829,
+      "p99": 11.855792000002111,
+      "max": 15.87537500000326,
+      "mean": 7.506610434998857
+    },
+    "missing": 0,
+    "warmupMissing": 0
+  },
+  "ordering": {
+    "burst": 50,
+    "paceMs": 20,
+    "documentedMaxSendPerSec": 50,
+    "arrivalOrder": [
+      0,
+      2,
+      1,
+      4,
+      3,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49
+    ],
+    "duplicates": 0,
+    "outOfOrder": 2,
+    "missing": 0,
+    "sendErrors": 0
+  },
+  "api": {
+    "samples": [
+      {
+        "i": 0,
+        "vendorMs": 10.286417
+      },
+      {
+        "i": 1,
+        "vendorMs": 3.983458
+      },
+      {
+        "i": 2,
+        "vendorMs": 4.199
+      },
+      {
+        "i": 3,
+        "vendorMs": 2.495667
+      },
+      {
+        "i": 4,
+        "vendorMs": 4.109
+      },
+      {
+        "i": 5,
+        "vendorMs": 3.165042
+      },
+      {
+        "i": 6,
+        "vendorMs": 4.733417
+      },
+      {
+        "i": 7,
+        "vendorMs": 6.326625
+      },
+      {
+        "i": 8,
+        "vendorMs": 3.681125
+      },
+      {
+        "i": 9,
+        "vendorMs": 3.10775
+      },
+      {
+        "i": 10,
+        "vendorMs": 2.845167
+      },
+      {
+        "i": 11,
+        "vendorMs": 2.605833
+      },
+      {
+        "i": 12,
+        "vendorMs": 2.427375
+      },
+      {
+        "i": 13,
+        "vendorMs": 2.186792
+      },
+      {
+        "i": 14,
+        "vendorMs": 2.295916
+      },
+      {
+        "i": 15,
+        "vendorMs": 3.614125
+      },
+      {
+        "i": 16,
+        "vendorMs": 3.992791
+      },
+      {
+        "i": 17,
+        "vendorMs": 1.877208
+      },
+      {
+        "i": 18,
+        "vendorMs": 2.227958
+      },
+      {
+        "i": 19,
+        "vendorMs": 2.369791
+      },
+      {
+        "i": 20,
+        "vendorMs": 8.212417
+      },
+      {
+        "i": 21,
+        "vendorMs": 4.866
+      },
+      {
+        "i": 22,
+        "vendorMs": 2.527667
+      },
+      {
+        "i": 23,
+        "vendorMs": 2.889375
+      },
+      {
+        "i": 24,
+        "vendorMs": 3.421916
+      },
+      {
+        "i": 25,
+        "vendorMs": 6.382708
+      },
+      {
+        "i": 26,
+        "vendorMs": 6.885292
+      },
+      {
+        "i": 27,
+        "vendorMs": 2.967208
+      },
+      {
+        "i": 28,
+        "vendorMs": 4.832625
+      },
+      {
+        "i": 29,
+        "vendorMs": 5.683083
+      },
+      {
+        "i": 30,
+        "vendorMs": 7.54975
+      },
+      {
+        "i": 31,
+        "vendorMs": 3.237416
+      },
+      {
+        "i": 32,
+        "vendorMs": 4.422875
+      },
+      {
+        "i": 33,
+        "vendorMs": 4.182042
+      },
+      {
+        "i": 34,
+        "vendorMs": 13.756458
+      },
+      {
+        "i": 35,
+        "vendorMs": 4.856
+      },
+      {
+        "i": 36,
+        "vendorMs": 3.617084
+      },
+      {
+        "i": 37,
+        "vendorMs": 3.319458
+      },
+      {
+        "i": 38,
+        "vendorMs": 4.443166
+      },
+      {
+        "i": 39,
+        "vendorMs": 6.835041
+      },
+      {
+        "i": 40,
+        "vendorMs": 5.952542
+      },
+      {
+        "i": 41,
+        "vendorMs": 7.892167
+      },
+      {
+        "i": 42,
+        "vendorMs": 5.310125
+      },
+      {
+        "i": 43,
+        "vendorMs": 5.20075
+      },
+      {
+        "i": 44,
+        "vendorMs": 5.677417
+      },
+      {
+        "i": 45,
+        "vendorMs": 6.617292
+      },
+      {
+        "i": 46,
+        "vendorMs": 4.943333
+      },
+      {
+        "i": 47,
+        "vendorMs": 4.823542
+      },
+      {
+        "i": 48,
+        "vendorMs": 4.525375
+      },
+      {
+        "i": 49,
+        "vendorMs": 9.067833
+      }
+    ],
+    "summary": {
+      "n": 50,
+      "min": 1.877208,
+      "p50": 4.199,
+      "p95": 9.067833,
+      "p99": 13.756458,
+      "max": 13.756458,
+      "mean": 4.74856828
+    },
+    "errors": 0
+  },
+  "finishedAt": "2026-10-06T18:50:22.341Z"
+}

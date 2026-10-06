@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@mkt/shared": "*",
+    "@stream-io/node-sdk": "0.8.11",
     "cors": "2.8.6",
     "dotenv": "18.0.5",
     "express": "5.2.1",
     "nodemailer": "10.0.15",
+    "stream-chat": "9.54.0",
     "tsx": "4.23.15"
   },
   "devDependencies": {

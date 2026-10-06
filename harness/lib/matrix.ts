@@ -47,6 +47,11 @@ for (const platform of PLATFORMS) {
     if (r?.status === 'built' && r.loc !== undefined) note = `${note} (${r.loc} LOC)`;
     if (r?.status === 'gated' && r.gate) note = `${note} [needs: ${r.gate}]`;
     if (c?.outcome === 'skip' && status !== 'gated' && status !== 'unavailable') status = 'not run';
+    // One status per cell: until the check has run, the cell is `not run` and the note says why and what was designed.
+    if (!c && input) {
+      status = 'not run';
+      note = `not run: no keys in .env (adapter written). Designed as ${r?.status ?? 'unknown'}: ${note}`;
+    }
     const checkOutcome = c ? c.outcome : 'not run';
     const checkNote = c && c.outcome !== 'pass' ? ` | check: ${c.note}` : '';
     matrixLines.push([platform, req, REQ_TITLES[req], status, checkOutcome, `${note}${checkNote}`].map(csvEscape).join(','));
