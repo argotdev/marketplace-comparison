@@ -1,0 +1,64 @@
+platform,requirement,title,status,check_outcome,note
+native,1,1:1 order channel,built,pass,channels + channel_members tables keyed by order id; data holds orderId and listingId (379 LOC)
+native,2,Order card with live status,built,pass,message kind order_card with JSONB data; order service PATCHes the row and Redis fans out message_updated (379 LOC)
+native,3,Moderation + user report,built,pass,server-side regex mask (phone/email/off-platform payment) + reports table; no image or AI moderation (379 LOC)
+native,4,Push + email fallback,built,pass,email via nodemailer to Mailpit when Redis presence says the recipient is offline; push not run (no Firebase credentials) (379 LOC)
+native,5,Auto-translation,not run,skip,sender attaches translations from server provider; reader picks their language. Not run: no TRANSLATION_PROVIDER in .env (60 LOC) | check: not run: platform has no translation feature and no TRANSLATION_PROVIDER is set in .env
+native,6,Escalation to agent,built,pass,add_member inserts agent into channel_members; history query returns all earlier rows (379 LOC)
+native,7,"Receipts, typing, attachments",built,pass,read_state table + typing fan-out over Redis; attachments stored as BYTEA and served over HTTP (379 LOC)
+sendbird,1,1:1 order channel,not run,not run,adapter not written
+sendbird,2,Order card with live status,not run,not run,adapter not written
+sendbird,3,Moderation + user report,not run,not run,adapter not written
+sendbird,4,Push + email fallback,not run,not run,adapter not written
+sendbird,5,Auto-translation,not run,not run,adapter not written
+sendbird,6,Escalation to agent,not run,not run,adapter not written
+sendbird,7,"Receipts, typing, attachments",not run,not run,adapter not written
+stream,1,1:1 order channel,not run,not run,adapter not written
+stream,2,Order card with live status,not run,not run,adapter not written
+stream,3,Moderation + user report,not run,not run,adapter not written
+stream,4,Push + email fallback,not run,not run,adapter not written
+stream,5,Auto-translation,not run,not run,adapter not written
+stream,6,Escalation to agent,not run,not run,adapter not written
+stream,7,"Receipts, typing, attachments",not run,not run,adapter not written
+talkjs,1,1:1 order channel,not run,not run,adapter not written
+talkjs,2,Order card with live status,not run,not run,adapter not written
+talkjs,3,Moderation + user report,not run,not run,adapter not written
+talkjs,4,Push + email fallback,not run,not run,adapter not written
+talkjs,5,Auto-translation,not run,not run,adapter not written
+talkjs,6,Escalation to agent,not run,not run,adapter not written
+talkjs,7,"Receipts, typing, attachments",not run,not run,adapter not written
+cometchat,1,1:1 order channel,not run,not run,adapter not written
+cometchat,2,Order card with live status,not run,not run,adapter not written
+cometchat,3,Moderation + user report,not run,not run,adapter not written
+cometchat,4,Push + email fallback,not run,not run,adapter not written
+cometchat,5,Auto-translation,not run,not run,adapter not written
+cometchat,6,Escalation to agent,not run,not run,adapter not written
+cometchat,7,"Receipts, typing, attachments",not run,not run,adapter not written
+twilio,1,1:1 order channel,not run,not run,adapter not written
+twilio,2,Order card with live status,not run,not run,adapter not written
+twilio,3,Moderation + user report,not run,not run,adapter not written
+twilio,4,Push + email fallback,not run,not run,adapter not written
+twilio,5,Auto-translation,not run,not run,adapter not written
+twilio,6,Escalation to agent,not run,not run,adapter not written
+twilio,7,"Receipts, typing, attachments",not run,not run,adapter not written
+pubnub,1,1:1 order channel,not run,not run,adapter not written
+pubnub,2,Order card with live status,not run,not run,adapter not written
+pubnub,3,Moderation + user report,not run,not run,adapter not written
+pubnub,4,Push + email fallback,not run,not run,adapter not written
+pubnub,5,Auto-translation,not run,not run,adapter not written
+pubnub,6,Escalation to agent,not run,not run,adapter not written
+pubnub,7,"Receipts, typing, attachments",not run,not run,adapter not written
+ably,1,1:1 order channel,not run,not run,adapter not written
+ably,2,Order card with live status,not run,not run,adapter not written
+ably,3,Moderation + user report,not run,not run,adapter not written
+ably,4,Push + email fallback,not run,not run,adapter not written
+ably,5,Auto-translation,not run,not run,adapter not written
+ably,6,Escalation to agent,not run,not run,adapter not written
+ably,7,"Receipts, typing, attachments",not run,not run,adapter not written
+rocketchat,1,1:1 order channel,not run,not run,adapter not written
+rocketchat,2,Order card with live status,not run,not run,adapter not written
+rocketchat,3,Moderation + user report,not run,not run,adapter not written
+rocketchat,4,Push + email fallback,not run,not run,adapter not written
+rocketchat,5,Auto-translation,not run,not run,adapter not written
+rocketchat,6,Escalation to agent,not run,not run,adapter not written
+rocketchat,7,"Receipts, typing, attachments",not run,not run,adapter not written

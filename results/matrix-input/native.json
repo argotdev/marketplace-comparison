@@ -1,0 +1,12 @@
+{
+  "platform": "native",
+  "requirements": {
+    "1": { "status": "built", "note": "channels + channel_members tables keyed by order id; data holds orderId and listingId", "loc": 379 },
+    "2": { "status": "built", "note": "message kind order_card with JSONB data; order service PATCHes the row and Redis fans out message_updated", "loc": 379 },
+    "3": { "status": "built", "note": "server-side regex mask (phone/email/off-platform payment) + reports table; no image or AI moderation", "loc": 379 },
+    "4": { "status": "built", "note": "email via nodemailer to Mailpit when Redis presence says the recipient is offline; push not run (no Firebase credentials)", "loc": 379 },
+    "5": { "status": "built", "note": "sender attaches translations from server provider; reader picks their language. Not run: no TRANSLATION_PROVIDER in .env", "loc": 60 },
+    "6": { "status": "built", "note": "add_member inserts agent into channel_members; history query returns all earlier rows", "loc": 379 },
+    "7": { "status": "built", "note": "read_state table + typing fan-out over Redis; attachments stored as BYTEA and served over HTTP", "loc": 379 }
+  }
+}
