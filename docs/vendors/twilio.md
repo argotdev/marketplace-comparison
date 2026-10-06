@@ -32,7 +32,7 @@ Free trial (no card, 30 days, verified numbers only, template-only SMS/WhatsApp 
 
 ## Terms
 
-No clause about benchmarking, performance testing or publishing comparative results in the Terms of Service or the Acceptable Use Policy. The AUP's "Interference with the Services" heading is the nearest; a 1 msg/s run is far from it. Benchmark will run.
+No clause about benchmarking, performance testing or publishing comparative results in the Terms of Service or the Acceptable Use Policy. The AUP's "Interference with the Services" heading is the nearest; a 1 msg/s run is far from it. No benchmark is run for any platform (author's decision of 2026-10-06).
 
 ## The seven requirements against Sendbird
 
@@ -50,9 +50,9 @@ No clause about benchmarking, performance testing or publishing comparative resu
 
 None. Twilio has no first-party, supported chat UI kit for Conversations; the page lists what exists (demo app, Paste components, Flex UI).
 
-## Rate limits used by the harness
+## Documented rate limits (recorded; no benchmark is run)
 
-Documented default: 30 state-changing actions per second per conversation. The ordering burst is paced at 20/s.
+Documented default: 30 state-changing actions per second per conversation. Not exercised: no benchmark is run.
 
 ## Surprises so far
 

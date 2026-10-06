@@ -44,20 +44,13 @@ PLATFORM=native npm run check        # results/checks/native.json
 npm run matrix                       # results/requirements-matrix.csv + results/integration-effort.csv
 ```
 
-## Run the benchmark
+## Benchmarks: not run, by decision
+
+On 2026-10-06 the author decided to skip every performance benchmark (connect time, send-to-receive latency, ordering, API round trip) for all platforms, to avoid problems with vendor terms that restrict publishing performance results (Sendbird License §5.1(iii), PubNub Terms §3.1(g)) and to keep the comparison on functionality. The harness (`harness/bench/`, `harness/Dockerfile`, `scripts/charts.mjs`) stays in the repo but produced no results; `results/bench/` does not exist and must not be created for publication. Static measurements that are not performance statistics still run:
 
 ```bash
-PLATFORM=native npm run bench                      # results/bench/native/<region>/<timestamp>.json + results/bench/summary.csv
-PLATFORM=native npm run bench -- --runs 5 --messages 20   # quicker smoke run
-npm run bundle                                     # results/bundle-size.csv
-npm run kit-network                                # results/kit-network.csv
-```
-
-From another region, build the harness image and point it at a running app:
-
-```bash
-docker build -f harness/Dockerfile -t mkt-bench .
-docker run --rm --network host --env-file .env -e PLATFORM=sendbird -e REGION_LABEL=eu-west-1 -v "$PWD/results:/app/results" mkt-bench
+npm run bundle          # results/bundle-size.csv (minified + gzip of each SDK entry, built identically)
+npm run kit-network     # results/kit-network.csv (JavaScript transferred from vendor hosts when the kit view loads)
 ```
 
 ## Rocket.Chat (self-hosted)
@@ -71,7 +64,7 @@ The compose file skips the setup wizard and creates the admin user from `.env` (
 ## Measurement outputs
 
 ```bash
-npm run charts        # results/charts/{connect-time,latency,cost-curve}.{svg,png} from summary.csv and data/pricing.csv
+npm run charts        # results/charts/cost-curve.{svg,png} from data/pricing.csv (benchmark charts are not produced)
 npm run screenshots   # results/screenshots/<platform>-kit.png + side-by-side.png (configured platforms with a kit)
 npm run video         # results/video/stream-demo/ (needs Stream keys)
 ```

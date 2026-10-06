@@ -39,7 +39,7 @@ To be filled from `.env` (`SENDBIRD_PLAN`, `SENDBIRD_REGION`) once an app exists
 
 ## Terms
 
-Sendbird License Agreement v4 (last updated 2026-07-27), https://sendbird.com/terms, §5.1(iii): customers may not "disclose or publish, without SendBird's express prior written consent, performance or capacity statistics or the results of any benchmark test performed on the SendBird Services". §5.1(iv) also bars using the service to "promote or support any product or service that is competitive". **The Sendbird benchmark is skipped** unless written consent is obtained. The functional requirement checks are not performance statistics and will run once keys exist.
+Sendbird License Agreement v4 (last updated 2026-07-27), https://sendbird.com/terms, §5.1(iii): customers may not "disclose or publish, without SendBird's express prior written consent, performance or capacity statistics or the results of any benchmark test performed on the SendBird Services". §5.1(iv) also bars using the service to "promote or support any product or service that is competitive". No benchmark is run for any platform (author's decision of 2026-10-06), so this clause needs no consent request. The functional requirement checks are not performance statistics and will run once keys exist.
 
 ## The seven requirements (this is the baseline, so "gap" means where Sendbird itself needs more than configuration)
 
@@ -57,9 +57,9 @@ Sendbird License Agreement v4 (last updated 2026-07-27), https://sendbird.com/te
 
 `@sendbird/uikit-react`: `SendbirdProvider` (appId, userId, accessToken = session token) → `GroupChannel channelUrl=… renderMessage={…}`. The card is 15 lines; the branch in `renderMessage` is 4 lines and falls back to the kit's `Message` component for everything else. Not yet rendered (no keys).
 
-## Rate limits used by the harness
+## Documented rate limits (recorded; no benchmark is run)
 
-Client: five messages per second per user and per channel. The ordering burst is paced at 200 ms. Platform API: message send and invite are capped at 5 requests/s on every plan.
+Client: five messages per second per user and per channel. Not exercised: no benchmark is run. Platform API: message send and invite are capped at 5 requests/s on every plan.
 
 ## Surprises so far
 

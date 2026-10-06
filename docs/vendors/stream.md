@@ -45,7 +45,7 @@ To be filled from `.env` (`STREAM_PLAN`, `STREAM_REGION`). Build plan per the pr
 
 ## Terms
 
-Terms and Conditions at https://getstream.io/legal/. No clause about benchmarking, performance testing or publishing comparative results was found. §1.4(i) forbids using the service to develop a functionally similar product; not relevant to a comparison article. Benchmark will run.
+Terms and Conditions at https://getstream.io/legal/. No clause about benchmarking, performance testing or publishing comparative results was found. §1.4(i) forbids using the service to develop a functionally similar product; not relevant to a comparison article. No benchmark is run for any platform (author's decision of 2026-10-06).
 
 ## The seven requirements against Sendbird
 
@@ -63,9 +63,9 @@ Terms and Conditions at https://getstream.io/legal/. No clause about benchmarkin
 
 `stream-chat-react` v14: `Chat → WithComponents overrides={{ Attachment }} → Channel → Window → MessageList + MessageComposer`. The override is a 5-line component that renders our card for `type === 'order_card'` and delegates to the kit's `Attachment` otherwise. `MessageInput` is gone in v14; the composer is `MessageComposer`. The Feeds component (`/feed` export) lists `order_status` activities on feed `listing:<listingId>`, which the server posts on every status change.
 
-## Rate limits used by the harness
+## Documented rate limits (recorded; no benchmark is run)
 
-No per-channel messages/second limit is documented. The per-user limit is 60 requests per minute per endpoint and platform, so the ordering burst is paced at one message per second (50 s for 50 messages). This makes the Stream ordering test gentler than Sendbird's (5/s); recorded in the result file (`paceMs`).
+No per-channel messages/second limit is documented. The per-user limit is 60 requests per minute per endpoint and platform,.
 
 ## Surprises so far
 

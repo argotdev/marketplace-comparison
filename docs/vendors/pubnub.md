@@ -32,7 +32,7 @@ Free plan (200 MAU or 1M transactions, no card, 7-day retention max, 5 Functions
 
 ## Terms
 
-PubNub Terms and Conditions §3.1(g): no disclosing or publishing "performance or capacity statistics or the results of any benchmark test" without PubNub's written consent; §3.1(h): no load testing without approval. **The PubNub benchmark is skipped** unless consent is obtained. The requirement checks will run.
+PubNub Terms and Conditions §3.1(g): no disclosing or publishing "performance or capacity statistics or the results of any benchmark test" without PubNub's written consent; §3.1(h): no load testing without approval. No benchmark is run for any platform (author's decision of 2026-10-06), so this clause needs no consent request. The requirement checks will run.
 
 ## The seven requirements against Sendbird: what the Chat SDK gives and what we wrote
 
@@ -52,9 +52,9 @@ Threads: `message.createThread` exists in the SDK (one level, channel `PUBNUB_IN
 
 `src/courier.ts`: `startCourier` publishes `{ lat, lng }` once a second on `courier-<orderId>` over the same connection; `watchCourier` subscribes and sets `window.__courier`, which `/order/:id?platform=pubnub` polls to move its marker. The kit page (no kit exists) hosts the Start/Stop button.
 
-## Rate limits used by the harness
+## Documented rate limits (recorded; no benchmark is run)
 
-Documented guidance: 10 to 15 messages per second per channel; 32 KiB per message. The ordering burst is paced at 10/s. Benchmark skipped pending consent regardless.
+Documented guidance: 10 to 15 messages per second per channel; 32 KiB per message. Not used: no benchmark is run.
 
 ## Surprises so far
 

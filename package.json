@@ -28,7 +28,7 @@
     "loc": "node scripts/loc.mjs",
     "screenshots": "npm run screenshots -w harness --",
     "video": "npm run video -w harness --",
-    "charts": "node scripts/charts.mjs && node scripts/cost-curve.mjs",
+    "charts": "node scripts/cost-curve.mjs",
     "matrix": "npm run matrix -w harness",
     "kit-network": "npm run kit-network -w harness --"
   }

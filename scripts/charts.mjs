@@ -1,3 +1,5 @@
+// NOT RUN BY DECISION (2026-10-06): all performance benchmarks were skipped, so this script is not part of `npm run charts`
+// and results/bench/summary.csv does not exist. Kept so the intended output is documented.
 // Draws results/charts/connect-time.{svg,png} and results/charts/latency.{svg,png} from results/bench/summary.csv.
 // One row per platform, p50 and p95 as two series. Platforms without a run are listed as "not run" with the reason.
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';

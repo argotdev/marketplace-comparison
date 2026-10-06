@@ -1,6 +1,6 @@
 # Rocket.Chat (self-hosted)
 
-Status: **run locally**. Rocket.Chat 8.9.0 LTS with MongoDB 8.2 in Docker Compose (`--profile rocketchat`), unregistered workspace (Community limits). Checks and benchmark ran on 2026-10-06; results in `results/checks/rocketchat.json` and `results/bench/rocketchat/`. Research notes with every URL: `docs/research/rocketchat.md`.
+Status: **run locally**. Rocket.Chat 8.9.0 LTS with MongoDB 8.2 in Docker Compose (`--profile rocketchat`), unregistered workspace (Community limits). Checks ran on 2026-10-06 (`results/checks/rocketchat.json`); not benchmarked (author's decision to skip all benchmarks). Research notes with every URL: `docs/research/rocketchat.md`.
 
 ## Versions
 
@@ -35,10 +35,6 @@ Status: **run locally**. Rocket.Chat 8.9.0 LTS with MongoDB 8.2 in Docker Compos
 
 Registering the workspace with a Rocket.Chat Cloud account (email + verification link, or the offline token flow in the Cloud portal) is the step that gives the free **Starter** plan (50 users, read receipts, Apps-Engine, unlimited push). Without it the workspace runs under **Community** limits: no private apps (so no pre-send moderation hook), 10,000 push per month, and premium features refuse with "This is an enterprise feature". Nothing in this build attempted registration.
 
-## Benchmark (local, same machine as the browser, so a floor like native)
-
-`results/bench/rocketchat/local-dev-machine/2026-10-06T19-55-31-748Z.json` and the `rocketchat` row in `results/bench/summary.csv`: 30 cold connects (DDP connect + login + group lookup), 200 timed messages with none missing, 50-message burst at 5/s with 0 out of order, 50 admin-side `rooms.adminRooms` lookups. Numbers are in the files and charts; they are not comparable with hosted vendors because nothing leaves the laptop.
-
 ## Containers and idle memory
 
 `docker stats --no-stream` after about two minutes idle (post-boot, no traffic): Rocket.Chat 690 MiB, MongoDB 253 MiB. Compare: the native build's Postgres + Redis containers idle at a fraction of that. Images: 1.6 GB + 1.35 GB.
@@ -59,9 +55,9 @@ Registering the workspace with a Rocket.Chat Cloud account (email + verification
 
 Rocket.Chat's prebuilt UI in an iframe (`/group/order-<id>?layout=embedded`) logged in through `postMessage({ externalCommand: 'login-with-token' })`. Rocket.Chat has no custom message components, so the order card appears as a message attachment (title, text, image). The JavaScript the iframe loads comes from the Rocket.Chat server itself and is measured by `results/kit-network.csv`, not by the npm bundle build (which only measures our adapter).
 
-## Rate limits used by the harness
+## Documented rate limits (recorded; no benchmark is run)
 
-Defaults: REST 10 calls per minute per endpoint (disabled for this build), DDP per-method 20 calls per 10 s per user (raised to 200). Burst paced at 5/s.
+Defaults: REST 10 calls per minute per endpoint (disabled for this build), DDP per-method 20 calls per 10 s per user (raised to 200). Not exercised: no benchmark is run.
 
 ## Surprises
 

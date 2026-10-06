@@ -1,6 +1,6 @@
 # Native build (no chat vendor)
 
-Status: adapter written and run. Checks: 6 pass, 1 not run (translation, no provider in `.env`). Benchmarked locally.
+Status: adapter written and run. Checks: 6 pass, 1 not run (translation, no provider in `.env`). Not benchmarked (author's decision of 2026-10-06 to skip all benchmarks).
 
 ## What it is
 
@@ -24,7 +24,7 @@ Docs relied on: none from a vendor. The `ws` README, the `pg` and `ioredis` READ
 
 ## Plan, region, terms
 
-Not applicable. Runs on the test machine in Docker. No terms restrict benchmarking our own code.
+Not applicable. Runs on the test machine in Docker.
 
 ## The seven requirements against Sendbird
 

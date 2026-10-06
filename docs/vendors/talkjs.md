@@ -34,7 +34,7 @@ Test mode (free forever, no limits, no card). Hosting is EU-only (DigitalOcean E
 
 ## Terms
 
-https://talkjs.com/terms/ : no clause about benchmarking, performance testing or publishing comparative results. Article 4.3 forbids use that causes "reduced efficiency"; the harness stays far below the REST limits (burst 500, 9 req/s). Benchmark will run.
+https://talkjs.com/terms/ : no clause about benchmarking, performance testing or publishing comparative results. Article 4.3 forbids use that causes "reduced efficiency"; the harness stays far below the REST limits (burst 500, 9 req/s). No benchmark is run for any platform (author's decision of 2026-10-06).
 
 ## The seven requirements against Sendbird
 
@@ -52,9 +52,9 @@ https://talkjs.com/terms/ : no clause about benchmarking, performance testing or
 
 `<Chatbox appId userId token conversationId theme={{ Message }}>`: one `Message` override (7 lines) that renders our card for `custom.type === 'order_card'` and otherwise returns `defaultTheme.Message`, which `@talkjs/react-components` exports. No iframe, no dashboard theme editing.
 
-## Rate limits used by the harness
+## Documented rate limits (recorded; no benchmark is run)
 
-No Data API send limit is documented ("requests sent from the pre-built UIs do not count"); the REST limit is 9 req/s sustained. The ordering burst is paced at 5/s.
+No Data API send limit is documented ("requests sent from the pre-built UIs do not count"); the REST limit is 9 req/s sustained. Not exercised: no benchmark is run.
 
 ## Surprises so far
 

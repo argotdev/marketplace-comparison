@@ -33,7 +33,7 @@ Build plan (free forever, no card): 100 MAU, 25 concurrent connections, 6-month 
 
 ## Terms
 
-No clause about benchmarking, performance testing or publishing comparative results was found in the Terms of Service. The nearest restriction is not interfering with the service and not building a competing product. Benchmark will run.
+No clause about benchmarking, performance testing or publishing comparative results was found in the Terms of Service. The nearest restriction is not interfering with the service and not building a competing product. No benchmark is run for any platform (author's decision of 2026-10-06).
 
 ## The seven requirements against Sendbird
 
@@ -51,9 +51,9 @@ No clause about benchmarking, performance testing or publishing comparative resu
 
 UI Kit v7 dropped message templates; a `CometChatMessagePlugin` (`id`, `messageTypes`, `messageCategories`, `renderBubble`) passed to `<CometChatProvider plugins>` renders the card. The plugin is 14 lines; the card component matches the Sendbird kit's card so the two screenshots line up. The kit injects its own CSS, so there is no stylesheet import.
 
-## Rate limits used by the harness
+## Documented rate limits (recorded; no benchmark is run)
 
-No WebSocket send limit is documented; REST is 20,000 standard operations per minute. The ordering burst is paced at 5/s.
+No WebSocket send limit is documented; REST is 20,000 standard operations per minute. Not exercised: no benchmark is run.
 
 ## Surprises so far
 

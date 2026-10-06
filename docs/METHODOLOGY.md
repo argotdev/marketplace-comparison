@@ -16,7 +16,11 @@ The email fallback check closes the seller's page, waits for presence to settle 
 
 Translation runs only when the platform has its own translation or `TRANSLATION_PROVIDER` is set in `.env`. The Spanish sentence is `¿Todavía está disponible el cuadro de 54 cm?` and the receiver must render text matching `/available/i`; the English reply must render as text matching `/disponible/i` for the buyer.
 
-## Benchmarks (`harness/bench/run.ts`)
+## Benchmarks: not run
+
+Decision of 2026-10-06 (author): no performance benchmark was run against any platform, including the native build and self-hosted Rocket.Chat, and no connect-time, latency, ordering or API round-trip figure appears anywhere in `results/`. Reasons: vendor terms that restrict publishing performance results (Sendbird License §5.1(iii), PubNub Terms §3.1(g)), and the risk of such numbers being read as a like-for-like comparison when the test machine, network and vendor regions differ. Published vendor figures, if used in the article, are the vendor's claims and are cited as such. The harness below exists and was smoke-tested against the native build during development; its description is kept so a reader can see what *would* be measured, and so the decision not to is checkable.
+
+### What the harness would do (`harness/bench/run.ts`, not run)
 
 Headless Chromium through Playwright, one page for the sender and one for the receiver, both on the test machine. All timestamps are taken in the Node harness process with `performance.now()` through `window.__mark`, a function exposed to the pages, so there is one clock. The page-to-Node round trip of that function is measured at the start of every run (20 calls) and stored as `hookOverheadMs`; it is the upper bound on the error each mark adds.
 
@@ -34,9 +38,13 @@ Every result file records: start time, machine (OS, CPU, cores, memory, Node ver
 
 Apple M4 Pro, 48 GB, macOS 27.0.1, Node 24.16.0, Chromium as installed by Playwright 1.63.0. Comcast residential connection in Baltimore, Maryland, US. Dates are in each result file. Runs from other regions use the Docker image in `harness/Dockerfile` and a different `REGION_LABEL`.
 
+## Static measurements that did run
+
+- **Bundle size** (`results/bundle-size.csv`): minified and gzip bytes of one minimal core entry per platform and one kit entry where a React kit exists, all built with the same Vite production config with React externalised. This is a property of the published npm packages, not a performance statistic.
+- **Kit network transfer** (`results/kit-network.csv`): JavaScript bytes served from vendor hosts when the kit view loads, for kits that load from a CDN, an iframe or a self-hosted server.
+
 ## Known limits
 
-- Everything runs on one machine, so connect and latency numbers include no last-mile variation beyond this one connection.
-- The native build's server runs on the same machine as the browser; its latency is a floor, not a comparison point for hosted vendors.
-- Playwright's exposed-function hop adds the `hookOverheadMs` noted in each file (sub-millisecond on this machine) to each mark.
-- No load testing. 200 messages at one per second and a 50-message burst are the largest things sent.
+- No benchmark numbers exist; see above.
+- The requirement checks ran only where keys existed: the native build and self-hosted Rocket.Chat as of 2026-10-06. The matrix marks everything else `not run`.
+- No load testing of any kind. The largest thing the checks send is six fixture messages in a row.

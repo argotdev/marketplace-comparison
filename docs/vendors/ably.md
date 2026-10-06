@@ -29,7 +29,7 @@ Free plan (6M messages/month, 200 connections, 200 channels, 1-day history, no c
 
 ## Terms
 
-Ably Terms §3.5 explicitly permits benchmarks and publishing the results without approval, provided the benchmark is made available to Ably on publication, enough detail is given to replicate it, and Ably gets reciprocal rights. This repository and `docs/METHODOLOGY.md` are that detail; send Ably the link when the article goes out. **Benchmark will run.** The ordering burst is the test that matters most here.
+Ably Terms §3.5 explicitly permits benchmarks and publishing the results without approval, provided the benchmark is made available to Ably on publication, enough detail is given to replicate it, and Ably gets reciprocal rights. This repository and `docs/METHODOLOGY.md` are that detail; send Ably the link when the article goes out. No benchmark is run for any platform (author's decision of 2026-10-06), so these conditions are moot.
 
 ## The seven requirements against Sendbird
 
@@ -45,15 +45,15 @@ Ably Terms §3.5 explicitly permits benchmarks and publishing the results withou
 
 ## Ordering and delivery guarantees (why Ably is here)
 
-Ably documents in-order delivery per channel for Realtime publishers, exactly-once delivery through idempotent publishing (2-minute dedupe window) and connection recovery with no loss for drops under about two minutes. The benchmark's 50-message burst at 25/s (half the documented 50/s channel limit) counts out-of-order and missing arrivals; that number is the one to compare with Sendbird's.
+Ably documents in-order delivery per channel for Realtime publishers, exactly-once delivery through idempotent publishing (2-minute dedupe window) and connection recovery with no loss for drops under about two minutes. With benchmarks skipped, these documented guarantees are what the article can cite; nothing here was measured by us.
 
 ## Kit view
 
 Providers (`ChatClientProvider` from `@ably/chat/react`, `ThemeProvider`, `AvatarProvider`, `ChatSettingsProvider`) around `<ChatWindow roomName customHeaderContent>`. The kit has no custom message renderer, so the latest order card is rendered in the header slot, which is a workaround and is labelled as such in the screenshot caption.
 
-## Rate limits used by the harness
+## Documented rate limits (recorded; no benchmark is run)
 
-50 messages per second per channel and per connection on every plan; 64 KiB per message. Burst paced at 25/s.
+50 messages per second per channel and per connection on every plan; 64 KiB per message. Not exercised: no benchmark is run.
 
 ## Surprises so far
 
