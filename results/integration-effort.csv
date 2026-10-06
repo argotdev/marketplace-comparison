@@ -6,5 +6,5 @@ talkjs,2,no (test mode works without tokens until 'Authentication required' is e
 cometchat,3,no (Auth Key login from the browser is allowed for development); yes for auth tokens as used here,199,116,62,16,"Steps: create app + region, copy App ID / Auth Key / REST API Key, (optionally) enable moderation rules and the translation extension. No Node SDK: the server half is a thin REST client."
 twilio,3,true,202,136,16,0,"Steps: copy Account SID and Auth Token, create an API key, copy the Conversations Service SID. A backend is mandatory: the browser cannot mint Access Tokens. Reachability and webhooks are set by our setup script over REST."
 pubnub,4,no (publish/subscribe keys alone work until Access Manager is enabled); yes for PAM tokens as used here,219,102,43,0,"Steps: create app + keyset, copy publish/subscribe/secret keys, enable App Context + Message Persistence (+ Presence, Files, Access Manager for the full build), paste the moderation Function. Events & Actions listener is a further step for the email fallback."
-ably,not run,not run,0,0,0,0,
+ably,2,no (an API key in the browser works); yes for TokenRequests as used here,190,123,69,16,"Steps: create app, copy the API key. Webhook and moderation integration rules are dashboard (or Control API) steps our data key cannot perform."
 rocketchat,not run,not run,0,0,0,0,

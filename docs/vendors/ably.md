@@ -1,0 +1,62 @@
+# Ably
+
+Status: **written, not run**. No `ABLY_API_KEY` in `.env` as of 2026-10-06. Adapter, UI kit view and server half type-check against the pinned SDKs. Research notes with every URL: `docs/research/ably.md`.
+
+## Versions
+
+| Package | Version | Role |
+|---|---|---|
+| `ably` | 2.29.0 | Realtime (browser) and Rest (server) |
+| `@ably/chat` | 1.4.0 | Chat SDK: rooms, messages (send/update/history), typing, presence; React bindings at `@ably/chat/react` |
+| `@ably/chat-react-ui-kit` | 0.3.0 | kit view; Ably marks it experimental |
+
+## Docs relied on
+
+- Chat setup: https://ably.com/docs/chat/setup ; rooms: https://ably.com/docs/chat/rooms ; messages: https://ably.com/docs/chat/rooms/messages ; history: https://ably.com/docs/chat/rooms/history ; typing: https://ably.com/docs/chat/rooms/typing ; presence: https://ably.com/docs/chat/rooms/presence ; media: https://ably.com/docs/chat/rooms/media
+- Moderation: https://ably.com/docs/chat/moderation , custom hook https://ably.com/docs/chat/moderation/custom
+- Token auth and capabilities: https://ably.com/docs/auth/token , https://ably.com/docs/auth/capabilities
+- Webhooks: https://ably.com/docs/integrations/webhooks
+- Web push: https://ably.com/docs/push/configure/web
+- Ordering and delivery: https://ably.com/docs/platform/architecture/message-ordering , https://ably.com/docs/platform/architecture/idempotency , https://ably.com/docs/connect/states
+- Limits: https://ably.com/docs/platform/pricing/limits ; Free plan: https://ably.com/docs/platform/pricing/free
+- React UI kit: https://ably.com/docs/chat/getting-started/react-ui-kit , components https://ably.com/docs/chat/react-ui-kit/components
+- Edge network: https://ably.com/docs/platform/architecture/edge-network
+- Terms: https://ably.com/terms
+
+## Plan and region
+
+Free plan (6M messages/month, 200 connections, 200 channels, 1-day history, no card, no time limit). Clients are routed to the nearest of 15+ datacenters by latency-based DNS; region is not selectable below Enterprise.
+
+## Terms
+
+Ably Terms §3.5 explicitly permits benchmarks and publishing the results without approval, provided the benchmark is made available to Ably on publication, enough detail is given to replicate it, and Ably gets reciprocal rights. This repository and `docs/METHODOLOGY.md` are that detail; send Ably the link when the article goes out. **Benchmark will run.** The ordering burst is the test that matters most here.
+
+## The seven requirements against Sendbird
+
+| # | Status | How, and the gap against Sendbird |
+|---|---|---|
+| 1 | built | A room is just a channel: no member list, no metadata. Membership is the token capability `order:*` plus a member list on our server plus presence; order ids travel in message headers. Sendbird has channels with members and `data`. |
+| 2 | native | `messages.send({ text, metadata })` and `messages.update(serial, {...})` with `message.updated` events; edit rights are capabilities (`message-update-own` for users, the API key for the server). |
+| 3 | built on a native hook | The custom before-publish rule posts the message to our server, which answers `accept` with the masked text (whole-message replacement) within the rule's timeout; rejected publishes would return error 42213 to the sender. Vendor integrations (Hive, Tisane, Bodyguard, Azure) are the native alternative. No reporting, muting or banning yet (pricing page says "coming soon"). |
+| 4 | built | No email; a webhook rule on `channel.message` feeds our presence check and mailer. Web push exists natively through the browser Push API with Ably-generated VAPID keys (no FCM), not run. |
+| 5 | built | No translation. |
+| 6 | built | No membership to add anyone to: the agent's token already covers `order:*`, so "Get help" is a server-side record plus the agent attaching. History is `messages.history`, subject to the Free plan's 1-day storage (the Chat docs say 30 days by default; which one applies on Free will be recorded when run). |
+| 7 | mixed | Typing is native (`keystroke`/`stop`, throttled heartbeat). Read receipts are not a Chat SDK feature: `lastReadSerial` is published as presence data (message annotations are the other documented route). No uploads: the test image is inlined as a data URL in metadata (64 KiB message limit); production would use object storage. |
+
+## Ordering and delivery guarantees (why Ably is here)
+
+Ably documents in-order delivery per channel for Realtime publishers, exactly-once delivery through idempotent publishing (2-minute dedupe window) and connection recovery with no loss for drops under about two minutes. The benchmark's 50-message burst at 25/s (half the documented 50/s channel limit) counts out-of-order and missing arrivals; that number is the one to compare with Sendbird's.
+
+## Kit view
+
+Providers (`ChatClientProvider` from `@ably/chat/react`, `ThemeProvider`, `AvatarProvider`, `ChatSettingsProvider`) around `<ChatWindow roomName customHeaderContent>`. The kit has no custom message renderer, so the latest order card is rendered in the header slot, which is a workaround and is labelled as such in the screenshot caption.
+
+## Rate limits used by the harness
+
+50 messages per second per channel and per connection on every plan; 64 KiB per message. Burst paced at 25/s.
+
+## Surprises so far
+
+- `messages.update` takes `(serial, { text, metadata, headers })` and requires the text, so a metadata-only update still re-sends the text.
+- Ably rooms have no membership, so the simplest requirement (two members on a channel) is the one that needs the most scaffolding.
+- Ably is the only vendor whose terms say benchmarks may be published, with conditions.

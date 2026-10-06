@@ -1,9 +1,9 @@
 {
   "ably": {
-    "adapter": 0,
-    "serverVendor": 0,
-    "kitView": 0,
-    "kitOrderCardRenderer": 0
+    "adapter": 190,
+    "serverVendor": 123,
+    "kitView": 69,
+    "kitOrderCardRenderer": 16
   },
   "cometchat": {
     "adapter": 199,
