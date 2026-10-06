@@ -64,7 +64,7 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
   1. Moderation → Rules: enable the default **Contact Details Removal** (phone), **Email Detection** and **Profanity Filter** rules with action **Block**; create one custom rule with a regex list for `venmo|paypal|zelle|cash ?app|whatsapp|telegram`, action Block. Do **not** enable the legacy Data Masking / Profanity extensions (the docs warn running both causes problems).
   2. Chat & Messaging → Features → Extensions: enable **Message Translation**.
   3. Application → Webhooks → Create: URL `<PUBLIC_URL>/api/webhooks/cometchat`, enable Basic Auth with a username/password you invent (put them in `.env`), triggers `message_sent`, `message_edited`, `moderation_engine_blocked`, `moderation_engine_approved`, `group_member_added`.
-  4. Notifications → Settings → Email: enable, provider **Custom provider**, URL `<PUBLIC_URL>/api/webhooks/cometchat-email`, Basic Auth same credentials, wait window **1 minute** (the minimum). Our server receives the payload and sends the email to Mailpit.
+  4. Notifications → Settings → Email: enable, provider **Custom provider**, URL `<PUBLIC_URL>/api/webhooks/cometchat` (same URL as the webhook; our server branches on the payload's `trigger`), Basic Auth same credentials, wait window **1 minute** (the minimum). Our server receives the payload and sends the email to Mailpit.
   5. Notifications → Settings → Push: only if you set up Firebase; add the FCM service-account JSON and note the **Provider ID**.
 - **Keys:** `COMETCHAT_APP_ID`, `COMETCHAT_REGION`, `COMETCHAT_AUTH_KEY`, `COMETCHAT_REST_API_KEY`, `COMETCHAT_WEBHOOK_USER`, `COMETCHAT_WEBHOOK_PASS`, `COMETCHAT_FCM_PROVIDER_ID` (optional), `COMETCHAT_PLAN=build`.
 
@@ -74,7 +74,7 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
 - **Settings to turn on:**
   1. Console home: copy **Account SID** and **Auth Token**. Account → API keys & tokens: create a **Standard API key** (SID + secret).
   2. Conversations (classic) → Services: use the **Default Conversations Service** or create one; copy its **SID** (`IS…`).
-  3. Conversations (classic) → Global webhooks (or Service → Webhooks): **Pre-event** URL `<PUBLIC_URL>/api/webhooks/twilio-pre` with `onMessageAdd`; **Post-event** URL `<PUBLIC_URL>/api/webhooks/twilio` with `onMessageAdded`, `onMessageUpdated`, `onParticipantAdded`. Method POST. Our setup script can set these through the API too.
+  3. Conversations (classic) → Global webhooks (or Service → Webhooks): **Pre-event** URL `<PUBLIC_URL>/api/webhooks/twilio` with `onMessageAdd`; **Post-event** URL `<PUBLIC_URL>/api/webhooks/twilio` (same URL; our server branches on `EventType`) with `onMessageAdded`, `onMessageUpdated`, `onParticipantAdded`. Method POST. Our setup script can set these through the API too.
   4. Reachability: set by our setup script (`ReachabilityEnabled=true` on the service configuration); nothing to click.
   5. Push (optional, Firebase): Console → Credentials → FCM push credential; the setup script enables `NewMessage` on the service. Needs the Firebase server key or service account per the credential form.
   6. **SMS or WhatsApp leg (costs money, your call):** either buy an SMS-capable number (**costs money**), or join the **WhatsApp sandbox** (free of rental; messages count against the 100 trial WhatsApp messages). Sandbox: Messaging → Try it out → Send a WhatsApp message; send `join <keyword>` from your phone to +1 415 523 8886; clear the sandbox "When a message comes in" URL. Put your phone number in `SELLER_PHONE`. I will not add a phone participant until you confirm.
@@ -95,7 +95,7 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
 - **Create app:** Dashboard → Create new app → copy the root **API key** (`appId.keyId:secret`) from the API Keys tab.
 - **Settings to turn on:**
   1. Integrations → New integration rule → **Webhook**: source `channel.message`, channel filter `.*::\$chat$`, URL `<PUBLIC_URL>/api/webhooks/ably`, enveloped, enable signing (`X-Ably-Signature`).
-  2. Integrations → **Moderation** → **Custom (before publish)**: URL `<PUBLIC_URL>/api/webhooks/ably-moderation`, room filter `order-.*`, retry timeout 2000 ms, failed action **reject**.
+  2. Integrations → **Moderation** → **Custom (before publish)**: URL `<PUBLIC_URL>/api/webhooks/ably` (same URL as the webhook rule; our server recognises the moderation request shape), room filter `order-.*`, retry timeout 2000 ms, failed action **reject**.
   3. Nothing for persistence (chat rooms persist by default) or push (Ably generates VAPID keys on first activation; our page registers a service worker).
 - **Keys:** `ABLY_API_KEY`, `ABLY_PLAN=free`, `ABLY_REGION=nearest-edge` (Ably routes to the nearest datacenter; region is not selectable on Free).
 
