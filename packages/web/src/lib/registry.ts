@@ -15,7 +15,7 @@ export interface KitProps {
 export const adapters: Record<PlatformId, (() => Promise<AdapterModule>) | null> = {
   native: () => import('@mkt/adapter-native'),
   sendbird: () => import('@mkt/adapter-sendbird'),
-  stream: null,
+  stream: () => import('@mkt/adapter-stream'),
   talkjs: null,
   cometchat: null,
   twilio: null,
@@ -28,7 +28,7 @@ export const adapters: Record<PlatformId, (() => Promise<AdapterModule>) | null>
 export const kits: Record<PlatformId, (() => Promise<{ default: ComponentType<KitProps> }>) | null> = {
   native: null,
   sendbird: () => import('@mkt/adapter-sendbird/kit'),
-  stream: null,
+  stream: () => import('@mkt/adapter-stream/kit'),
   talkjs: null,
   cometchat: null,
   twilio: null,

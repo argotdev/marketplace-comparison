@@ -13,13 +13,13 @@ sendbird,4,Push + email fallback,not run,not run,not run: no keys in .env (adapt
 sendbird,5,Auto-translation,not run,not run,not run: no keys in .env (adapter written). Designed as gated: translationTargetLanguages on send; docs say enabling requires contacting sales. Built fallback (translations in data) used if a provider is set [needs: Pro plan + sales enablement]
 sendbird,6,Escalation to agent,not run,not run,not run: no keys in .env (adapter written). Designed as native: channel.inviteWithUserIds(['agent_sam']); chat history visible to new members by default. Sendbird Desk would create a ticket channel instead; Desk is a separate product (gated)
 sendbird,7,"Receipts, typing, attachments",not run,not run,"not run: no keys in .env (adapter written). Designed as native: markAsRead + onUserMarkedRead, startTyping/endTyping + onTypingStatusUpdated, sendFileMessage"
-stream,1,1:1 order channel,not run,not run,adapter not written
-stream,2,Order card with live status,not run,not run,adapter not written
-stream,3,Moderation + user report,not run,not run,adapter not written
-stream,4,Push + email fallback,not run,not run,adapter not written
-stream,5,Auto-translation,not run,not run,adapter not written
-stream,6,Escalation to agent,not run,not run,adapter not written
-stream,7,"Receipts, typing, attachments",not run,not run,adapter not written
+stream,1,1:1 order channel,not run,not run,"not run: no keys in .env (adapter written). Designed as native: client.channel('order', 'order-<id>', { members, orderId, listingId }).watch(); custom fields are top-level channel data; channel type 'order' created server-side"
+stream,2,Order card with live status,not run,not run,"not run: no keys in .env (adapter written). Designed as native: custom attachment { type: 'order_card', card }; order service calls partialUpdateMessage(set.attachments); both clients get message.updated"
+stream,3,Moderation + user report,not run,not run,"not run: no keys in .env (adapter written). Designed as native: block lists (regex phone, regex email, word list) + AI platform-circumvention rule in moderation policy chat:order with action remove; flagUser -> review queue + user.flagged webhook. AI/semantic filters listed as Enterprise on the Chat pricing page but free on the Moderation pricing page: record what the app accepts"
+stream,4,Push + email fallback,not run,not run,not run: no keys in .env (adapter written). Designed as built: Stream has no web push and no email; message.new webhook + queryUsers presence -> Mailpit (30 LOC)
+stream,5,Auto-translation,not run,not run,not run: no keys in .env (adapter written). Designed as gated: auto_translation_enabled + user.language; message.i18n.<lang>_text. Chat pricing page lists Auto Message Translation on Elevate+. Built fallback (translations custom field) used if a provider is set [needs: Elevate plan (metered add-on)]
+stream,6,Escalation to agent,not run,not run,not run: no keys in .env (adapter written). Designed as native: channel.addMembers(['agent_sam']) with a system message; channel_member grant update-channel-members added so the buyer can do it; history visible to new members by default (hide_history false)
+stream,7,"Receipts, typing, attachments",not run,not run,"not run: no keys in .env (adapter written). Designed as native: markRead + message.read, keystroke/stopTyping + typing.start/stop, sendImage + image attachment (signed CDN URL)"
 talkjs,1,1:1 order channel,not run,not run,adapter not written
 talkjs,2,Order card with live status,not run,not run,adapter not written
 talkjs,3,Moderation + user report,not run,not run,adapter not written

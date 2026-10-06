@@ -1,0 +1,12 @@
+{
+  "platform": "stream",
+  "requirements": {
+    "1": { "status": "native", "note": "client.channel('order', 'order-<id>', { members, orderId, listingId }).watch(); custom fields are top-level channel data; channel type 'order' created server-side" },
+    "2": { "status": "native", "note": "custom attachment { type: 'order_card', card }; order service calls partialUpdateMessage(set.attachments); both clients get message.updated" },
+    "3": { "status": "native", "note": "block lists (regex phone, regex email, word list) + AI platform-circumvention rule in moderation policy chat:order with action remove; flagUser -> review queue + user.flagged webhook. AI/semantic filters listed as Enterprise on the Chat pricing page but free on the Moderation pricing page: record what the app accepts", "gate": "AI moderation / semantic filters may need Enterprise per Chat pricing page" },
+    "4": { "status": "built", "note": "Stream has no web push and no email; message.new webhook + queryUsers presence -> Mailpit", "loc": 30 },
+    "5": { "status": "gated", "note": "auto_translation_enabled + user.language; message.i18n.<lang>_text. Chat pricing page lists Auto Message Translation on Elevate+. Built fallback (translations custom field) used if a provider is set", "gate": "Elevate plan (metered add-on)" },
+    "6": { "status": "native", "note": "channel.addMembers(['agent_sam']) with a system message; channel_member grant update-channel-members added so the buyer can do it; history visible to new members by default (hide_history false)" },
+    "7": { "status": "native", "note": "markRead + message.read, keystroke/stopTyping + typing.start/stop, sendImage + image attachment (signed CDN URL)" }
+  }
+}

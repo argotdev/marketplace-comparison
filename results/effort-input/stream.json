@@ -1,0 +1,5 @@
+{
+  "dashboardStepsBeforeFirstMessage": 3,
+  "backendNeededForFirstMessage": "no (dashboard can disable auth checks for dev tokens); yes for the user tokens used here",
+  "notes": "Steps: create app + region, copy API key and secret, (optionally) enable Feeds. Channel type, grants, block lists, moderation policy, translation flag, webhook and feed group are all created by our setup script through the API."
+}

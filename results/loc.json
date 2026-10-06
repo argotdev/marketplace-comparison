@@ -11,5 +11,11 @@
     "serverVendor": 156,
     "kitView": 52,
     "kitOrderCardRenderer": 16
+  },
+  "stream": {
+    "adapter": 178,
+    "serverVendor": 168,
+    "kitView": 113,
+    "kitOrderCardRenderer": 16
   }
 }

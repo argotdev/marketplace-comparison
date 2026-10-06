@@ -38,4 +38,14 @@ export const PLATFORM_FACTS: Record<string, PlatformFacts> = {
     kitPackage: '@sendbird/uikit-react',
     vendorHosts: ['sendbird.com'],
   },
+  stream: {
+    name: 'Stream Chat',
+    translation: 'native',
+    email: 'built-webhook',
+    // No per-channel messages/second limit documented; per-user limit is 60 requests/min per endpoint, so pace at 1/s to stay under it.
+    maxSendPerSec: 1,
+    sdkPackage: 'stream-chat',
+    kitPackage: 'stream-chat-react',
+    vendorHosts: ['stream-io-api.com', 'stream-io-cdn.com', 'getstream.io'],
+  },
 };

@@ -1,7 +1,7 @@
 platform,dashboard_steps_before_first_message,backend_needed_for_first_message,adapter_loc,server_vendor_loc,kit_view_loc,kit_order_card_renderer_loc,notes
 native,0,true,225,69,0,0,"No dashboard, but nothing works without the WebSocket server, Postgres and Redis (docker compose up + npm run dev:native). LOC counts include the native server (379) separately in results/loc.json."
 sendbird,4,no for a first message (access-token permission can allow token-less login); yes for session tokens as used here,219,156,52,16,"Steps: create app + region, copy App ID, copy master API token, create users (or let the SDK create them). Profanity filter and webhook are set by our setup script over the Platform API."
-stream,not run,not run,not run,not run,not run,not run,adapter not written
+stream,3,no (dashboard can disable auth checks for dev tokens); yes for the user tokens used here,178,168,113,16,"Steps: create app + region, copy API key and secret, (optionally) enable Feeds. Channel type, grants, block lists, moderation policy, translation flag, webhook and feed group are all created by our setup script through the API."
 talkjs,not run,not run,not run,not run,not run,not run,adapter not written
 cometchat,not run,not run,not run,not run,not run,not run,adapter not written
 twilio,not run,not run,not run,not run,not run,not run,adapter not written
