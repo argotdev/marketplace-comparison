@@ -3,7 +3,7 @@ native,0,true,225,69,0,0,"No dashboard, but nothing works without the WebSocket 
 sendbird,4,no for a first message (access-token permission can allow token-less login); yes for session tokens as used here,219,156,52,16,"Steps: create app + region, copy App ID, copy master API token, create users (or let the SDK create them). Profanity filter and webhook are set by our setup script over the Platform API."
 stream,3,no (dashboard can disable auth checks for dev tokens); yes for the user tokens used here,178,168,113,16,"Steps: create app + region, copy API key and secret, (optionally) enable Feeds. Channel type, grants, block lists, moderation policy, translation flag, webhook and feed group are all created by our setup script through the API."
 talkjs,2,no (test mode works without tokens until 'Authentication required' is enabled); yes for JWTs as used here,196,76,45,16,"Steps: sign up (test app exists), copy App ID and secret key. Roles, contact masking, webhooks and email settings are dashboard-only; REST cannot set them. Users are upserted by our setup script."
-cometchat,not run,not run,0,0,0,0,
+cometchat,3,no (Auth Key login from the browser is allowed for development); yes for auth tokens as used here,199,116,62,16,"Steps: create app + region, copy App ID / Auth Key / REST API Key, (optionally) enable moderation rules and the translation extension. No Node SDK: the server half is a thin REST client."
 twilio,not run,not run,0,0,0,0,
 pubnub,not run,not run,0,0,0,0,
 ably,not run,not run,0,0,0,0,

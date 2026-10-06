@@ -1,0 +1,12 @@
+{
+  "platform": "cometchat",
+  "requirements": {
+    "1": { "status": "native", "note": "private group with GUID order-<id>, metadata {orderId, listingId}, createGroupWithMembers(buyer+seller); members via GroupMembersRequestBuilder" },
+    "2": { "status": "native", "note": "CustomMessage type order_card with customData {card}; client editMessage(CustomMessage.setId) or server PUT /messages/{id}; onMessageEdited on the other side. REST customData edits unconfirmed: server sends metadata too and the adapter reads either" },
+    "3": { "status": "native", "note": "rule-based moderation in the dashboard (Contact Details Removal, Email Detection, custom regex list), action Block, all plans; getModerationStatus/onMessageModerated. Custom messages bypass moderation. Report: flagMessage on the target's latest message (modern) + our queue; report-user is a legacy extension only" },
+    "4": { "status": "native", "note": "Notifications platform: email via Custom provider webhook to our server which mails Mailpit (unread wait window min 1 minute); web push via FCM_WEB not run (no Firebase credentials)" },
+    "5": { "status": "native", "note": "Message Translation extension (Build plan): sender-side callExtension v2/translate, stored in metadata['message-translation'] per the docs pattern; reader picks language. Falls back to our provider if the extension is off" },
+    "6": { "status": "native", "note": "addMembersToGroup(guid, [agent_sam as PARTICIPANT]); history fetched with MessagesRequestBuilder" },
+    "7": { "status": "native", "note": "markAsRead(message) + onMessagesRead receipts; startTyping/endTyping + onTypingStarted/Ended; MediaMessage(IMAGE) upload" }
+  }
+}

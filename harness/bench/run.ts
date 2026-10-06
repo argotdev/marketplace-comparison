@@ -76,7 +76,7 @@ async function main() {
     const rtts: number[] = [];
     for (let i = 0; i < 20; i++) {
       const t0 = performance.now();
-      await page.evaluate(() => window.__mark!('cal'));
+      await page.evaluate(() => void window.__mark!('cal'));
       rtts.push(performance.now() - t0);
     }
     out.hookOverheadMs = summarize(rtts);
