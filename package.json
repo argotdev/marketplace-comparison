@@ -1,0 +1,28 @@
+{
+  "name": "sendbird-alternatives-build",
+  "private": true,
+  "version": "0.1.0",
+  "description": "One marketplace chat built on Sendbird, seven alternatives, and natively. Evidence repo for a Stream blog article.",
+  "packageManager": "npm@11.13.0",
+  "workspaces": [
+    "packages/shared",
+    "packages/server",
+    "packages/web",
+    "packages/native-server",
+    "packages/adapters/*",
+    "harness"
+  ],
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "npm run build -ws --if-present",
+    "typecheck": "tsc -b",
+    "dev:server": "npm run dev -w packages/server",
+    "dev:web": "npm run dev -w packages/web",
+    "dev:native": "npm run dev -w packages/native-server",
+    "check": "npm run check -w harness --",
+    "bench": "npm run bench -w harness --",
+    "bundle": "npm run bundle -w harness --",
+    "snippets": "node scripts/extract-snippets.mjs",
+    "loc": "node scripts/loc.mjs"
+  }
+}

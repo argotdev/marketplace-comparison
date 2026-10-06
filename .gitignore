@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+harness/.playwright/
+test-results/
+playwright-report/
+results/video/**/*.webm.tmp
+docker/rocketchat/data/
+docker/postgres/data/
+.tmp/
