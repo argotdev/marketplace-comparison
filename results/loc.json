@@ -1,10 +1,34 @@
 {
+  "ably": {
+    "adapter": 0,
+    "serverVendor": 0,
+    "kitView": 0,
+    "kitOrderCardRenderer": 0
+  },
+  "cometchat": {
+    "adapter": 0,
+    "serverVendor": 0,
+    "kitView": 0,
+    "kitOrderCardRenderer": 0
+  },
   "native": {
     "adapter": 225,
     "serverVendor": 69,
     "kitView": 0,
     "kitOrderCardRenderer": 0,
     "nativeServer": 379
+  },
+  "pubnub": {
+    "adapter": 0,
+    "serverVendor": 0,
+    "kitView": 0,
+    "kitOrderCardRenderer": 0
+  },
+  "rocketchat": {
+    "adapter": 0,
+    "serverVendor": 0,
+    "kitView": 0,
+    "kitOrderCardRenderer": 0
   },
   "sendbird": {
     "adapter": 219,
@@ -17,5 +41,17 @@
     "serverVendor": 168,
     "kitView": 113,
     "kitOrderCardRenderer": 16
+  },
+  "talkjs": {
+    "adapter": 196,
+    "serverVendor": 76,
+    "kitView": 45,
+    "kitOrderCardRenderer": 16
+  },
+  "twilio": {
+    "adapter": 0,
+    "serverVendor": 0,
+    "kitView": 0,
+    "kitOrderCardRenderer": 0
   }
 }

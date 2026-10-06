@@ -1,0 +1,12 @@
+{
+  "platform": "talkjs",
+  "requirements": {
+    "1": { "status": "native", "note": "conversation('order-<id>').createIfNotExists({ subject, custom: { orderId, listingId } }) + participant(buyer|seller).createIfNotExists(); custom data is string-only" },
+    "2": { "status": "native", "note": "send({ text, custom: { type: 'order_card', card: JSON } }); order service edits with PUT /conversations/{id}/messages/{mid} { custom }; subscribeMessages snapshot diff (editedAt) surfaces the update" },
+    "3": { "status": "native", "note": "contact masking per role in the dashboard (phone, email, custom regex for off-platform words; replacement '(hidden information)'), all plans. No report API: reportUser goes to our own queue", "loc": 3 },
+    "4": { "status": "native", "note": "TalkJS emails offline participants itself (Postmark) after an inactivity window; no custom SMTP, so Mailpit cannot receive it. Check observes the notification.* webhook instead. Browser push needs FCM + service worker; not run (no Firebase credentials)" },
+    "5": { "status": "gated", "note": "message.translate(lang) from @talkjs/core 1.12 on receive, needs Growth plan + Google key in Settings → Localization; built fallback (custom.translations from our provider) otherwise", "gate": "Growth plan + Google Cloud Translation key" },
+    "6": { "status": "native", "note": "conversation.participant('agent_sam').createIfNotExists({ access: 'ReadWrite', notify: true }); full history visible to the new participant" },
+    "7": { "status": "native", "note": "markAsRead + conversation.everyoneReadUntil as the receipt; markAsTyping (no explicit stop) + subscribeTyping; uploadImage -> send({ content: [{ type: 'file', fileToken }] })" }
+  }
+}

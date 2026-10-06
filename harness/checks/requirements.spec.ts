@@ -170,6 +170,36 @@ test('3. Moderation: contact info and off-platform payment blocked; user report 
 
 // ---------------------------------------------------------------------------
 test('4. Email fallback when the seller is offline (push: see note)', async ({ browser }) => {
+  const push = process.env.FIREBASE_SERVICE_ACCOUNT_JSON_PATH ? 'push configured via FCM (see vendor doc)' : 'push not run: no Firebase credentials in .env';
+  if (facts.email === 'native-external') {
+    // The vendor emails from its own infrastructure (no custom SMTP), so Mailpit cannot receive it.
+    // Evidence is the vendor's notification webhook reaching our server, which needs a public URL.
+    const cfg = await api<{ publicUrl: string }>('/config');
+    if (!cfg.publicUrl.startsWith('https://')) {
+      note(`not run: vendor sends email itself and cannot target Mailpit; its notification webhook needs an https PUBLIC_URL (ngrok). ${push}`);
+      test.skip();
+    }
+    const buyer = await open(browser, 'buyer_ana');
+    const seller = await open(browser, 'seller_ben');
+    await hook(seller.page, 'disconnect');
+    await seller.ctx.close();
+    pages.splice(pages.indexOf(seller), 1);
+    await sleep(6000);
+    const text = `Hola Ben, ¿sigue disponible? (${orderId})`;
+    await hook(buyer.page, 'sendText', text);
+    const evt = await waitFor(
+      async () => {
+        const log = await api<{ event: string; body: { body?: { type?: string; data?: unknown } } }[]>(`/webhooks-log/${PLATFORM}`);
+        return log.find((w) => /^notification\.(triggered|sent|delivered)$/.test(String(w.body?.body?.type ?? w.event)));
+      },
+      120000,
+      1000,
+      'vendor notification webhook (email trigger) within 120 s',
+    );
+    details({ event: evt.event, body: evt.body?.body, push });
+    note(`vendor-sent email: ${String(evt.body?.body?.type ?? evt.event)} webhook received (Mailpit not reachable by design); ${push}`);
+    return;
+  }
   await mailpit.clear();
   const buyer = await open(browser, 'buyer_ana');
   // Seller: open once so the platform knows the user, then go offline for real.
@@ -193,7 +223,6 @@ test('4. Email fallback when the seller is offline (push: see note)', async ({ b
     500,
     'email in Mailpit containing the message',
   );
-  const push = process.env.FIREBASE_SERVICE_ACCOUNT_JSON_PATH ? 'push configured via FCM (see vendor doc)' : 'push not run: no Firebase credentials in .env';
   details({ subject: mail.m.Subject, to: mail.m.To, created: mail.m.Created, push });
   note(`email to seller arrived in Mailpit (${facts.email}); ${push}`);
 });

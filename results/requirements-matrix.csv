@@ -20,13 +20,13 @@ stream,4,Push + email fallback,not run,not run,not run: no keys in .env (adapter
 stream,5,Auto-translation,not run,not run,not run: no keys in .env (adapter written). Designed as gated: auto_translation_enabled + user.language; message.i18n.<lang>_text. Chat pricing page lists Auto Message Translation on Elevate+. Built fallback (translations custom field) used if a provider is set [needs: Elevate plan (metered add-on)]
 stream,6,Escalation to agent,not run,not run,not run: no keys in .env (adapter written). Designed as native: channel.addMembers(['agent_sam']) with a system message; channel_member grant update-channel-members added so the buyer can do it; history visible to new members by default (hide_history false)
 stream,7,"Receipts, typing, attachments",not run,not run,"not run: no keys in .env (adapter written). Designed as native: markRead + message.read, keystroke/stopTyping + typing.start/stop, sendImage + image attachment (signed CDN URL)"
-talkjs,1,1:1 order channel,not run,not run,adapter not written
-talkjs,2,Order card with live status,not run,not run,adapter not written
-talkjs,3,Moderation + user report,not run,not run,adapter not written
-talkjs,4,Push + email fallback,not run,not run,adapter not written
-talkjs,5,Auto-translation,not run,not run,adapter not written
-talkjs,6,Escalation to agent,not run,not run,adapter not written
-talkjs,7,"Receipts, typing, attachments",not run,not run,adapter not written
+talkjs,1,1:1 order channel,not run,not run,"not run: no keys in .env (adapter written). Designed as native: conversation('order-<id>').createIfNotExists({ subject, custom: { orderId, listingId } }) + participant(buyer|seller).createIfNotExists(); custom data is string-only"
+talkjs,2,Order card with live status,not run,not run,"not run: no keys in .env (adapter written). Designed as native: send({ text, custom: { type: 'order_card', card: JSON } }); order service edits with PUT /conversations/{id}/messages/{mid} { custom }; subscribeMessages snapshot diff (editedAt) surfaces the update"
+talkjs,3,Moderation + user report,not run,not run,"not run: no keys in .env (adapter written). Designed as native: contact masking per role in the dashboard (phone, email, custom regex for off-platform words; replacement '(hidden information)'), all plans. No report API: reportUser goes to our own queue"
+talkjs,4,Push + email fallback,not run,not run,"not run: no keys in .env (adapter written). Designed as native: TalkJS emails offline participants itself (Postmark) after an inactivity window; no custom SMTP, so Mailpit cannot receive it. Check observes the notification.* webhook instead. Browser push needs FCM + service worker; not run (no Firebase credentials)"
+talkjs,5,Auto-translation,not run,not run,"not run: no keys in .env (adapter written). Designed as gated: message.translate(lang) from @talkjs/core 1.12 on receive, needs Growth plan + Google key in Settings → Localization; built fallback (custom.translations from our provider) otherwise [needs: Growth plan + Google Cloud Translation key]"
+talkjs,6,Escalation to agent,not run,not run,"not run: no keys in .env (adapter written). Designed as native: conversation.participant('agent_sam').createIfNotExists({ access: 'ReadWrite', notify: true }); full history visible to the new participant"
+talkjs,7,"Receipts, typing, attachments",not run,not run,"not run: no keys in .env (adapter written). Designed as native: markAsRead + conversation.everyoneReadUntil as the receipt; markAsTyping (no explicit stop) + subscribeTyping; uploadImage -> send({ content: [{ type: 'file', fileToken }] })"
 cometchat,1,1:1 order channel,not run,not run,adapter not written
 cometchat,2,Order card with live status,not run,not run,adapter not written
 cometchat,3,Moderation + user report,not run,not run,adapter not written

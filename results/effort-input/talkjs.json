@@ -1,0 +1,5 @@
+{
+  "dashboardStepsBeforeFirstMessage": 2,
+  "backendNeededForFirstMessage": "no (test mode works without tokens until 'Authentication required' is enabled); yes for JWTs as used here",
+  "notes": "Steps: sign up (test app exists), copy App ID and secret key. Roles, contact masking, webhooks and email settings are dashboard-only; REST cannot set them. Users are upserted by our setup script."
+}
