@@ -1,0 +1,3 @@
+platform,entry,package,version,minified_bytes,gzip_bytes,built_at,note
+native,core,@mkt/adapter-native,0.1.0,8781,2798,2026-10-06T18:44:23.003Z,"Native build: browser WebSocket API only; the ""SDK"" is our own adapter, so this measures the adapter itself."
+native,kit,,,not run,not run,2026-10-06T18:44:23.003Z,no React UI kit for this platform

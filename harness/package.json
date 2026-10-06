@@ -1,0 +1,27 @@
+{
+  "name": "@mkt/harness",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "playwright test --config playwright.config.ts",
+    "bench": "tsx bench/run.ts",
+    "bundle": "tsx bundle/build.ts",
+    "kit-network": "tsx bundle/kit-network.ts",
+    "matrix": "tsx lib/matrix.ts",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@mkt/shared": "*",
+    "@playwright/test": "1.63.0",
+    "dotenv": "18.0.5",
+    "playwright": "1.63.0",
+    "tsx": "4.23.15",
+    "vite": "8.3.3",
+    "@vitejs/plugin-react": "6.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.4",
+    "typescript": "5.9.3"
+  }
+}

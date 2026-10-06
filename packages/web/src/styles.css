@@ -1,0 +1,35 @@
+:root { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #1a1a1a; background: #f6f6f4; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: #0b57d0; }
+.app { max-width: 720px; margin: 0 auto; padding: 16px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 14px; }
+.topbar .who { font-weight: 600; }
+.topbar .status { color: #666; }
+.chat { background: #fff; border: 1px solid #e3e3e0; border-radius: 10px; display: flex; flex-direction: column; height: 640px; }
+.messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.msg { max-width: 78%; padding: 8px 12px; border-radius: 12px; background: #f0f0ee; align-self: flex-start; font-size: 15px; line-height: 1.35; }
+.msg.mine { align-self: flex-end; background: #dbe9ff; }
+.msg .meta { display: block; font-size: 11px; color: #777; margin-top: 4px; }
+.msg.system { align-self: center; background: transparent; color: #777; font-size: 13px; }
+.msg.moderated { border: 1px dashed #c97a00; }
+.msg img.attachment { max-width: 240px; border-radius: 8px; display: block; }
+.card { display: grid; grid-template-columns: 96px 1fr; gap: 12px; border: 1px solid #d9d9d6; border-radius: 10px; padding: 10px; background: #fff; min-width: 300px; }
+.card img { width: 96px; height: 72px; object-fit: cover; border-radius: 6px; background: #eee; }
+.card .title { font-weight: 600; }
+.card .price { color: #333; }
+.card .order { font-size: 12px; color: #666; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; text-transform: capitalize; margin-top: 4px; }
+.badge.placed { background: #eee; color: #444; }
+.badge.paid { background: #e3f0ff; color: #0b57d0; }
+.badge.shipped { background: #fff1d6; color: #9a5b00; }
+.badge.delivered { background: #dff5e3; color: #137333; }
+.composer { border-top: 1px solid #e3e3e0; padding: 10px; display: flex; gap: 8px; align-items: center; }
+.composer input[type=text] { flex: 1; padding: 10px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; }
+button { padding: 8px 12px; border-radius: 8px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 14px; }
+button.primary { background: #0b57d0; color: #fff; border-color: #0b57d0; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px; border-top: 1px solid #e3e3e0; font-size: 13px; align-items: center; }
+.typing { min-height: 18px; padding: 0 16px 6px; font-size: 12px; color: #777; }
+.error { background: #fde7e9; color: #8a1c1c; padding: 8px 12px; border-radius: 8px; font-size: 13px; margin-bottom: 8px; white-space: pre-wrap; }
+.members { font-size: 12px; color: #666; }
+.kit-frame { background: #fff; border: 1px solid #e3e3e0; border-radius: 10px; height: 640px; overflow: hidden; }

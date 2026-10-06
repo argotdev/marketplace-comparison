@@ -1,0 +1,31 @@
+/**
+ * Per-platform facts the harness needs before it runs. Keep this honest: it changes which checks
+ * can run (e.g. translation without a provider) and how fast the ordering burst may send.
+ */
+export interface PlatformFacts {
+  name: string;
+  /** How translation is satisfied in the adapter. `built` needs TRANSLATION_PROVIDER in .env. */
+  translation: 'native' | 'built' | 'none';
+  /** How the email fallback is satisfied. */
+  email: 'native' | 'built-webhook' | 'built-client' | 'none';
+  /** Documented client-side send rate limit used to pace the ordering burst (messages per second). */
+  maxSendPerSec: number;
+  /** npm package whose version is reported in results. */
+  sdkPackage: string;
+  kitPackage?: string;
+  /** Env var names for the vendor region and plan labels recorded in result files. */
+  regionEnv?: string;
+  planEnv?: string;
+  /** Vendor hosts whose JS transfer is counted when the kit view loads. */
+  vendorHosts?: string[];
+}
+
+export const PLATFORM_FACTS: Record<string, PlatformFacts> = {
+  native: {
+    name: 'Native (WebSocket + Postgres + Redis)',
+    translation: 'built',
+    email: 'native',
+    maxSendPerSec: 50,
+    sdkPackage: '@mkt/adapter-native',
+  },
+};

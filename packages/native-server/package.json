@@ -1,0 +1,27 @@
+{
+  "name": "@mkt/native-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node dev.mjs",
+    "start": "node dev.mjs",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@mkt/shared": "*",
+    "dotenv": "18.0.5",
+    "ioredis": "6.0.0",
+    "nodemailer": "10.0.15",
+    "pg": "8.23.1",
+    "tsx": "4.23.15",
+    "ws": "8.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.4",
+    "@types/nodemailer": "8.0.2",
+    "@types/pg": "8.23.1",
+    "@types/ws": "8.18.2",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,78 @@
+# Everything self-hosted. `docker compose up -d` starts the shared infra (Postgres, Redis, Mailpit).
+# Rocket.Chat is behind a profile because it is heavy: `docker compose --profile rocketchat up -d`.
+# The native WebSocket instances are behind `--profile native` for cloud runs; locally `npm run dev:native`.
+name: mkt-chat
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: mkt
+      POSTGRES_PASSWORD: mkt
+      POSTGRES_DB: mkt
+    ports:
+      - "5433:5432"   # host 5432 is taken by a local Postgres on the dev machine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mkt"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "8025:8025"   # web UI + REST API
+      - "1025:1025"   # SMTP
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+
+  native-ws1:
+    profiles: ["native"]
+    build: { context: ., dockerfile: docker/native.Dockerfile }
+    environment:
+      INSTANCE_ID: "1"
+      PORT: "4101"
+      DATABASE_URL: postgres://mkt:mkt@postgres:5432/mkt
+      REDIS_URL: redis://redis:6379
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+      NATIVE_TOKEN_SECRET: ${NATIVE_TOKEN_SECRET:-dev-native-secret-change-me}
+      NATIVE_PUBLIC_HTTP: http://localhost:4101
+    ports: ["4101:4101"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+
+  native-ws2:
+    profiles: ["native"]
+    build: { context: ., dockerfile: docker/native.Dockerfile }
+    environment:
+      INSTANCE_ID: "2"
+      PORT: "4102"
+      DATABASE_URL: postgres://mkt:mkt@postgres:5432/mkt
+      REDIS_URL: redis://redis:6379
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+      NATIVE_TOKEN_SECRET: ${NATIVE_TOKEN_SECRET:-dev-native-secret-change-me}
+      NATIVE_PUBLIC_HTTP: http://localhost:4102
+    ports: ["4102:4102"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+
+volumes:
+  pgdata:
