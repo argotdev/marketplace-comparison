@@ -11,7 +11,7 @@ import { recordCheck } from '../lib/results.ts';
 import { PLATFORM_FACTS } from '../lib/platforms.ts';
 
 const facts = PLATFORM_FACTS[PLATFORM];
-const orderId = process.env.CHECK_ORDER_ID ?? `ord_${Date.now().toString(36)}`;
+const orderId = process.env.CHECK_ORDER_ID ?? `ord_${process.env.CHECK_RUN_ID ?? Date.now().toString(36)}`;
 let setupNotes: string[] = [];
 let translationProvider: string | null = null;
 

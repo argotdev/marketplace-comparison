@@ -60,9 +60,26 @@ docker build -f harness/Dockerfile -t mkt-bench .
 docker run --rm --network host --env-file .env -e PLATFORM=sendbird -e REGION_LABEL=eu-west-1 -v "$PWD/results:/app/results" mkt-bench
 ```
 
+## Rocket.Chat (self-hosted)
+
+```bash
+docker compose --profile rocketchat up -d     # Rocket.Chat 8.9.0 + MongoDB 8.2 on http://localhost:3000
+```
+
+The compose file skips the setup wizard and creates the admin user from `.env` (`ROCKETCHAT_ADMIN_USER`, `ROCKETCHAT_ADMIN_PASSWORD`, `ROCKETCHAT_CREATE_TOKENS_SECRET`). That leaves the workspace unregistered (Community limits); registering it for the Starter plan needs a person with a Rocket.Chat Cloud account, see `docs/vendors/rocketchat.md`.
+
+## Measurement outputs
+
+```bash
+npm run charts        # results/charts/{connect-time,latency,cost-curve}.{svg,png} from summary.csv and data/pricing.csv
+npm run screenshots   # results/screenshots/<platform>-kit.png + side-by-side.png (configured platforms with a kit)
+npm run video         # results/video/stream-demo/ (needs Stream keys)
+```
+
 ## Other scripts
 
 ```bash
 npm run snippets    # docs/snippets/<platform>.md from the // snippet:start send-order-card markers
 npm run loc         # results/loc.json
+npm run matrix      # results/requirements-matrix.csv + results/integration-effort.csv
 ```

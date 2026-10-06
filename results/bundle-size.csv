@@ -15,3 +15,5 @@ pubnub,core,@pubnub/chat,1.0.4,1143256,229985,2026-10-06T19:36:44.293Z,PubNub: @
 pubnub,kit,,,not run,not run,2026-10-06T19:36:44.293Z,no React UI kit for this platform
 ably,core,@ably/chat,1.4.0,375691,83874,2026-10-06T19:41:12.220Z,Ably: ably-js Realtime + @ably/chat ChatClient; rooms.get + attach + send + subscribe.
 ably,kit,@ably/chat-react-ui-kit,0.3.0,513147,114922,2026-10-06T19:41:12.220Z,"Ably Chat React UI Kit: providers + ChatWindow + style.css (experimental kit), React externalised."
+rocketchat,core,@mkt/adapter-rocketchat,0.1.0,12261,4066,2026-10-06T20:02:32.802Z,"Rocket.Chat: no installable npm client (the official ddp-client needs a yarn-only patch), so this is our own DDP + REST adapter code."
+rocketchat,kit,@mkt/adapter-rocketchat,0.1.0,298,234,2026-10-06T20:02:32.802Z,"Rocket.Chat prebuilt UI in an iframe (?layout=embedded); the JS is served by the Rocket.Chat server, so kit-network.csv is the real measure."

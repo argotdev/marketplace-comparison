@@ -37,6 +37,7 @@ export function readJson<T>(path: string): T | undefined {
 export function recordCheck(platform: string, orderId: string, r: Omit<CheckResult, 'at'>): void {
   const file = resolve(resultsDir('checks'), `${platform}.json`);
   const run = readJson<CheckRun>(file) ?? { platform, startedAt: new Date().toISOString(), orderId, results: [] };
+  // A new run (different order id) replaces the previous file; within a run, results merge per requirement.
   if (run.orderId !== orderId) {
     run.startedAt = new Date().toISOString();
     run.orderId = orderId;

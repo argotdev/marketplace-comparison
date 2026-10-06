@@ -115,6 +115,8 @@ export function createAdapter(user: AppUser): ChatAdapter {
       ddp = new Ddp();
       await ddp.connect(`${url.replace(/^http/, 'ws')}/websocket`);
       await ddp.call('login', [{ resume: token }]);
+      // Announce presence like the official web client; without it Rocket.Chat kept a closed connection "online" for 3+ minutes.
+      await ddp.call('UserPresence:online', []).catch(() => {});
     },
 
     async openOrderChannel(o: Order) {

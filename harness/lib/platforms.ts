@@ -115,6 +115,8 @@ export const PLATFORM_FACTS: Record<string, PlatformFacts> = {
     maxSendPerSec: 5,
     sdkPackage: '@mkt/adapter-rocketchat',
     kitPackage: '@mkt/adapter-rocketchat',
+    // Measured 2026-10-06: presence flips to offline 60 s after the socket closes (with UserPresence:online announced).
+    offlineSettleMs: 65000,
     vendorHosts: ['localhost:3000'],
   },
 };

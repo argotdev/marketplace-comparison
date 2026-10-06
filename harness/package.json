@@ -9,7 +9,9 @@
     "bundle": "tsx bundle/build.ts",
     "kit-network": "tsx bundle/kit-network.ts",
     "matrix": "tsx lib/matrix.ts",
-    "typecheck": "tsc -p tsconfig.json"
+    "typecheck": "tsc -p tsconfig.json",
+    "screenshots": "tsx screenshots.ts",
+    "video": "tsx video/stream-demo.ts"
   },
   "dependencies": {
     "@mkt/shared": "*",

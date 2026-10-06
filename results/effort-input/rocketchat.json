@@ -1,0 +1,5 @@
+{
+  "dashboardStepsBeforeFirstMessage": "0 dashboard clicks, 1 compose command (+ wizard/registration if not skipped)",
+  "backendNeededForFirstMessage": true,
+  "notes": "docker compose --profile rocketchat up -d with 25 forced settings (custom fields schema, read receipts, rate limiter off, SMTP, CORS, iframe integration, bad-words list). A backend is needed to mint per-user tokens (users.createToken + shared secret) and to look up rooms the admin is not in. Registration for Starter is a human step not performed."
+}
