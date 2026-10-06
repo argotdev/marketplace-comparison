@@ -21,7 +21,15 @@ export default function RocketChatKit({ userId, orderId }: { userId: string; ord
 
   function onLoad() {
     if (!auth || !frame.current?.contentWindow) return;
-    frame.current.contentWindow.postMessage({ externalCommand: 'login-with-token', token: auth.token }, auth.url);
+    // The Rocket.Chat SPA registers its message listener after load; repeat the login command for a few seconds,
+    // in both the documented (externalCommand) and the newer (event/loginToken) shapes.
+    const win = frame.current.contentWindow;
+    let n = 0;
+    const t = window.setInterval(() => {
+      win.postMessage({ externalCommand: 'login-with-token', token: auth.token }, auth.url);
+      win.postMessage({ event: 'login-with-token', loginToken: auth.token }, auth.url);
+      if (++n >= 12) window.clearInterval(t);
+    }, 800);
   }
 
   if (error) return <div className="error">{error}</div>;
