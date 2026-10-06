@@ -1,0 +1,39 @@
+{
+  "platform": "rocketchat",
+  "startedAt": "2026-10-06T19:50:07.409Z",
+  "orderId": "ord_mux3f3ju",
+  "results": [
+    {
+      "req": 5,
+      "title": "5. Auto-translation es<->en",
+      "outcome": "skip",
+      "note": "not run: the platform translates natively but needs a provider API key, and none is set in .env",
+      "durationMs": 0,
+      "at": "2026-10-06T19:50:07.409Z"
+    },
+    {
+      "req": 6,
+      "title": "6. Escalation: \"Get help\" adds agent_sam who can read earlier messages",
+      "outcome": "pass",
+      "note": "agent added to the same channel (members buyer_ana,agent_sam,seller_ben); agent reads 3 earlier message(s)",
+      "durationMs": 647,
+      "details": {
+        "members": [
+          "buyer_ana",
+          "agent_sam",
+          "seller_ben"
+        ],
+        "agentSees": 3
+      },
+      "at": "2026-10-06T19:50:08.115Z"
+    },
+    {
+      "req": 7,
+      "title": "7. Read receipts, typing indicators, image attachment",
+      "outcome": "fail",
+      "note": "TimeoutError: page.waitForFunction: Timeout 15000ms exceeded.",
+      "durationMs": 15586,
+      "at": "2026-10-06T19:50:23.773Z"
+    }
+  ]
+}

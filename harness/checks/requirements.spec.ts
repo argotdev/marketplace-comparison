@@ -15,7 +15,7 @@ const orderId = process.env.CHECK_ORDER_ID ?? `ord_${Date.now().toString(36)}`;
 let setupNotes: string[] = [];
 let translationProvider: string | null = null;
 
-test.describe.configure({ mode: 'serial' });
+// Each check opens its own pages, so a failure in one must not stop the others (workers: 1 keeps them sequential).
 
 test.beforeAll(async () => {
   if (!facts) throw new Error(`no PLATFORM_FACTS for ${PLATFORM}`);
@@ -207,7 +207,9 @@ test('4. Email fallback when the seller is offline (push: see note)', async ({ b
   await hook(seller.page, 'disconnect');
   await seller.ctx.close();
   pages.splice(pages.indexOf(seller), 1);
-  await sleep(6000); // > presence TTL on our server; vendors with their own presence settle too
+  // > presence TTL on our server (5 s); platforms with slower presence declare a longer settle time in platforms.ts.
+  const settleMs = facts.offlineSettleMs ?? 6000;
+  await sleep(settleMs);
 
   const text = `Hola Ben, ¿sigue disponible? (${orderId})`;
   await hook(buyer.page, 'sendText', text);
@@ -223,8 +225,8 @@ test('4. Email fallback when the seller is offline (push: see note)', async ({ b
     500,
     'email in Mailpit containing the message',
   );
-  details({ subject: mail.m.Subject, to: mail.m.To, created: mail.m.Created, push });
-  note(`email to seller arrived in Mailpit (${facts.email}); ${push}`);
+  details({ subject: mail.m.Subject, to: mail.m.To, created: mail.m.Created, push, settleMs });
+  note(`email to seller arrived in Mailpit (${facts.email}; sent ${settleMs / 1000} s after the seller disconnected); ${push}`);
 });
 
 // ---------------------------------------------------------------------------
@@ -276,24 +278,50 @@ test('6. Escalation: "Get help" adds agent_sam who can read earlier messages', a
 test('7. Read receipts, typing indicators, image attachment', async ({ browser }) => {
   const buyer = await open(browser, 'buyer_ana');
   const seller = await open(browser, 'seller_ben');
+  // Each feature is recorded on its own so a platform that lacks one still gets the others measured.
+  const result: Record<'typing' | 'readReceipt' | 'attachment', { ok: boolean; error?: string; extra?: unknown }> = {
+    typing: { ok: false },
+    readReceipt: { ok: false },
+    attachment: { ok: false },
+  };
 
-  await hook(seller.page, 'setTyping', true);
-  await expect(buyer.page.locator('[data-testid=typing]')).toContainText(/typing/i, { timeout: 15000 });
-  await hook(seller.page, 'setTyping', false);
+  try {
+    await hook(seller.page, 'setTyping', true);
+    await expect(buyer.page.locator('[data-testid=typing]')).toContainText(/typing/i, { timeout: 15000 });
+    await hook(seller.page, 'setTyping', false);
+    result.typing.ok = true;
+  } catch (e) {
+    result.typing.error = String((e as Error).message).split('\n')[0];
+  }
 
-  await hook(buyer.page, 'sendText', `Recibo de lectura ${orderId}`);
-  await expect(seller.page.locator('[data-testid=message] [data-testid=text]').last()).toContainText('Recibo');
-  await hook(seller.page, 'markAsRead');
-  await buyer.page.waitForFunction(() => window.__chat!.reads.some((r) => r.userId === 'seller_ben'), null, { timeout: 15000 });
-  await expect(buyer.page.locator('[data-testid=typing]')).toContainText(/Read by Ben/, { timeout: 15000 });
+  try {
+    await hook(buyer.page, 'sendText', `Recibo de lectura ${orderId}`);
+    await expect(seller.page.locator('[data-testid=message] [data-testid=text]').last()).toContainText('Recibo');
+    await hook(seller.page, 'markAsRead');
+    await buyer.page.waitForFunction(() => window.__chat!.reads.some((r) => r.userId === 'seller_ben'), null, { timeout: 15000 });
+    await expect(buyer.page.locator('[data-testid=typing]')).toContainText(/Read by Ben/, { timeout: 15000 });
+    result.readReceipt.ok = true;
+  } catch (e) {
+    result.readReceipt.error = String((e as Error).message).split('\n')[0];
+  }
 
-  await hook(buyer.page, 'sendAttachment', 'photo.png', 'image/png', TINY_PNG_BASE64);
-  const img = seller.page.locator('[data-testid=attachment]').last();
-  await expect(img).toBeVisible({ timeout: 20000 });
-  await expect.poll(() => img.evaluate((el) => (el as HTMLImageElement).naturalWidth), { timeout: 15000 }).toBeGreaterThan(0);
-  const src = await img.getAttribute('src');
-  details({ attachmentHost: src ? new URL(src, 'http://x').host : null });
-  note('typing indicator, read receipt and image attachment all delivered buyer<->seller');
+  try {
+    await hook(buyer.page, 'sendAttachment', 'photo.png', 'image/png', TINY_PNG_BASE64);
+    const img = seller.page.locator('[data-testid=attachment]').last();
+    await expect(img).toBeVisible({ timeout: 20000 });
+    await expect.poll(() => img.evaluate((el) => (el as HTMLImageElement).naturalWidth), { timeout: 15000 }).toBeGreaterThan(0);
+    const src = await img.getAttribute('src');
+    result.attachment.ok = true;
+    result.attachment.extra = { attachmentHost: src ? new URL(src, 'http://x').host : null, dataUrl: src?.startsWith('data:') ?? false };
+  } catch (e) {
+    result.attachment.error = String((e as Error).message).split('\n')[0];
+  }
+
+  details(result);
+  const okList = (Object.keys(result) as (keyof typeof result)[]).filter((k) => result[k].ok);
+  const failList = (Object.keys(result) as (keyof typeof result)[]).filter((k) => !result[k].ok);
+  note(`${okList.join(', ') || 'none'} delivered buyer<->seller${failList.length ? `; failed: ${failList.map((k) => `${k} (${result[k].error})`).join('; ')}` : ''}`);
+  expect(failList, `failed: ${failList.join(', ')}`).toHaveLength(0);
 });
 
 void waitReady;

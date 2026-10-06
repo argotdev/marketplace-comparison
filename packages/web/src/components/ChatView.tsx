@@ -102,7 +102,8 @@ export function ChatView({ adapter, user, order, autoConnect, tokenInfo }: Props
         const r = await adapter.sendOrderCard(card);
         const sendMs = performance.now() - t0;
         await window.__mark?.('send:resolved', id);
-        if (!id) await serverApi.registerCardMessage(order.id, adapter.platform, h.channel?.id ?? '', r.messageId);
+        // The sender id lets server halves edit as the author where a platform only allows authors to edit.
+        if (!id) await serverApi.registerCardMessage(order.id, adapter.platform, h.channel?.id ?? '', r.messageId, { senderId: user.id });
         return { ...r, sendMs };
       },
       async sendAttachment(name, mime, base64) {

@@ -74,5 +74,91 @@ services:
       postgres: { condition: service_healthy }
       redis: { condition: service_healthy }
 
+  # ---- Rocket.Chat (self-hosted), profile "rocketchat" --------------------------------------------
+  # Follows https://github.com/RocketChat/rocketchat-compose (compose.yml + compose.database.yml), 8.9.0 LTS.
+  mongodb:
+    profiles: ["rocketchat"]
+    image: docker.io/mongodb/mongodb-community-server:8.2-ubi8
+    restart: unless-stopped
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      MONGODB_REPLICA_SET_MODE: primary
+      MONGODB_REPLICA_SET_NAME: rs0
+      MONGODB_PORT_NUMBER: 27017
+      MONGODB_INITIAL_PRIMARY_HOST: mongodb
+      MONGODB_INITIAL_PRIMARY_PORT_NUMBER: 27017
+      MONGODB_ADVERTISED_HOSTNAME: mongodb
+      MONGODB_ENABLE_JOURNAL: "true"
+      ALLOW_EMPTY_PASSWORD: "yes"
+    command: >
+      bash -c "mongod --replSet rs0 --bind_ip_all --port 27017 &
+      sleep 8 && mongosh --quiet --eval 'try { rs.status() } catch (e) { rs.initiate({_id:\"rs0\",members:[{_id:0,host:\"mongodb:27017\"}]}) }' ;
+      wait"
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh --quiet --eval 'db.adminCommand(\"ping\")' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  rocketchat:
+    profiles: ["rocketchat"]
+    image: registry.rocket.chat/rocketchat/rocket.chat:8.9.0
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      MONGO_URL: mongodb://mongodb:27017/rocketchat?replicaSet=rs0
+      MONGO_OPLOG_URL: mongodb://mongodb:27017/local?replicaSet=rs0
+      ROOT_URL: http://localhost:3000
+      PORT: "3000"
+      DEPLOY_METHOD: docker
+      DEPLOY_PLATFORM: compose
+      # Shared secret that lets our API server mint per-user tokens with users.createToken (8.x requirement).
+      CREATE_TOKENS_FOR_USERS_SECRET: ${ROCKETCHAT_CREATE_TOKENS_SECRET:-dev-rocketchat-token-secret}
+      # Skip the setup wizard (no workspace registration = Community limits). Set ROCKETCHAT_SKIP_WIZARD=0 to use the wizard.
+      OVERWRITE_SETTING_Show_Setup_Wizard: ${ROCKETCHAT_WIZARD_SETTING:-completed}
+      ADMIN_USERNAME: ${ROCKETCHAT_ADMIN_USER:-admin}
+      ADMIN_PASS: ${ROCKETCHAT_ADMIN_PASSWORD:-dev-rocketchat-admin-password}
+      ADMIN_EMAIL: admin@example.test
+      # Settings the build needs, forced at boot (OVERWRITE_SETTING_<id>).
+      OVERWRITE_SETTING_Message_CustomFields_Enabled: "true"
+      OVERWRITE_SETTING_Message_CustomFields: '{"type":"object","properties":{"type":{"type":"string"},"card":{"type":"string"},"orderId":{"type":"string"},"translations":{"type":"string"}},"additionalProperties":false}'
+      OVERWRITE_SETTING_Message_Read_Receipt_Enabled: "true"
+      OVERWRITE_SETTING_Message_Read_Receipt_Store_Users: "true"
+      OVERWRITE_SETTING_API_Enable_Rate_Limiter: "false"
+      OVERWRITE_SETTING_DDP_Rate_Limit_User_By_Method_Requests_Allowed: "200"
+      OVERWRITE_SETTING_DDP_Rate_Limit_Connection_By_Method_Requests_Allowed: "200"
+      OVERWRITE_SETTING_SMTP_Protocol: smtp
+      OVERWRITE_SETTING_SMTP_Host: mailpit
+      OVERWRITE_SETTING_SMTP_Port: "1025"
+      OVERWRITE_SETTING_From_Email: rocketchat@marketplace.test
+      OVERWRITE_SETTING_Accounts_Default_User_Preferences_emailNotificationMode: mentions
+      OVERWRITE_SETTING_Accounts_RegistrationForm: Disabled
+      OVERWRITE_SETTING_Iframe_Integration_receive_enable: "true"
+      OVERWRITE_SETTING_Iframe_Integration_receive_origin: http://localhost:5173
+      OVERWRITE_SETTING_Iframe_Integration_send_enable: "true"
+      OVERWRITE_SETTING_Iframe_Integration_send_target_origin: http://localhost:5173
+      OVERWRITE_SETTING_Iframe_Restrict_Access: "false"
+      OVERWRITE_SETTING_Message_AllowBadWordsFilter: "true"
+      OVERWRITE_SETTING_Message_BadWordsFilterList: "venmo,paypal,zelle,cashapp,whatsapp,telegram,revolut,bitcoin"
+      OVERWRITE_SETTING_FileUpload_Enabled: "true"
+      OVERWRITE_SETTING_FileUpload_ProtectFiles: "false"
+      # Our React app calls the REST API from another origin; Rocket.Chat needs CORS switched on for that.
+      OVERWRITE_SETTING_API_Enable_CORS: "true"
+      OVERWRITE_SETTING_API_CORS_Origin: "http://localhost:5173"
+      OVERWRITE_SETTING_Statistics_reporting: "false"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:3000/api/info >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 40
+
 volumes:
   pgdata:
+  mongodb_data:

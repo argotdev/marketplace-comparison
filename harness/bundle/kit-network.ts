@@ -13,6 +13,7 @@ import { csvEscape } from '../lib/results.ts';
 
 const only = process.argv.slice(2);
 const local = new Set(['localhost', '127.0.0.1']);
+const isLocalApp = (u: URL) => local.has(u.hostname) && (u.port === '5173' || u.port === '4000');
 
 async function main() {
   const browser = await chromium.launch();
@@ -31,7 +32,7 @@ async function main() {
     page.on('response', async (res) => {
       try {
         const url = new URL(res.url());
-        if (local.has(url.hostname)) return;
+        if (isLocalApp(url)) return; // our own app; vendor hosts include a self-hosted localhost:3000
         const type = res.headers()['content-type'] ?? '';
         const isJs = /javascript|ecmascript/.test(type) || /\.m?js(\?|$)/.test(url.pathname);
         const len = Number(res.headers()['content-length']) || (await res.body().catch(() => Buffer.alloc(0))).length;

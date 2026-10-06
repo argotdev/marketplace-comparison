@@ -16,6 +16,11 @@ export interface PlatformFacts {
   email: 'native' | 'native-external' | 'built-webhook' | 'built-client' | 'none';
   /** Documented client-side send rate limit used to pace the ordering burst (messages per second). */
   maxSendPerSec: number;
+  /**
+   * How long the email check waits after the seller disconnects before the buyer sends, so the platform's
+   * presence has settled to offline. Default 6 s (our own registry's TTL is 5 s). Measured per platform when longer.
+   */
+  offlineSettleMs?: number;
   /** npm package whose version is reported in results. */
   sdkPackage: string;
   kitPackage?: string;
@@ -109,6 +114,7 @@ export const PLATFORM_FACTS: Record<string, PlatformFacts> = {
     // Default DDP limit per user per method is 20 calls / 10 s (2/s). Our compose raises it; paced at 5/s and recorded.
     maxSendPerSec: 5,
     sdkPackage: '@mkt/adapter-rocketchat',
+    kitPackage: '@mkt/adapter-rocketchat',
     vendorHosts: ['localhost:3000'],
   },
 };
