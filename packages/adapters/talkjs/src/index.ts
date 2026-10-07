@@ -116,7 +116,8 @@ export function createAdapter(user: AppUser): ChatAdapter {
 
       // Messages arrive as full snapshots (latest 30 + loadMore); diff them into new / updated events.
       msgSub = c.subscribeMessages((snapshot) => {
-        for (const m of snapshot ?? []) {
+        // Snapshots are newest-first; walk them oldest-first so new messages are emitted in order.
+        for (const m of [...(snapshot ?? [])].sort((a, b) => a.createdAt - b.createdAt)) {
           const prev = seen.get(m.id);
           const key = changeKey(m);
           if (prev === undefined) {
@@ -198,7 +199,7 @@ export function createAdapter(user: AppUser): ChatAdapter {
       }
       const list = (sub.state.type === 'active' ? sub.state.latestSnapshot : st.latestSnapshot) ?? [];
       sub.unsubscribe();
-      return list.map(toMessage);
+      return [...list].sort((a, b) => a.createdAt - b.createdAt).map(toMessage);
     },
 
     onMessage: (cb) => sub(onMsg, cb),

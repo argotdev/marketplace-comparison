@@ -256,7 +256,7 @@ export function ChatView({ adapter, user, order, autoConnect, tokenInfo }: Props
   const typingNames = Object.entries(typingUsers)
     .filter(([id, t]) => t && id !== user.id)
     .map(([id]) => USERS[id as UserId]?.name ?? id);
-  const lastMine = [...messages].reverse().find((m) => m.senderId === user.id);
+  const lastMine = messages.filter((m) => m.senderId === user.id).sort((a, b) => b.createdAt - a.createdAt)[0];
   const readBy = lastMine
     ? others.filter((id) => {
         const r = reads[id];
