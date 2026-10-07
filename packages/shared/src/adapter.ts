@@ -90,6 +90,9 @@ export interface ChatAdapter {
   addSupportAgent(): Promise<void>;
 
   disconnect(): Promise<void>;
+
+  /** Optional: platform objects for debugging from Playwright (never used by the UI or the checks' assertions). */
+  debug?(): Record<string, unknown>;
 }
 
 export interface AdapterFactory {

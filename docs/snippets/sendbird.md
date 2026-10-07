@@ -1,6 +1,6 @@
 # sendbird: send the order card
 
-Source: `packages/adapters/sendbird/src/index.ts`. SDK: @sendbird/chat@4.22.13, @sendbird/uikit-react@3.20.0. 13 lines excluding comments.
+Source: `packages/adapters/sendbird/src/index.ts`. SDK: @sendbird/chat@4.22.13, @sendbird/uikit-react@3.20.0. 14 lines excluding comments.
 
 ```ts
 async sendOrderCard(card: OrderCard) {
@@ -15,6 +15,7 @@ async sendOrderCard(card: OrderCard) {
       .onSucceeded((m) => resolve(m as UserMessage))
       .onFailed((err) => reject(err));
   });
+  echo(message);
   return { messageId: String(message.messageId) };
 },
 ```

@@ -61,6 +61,12 @@ export function createAdapter(user: AppUser): ChatAdapter {
     return { ...base, kind: 'text', text: translated, originalText: text, moderated: status === CometChat.ModerationStatus.DISAPPROVED };
   };
 
+  /** "As a sender, you will not receive your own message in a real-time event" (docs): surface send results ourselves. */
+  function echo(m: CometChat.BaseMessage): void {
+    const msg = toMessage(m);
+    for (const cb of onMsg) cb(msg);
+  }
+
   async function members(): Promise<string[]> {
     const req = new CometChat.GroupMembersRequestBuilder(guid).setLimit(100).build();
     const list = await req.fetchNext();
@@ -154,6 +160,7 @@ export function createAdapter(user: AppUser): ChatAdapter {
       }
       if (Object.keys(meta).length) msg.setMetadata(meta);
       const sent = (await CometChat.sendMessage(msg)) as AnyMessage;
+      echo(sent);
       const status = sent.getModerationStatus?.();
       return { messageId: String(sent.getId()), blocked: status === CometChat.ModerationStatus.DISAPPROVED };
     },
@@ -165,6 +172,7 @@ export function createAdapter(user: AppUser): ChatAdapter {
       message.setConversationText(`Order ${card.orderId}: ${card.listingTitle}`);
       message.shouldUpdateConversation(true);
       const sent = await CometChat.sendCustomMessage(message);
+      echo(sent);
       return { messageId: String(sent.getId()) };
     },
     // snippet:end
@@ -172,12 +180,14 @@ export function createAdapter(user: AppUser): ChatAdapter {
     async updateOrderCard(messageId: string, card: OrderCard) {
       const edited = new CometChat.CustomMessage(guid, CometChat.RECEIVER_TYPE.GROUP, ORDER_CARD_TYPE, { card });
       edited.setId(Number(messageId));
-      await CometChat.editMessage(edited);
+      const updated = await CometChat.editMessage(edited);
+      for (const cb of onUpd) cb(toMessage(updated));
     },
 
     async sendAttachment(file: File) {
       const media = new CometChat.MediaMessage(guid, file, CometChat.MESSAGE_TYPE.IMAGE, CometChat.RECEIVER_TYPE.GROUP);
       const sent = await CometChat.sendMediaMessage(media);
+      echo(sent);
       return { messageId: String(sent.getId()) };
     },
 

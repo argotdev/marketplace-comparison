@@ -6,7 +6,7 @@
     "kitOrderCardRenderer": 16
   },
   "cometchat": {
-    "adapter": 199,
+    "adapter": 207,
     "serverVendor": 116,
     "kitView": 62,
     "kitOrderCardRenderer": 16
@@ -27,30 +27,30 @@
   "rocketchat": {
     "adapter": 269,
     "serverVendor": 147,
-    "kitView": 24,
+    "kitView": 30,
     "kitOrderCardRenderer": 0
   },
   "sendbird": {
-    "adapter": 219,
+    "adapter": 233,
     "serverVendor": 156,
     "kitView": 52,
     "kitOrderCardRenderer": 16
   },
   "stream": {
-    "adapter": 178,
+    "adapter": 179,
     "serverVendor": 168,
     "kitView": 113,
     "kitOrderCardRenderer": 16
   },
   "talkjs": {
-    "adapter": 196,
+    "adapter": 198,
     "serverVendor": 76,
     "kitView": 45,
     "kitOrderCardRenderer": 16
   },
   "twilio": {
     "adapter": 202,
-    "serverVendor": 136,
+    "serverVendor": 135,
     "kitView": 16,
     "kitOrderCardRenderer": 0
   }

@@ -76,6 +76,12 @@ export function createAdapter(user: AppUser): ChatAdapter {
     return channel;
   }
 
+  /** Sendbird does not deliver a sender's own message through onMessageReceived; surface the send result ourselves. */
+  function echo(m: BaseMessage): void {
+    const msg = toMessage(m);
+    for (const cb of onMsg) cb(msg);
+  }
+
   function info(ch: GroupChannel): ChannelInfo {
     return { id: ch.url, memberIds: ch.members.map((m) => m.userId), data: parseData(ch.data) };
   }
@@ -133,16 +139,24 @@ export function createAdapter(user: AppUser): ChatAdapter {
       const url = channelIdForOrder(o.id);
       try {
         channel = await sb!.groupChannel.getChannel(url);
-      } catch {
-        // Not found: create it with a deterministic URL, the order metadata and exactly two members.
-        channel = await sb!.groupChannel.createChannel({
-          channelUrl: url,
-          name: `Order ${o.id}`,
-          customType: 'order',
-          isDistinct: false,
-          invitedUserIds: [o.buyerId, o.sellerId],
-          data: JSON.stringify({ orderId: o.id, listingId: o.listingId }),
-        });
+      } catch (e) {
+        // Not found (or not visible to this user yet): create it with a deterministic URL, the order metadata
+        // and exactly two members. If another client created it in the meantime, Sendbird answers
+        // "channel_url violates unique constraint"; then just fetch it.
+        try {
+          channel = await sb!.groupChannel.createChannel({
+            channelUrl: url,
+            name: `Order ${o.id}`,
+            customType: 'order',
+            isDistinct: false,
+            invitedUserIds: [o.buyerId, o.sellerId],
+            data: JSON.stringify({ orderId: o.id, listingId: o.listingId }),
+          });
+        } catch (e2) {
+          if (!/unique constraint/i.test(String((e2 as Error).message))) throw e2;
+          console.warn('[sendbird] getChannel failed before create:', (e as Error).message);
+          channel = await sb!.groupChannel.getChannel(url);
+        }
       }
       return info(channel);
     },
@@ -167,6 +181,7 @@ export function createAdapter(user: AppUser): ChatAdapter {
           .onSucceeded((m) => resolve(m as UserMessage))
           .onFailed((err) => reject(err));
       });
+      echo(sent);
       return { messageId: String(sent.messageId), blocked: /\*{3,}/.test(sent.message) };
     },
 
@@ -183,12 +198,14 @@ export function createAdapter(user: AppUser): ChatAdapter {
           .onSucceeded((m) => resolve(m as UserMessage))
           .onFailed((err) => reject(err));
       });
+      echo(message);
       return { messageId: String(message.messageId) };
     },
     // snippet:end
 
     async updateOrderCard(messageId: string, card: OrderCard) {
-      await requireChannel().updateUserMessage(Number(messageId), { data: JSON.stringify(card) });
+      const updated = await requireChannel().updateUserMessage(Number(messageId), { data: JSON.stringify(card) });
+      for (const cb of onUpd) cb(toMessage(updated));
     },
 
     async sendAttachment(file: File) {
@@ -198,6 +215,7 @@ export function createAdapter(user: AppUser): ChatAdapter {
           .onSucceeded((m) => resolve(m as FileMessage))
           .onFailed((err) => reject(err));
       });
+      echo(sent);
       return { messageId: String(sent.messageId) };
     },
 

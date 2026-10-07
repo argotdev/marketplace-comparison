@@ -1,6 +1,6 @@
 # Stream
 
-Status: **written, not run**. No `STREAM_API_KEY` / `STREAM_API_SECRET` in `.env` as of 2026-10-06. Adapter, server half, kit view and Feeds component type-check against the pinned SDKs. Research notes with every URL: `docs/research/stream.md`.
+Status: **run** on 2026-10-07 against a Stream app (Build plan). Checks: all seven pass, including auto-translation (the Build app accepted `auto_translation_enabled`) and moderation (4/4 blocked, 0 false positives). Results in `results/checks/stream.json`. Research notes with every URL: `docs/research/stream.md`.
 
 ## Versions
 

@@ -35,7 +35,9 @@ export function createAdapter(user: AppUser): ChatAdapter {
   let order: Order | null = null;
   let msgSub: MessageSubscription | null = null;
   const subs: { unsubscribe(): void }[] = [];
-  const seen = new Map<string, number | null>(); // id -> editedAt
+  // id -> change key. TalkJS leaves editedAt null when only custom data is edited over REST, so include custom in the key.
+  const seen = new Map<string, string>();
+  const changeKey = (m: MessageSnapshot) => `${m.editedAt ?? ''}|${JSON.stringify(m.custom)}`;
   const translated = new Map<string, string>();
   const typingNow = new Set<string>();
   let everyoneReadUntil = 0;
@@ -116,12 +118,13 @@ export function createAdapter(user: AppUser): ChatAdapter {
       msgSub = c.subscribeMessages((snapshot) => {
         for (const m of snapshot ?? []) {
           const prev = seen.get(m.id);
+          const key = changeKey(m);
           if (prev === undefined) {
-            seen.set(m.id, m.editedAt);
+            seen.set(m.id, key);
             for (const cb of onMsg) cb(toMessage(m));
             void nativeTranslate(m);
-          } else if (prev !== m.editedAt) {
-            seen.set(m.id, m.editedAt);
+          } else if (prev !== key) {
+            seen.set(m.id, key);
             for (const cb of onUpd) cb(toMessage(m));
           }
         }

@@ -1,0 +1,255 @@
+{
+  "platform": "sendbird",
+  "startedAt": "2026-10-07T15:12:03.358Z",
+  "orderId": "ord_muy8xb50",
+  "results": [
+    {
+      "req": 1,
+      "title": "1. 1:1 buyer/seller channel tied to the order",
+      "outcome": "pass",
+      "note": "channel order-ord_muy8xb50; members buyer_ana,seller_ben; data keys orderId,listingId",
+      "durationMs": 1250,
+      "details": {
+        "id": "order-ord_muy8xb50",
+        "memberIds": [
+          "buyer_ana",
+          "seller_ben"
+        ],
+        "data": {
+          "orderId": "ord_muy8xb50",
+          "listingId": "lst_bike_54"
+        }
+      },
+      "at": "2026-10-07T15:12:03.358Z"
+    },
+    {
+      "req": 2,
+      "title": "2. Order card as a custom message with live status",
+      "outcome": "pass",
+      "note": "card sent as structured data; status placed->shipped propagated to both users in 185 ms by editing the same message",
+      "durationMs": 2098,
+      "details": {
+        "messageId": "10555215327",
+        "propagationMs": 185
+      },
+      "at": "2026-10-07T15:12:05.521Z"
+    },
+    {
+      "req": 3,
+      "title": "3. Moderation: contact info and off-platform payment blocked; user report reaches a queue",
+      "outcome": "pass",
+      "note": "4/4 blocked or masked, 0 false positive(s) of 2; report reached our webhook receiver",
+      "durationMs": 3367,
+      "details": {
+        "outcomes": [
+          {
+            "text": "Call me at 415-555-0134",
+            "expect": "block",
+            "result": "masked",
+            "sellerSaw": "Call me at ************"
+          },
+          {
+            "text": "Email me at ben@example.com and we'll sort it out",
+            "expect": "block",
+            "result": "masked",
+            "sellerSaw": "Email me at *************** and we'll sort it out"
+          },
+          {
+            "text": "Pay me on Venmo instead, it's cheaper",
+            "expect": "block",
+            "result": "masked",
+            "sellerSaw": "Pay me on ***** instead, it's cheaper"
+          },
+          {
+            "text": "Let's move this to WhatsApp, +44 7700 900123",
+            "expect": "block",
+            "result": "masked",
+            "sellerSaw": "Let's move this to ********, +******* 900123"
+          },
+          {
+            "text": "Is the 54cm frame still available?",
+            "expect": "pass",
+            "result": "delivered",
+            "sellerSaw": "Is the 54cm frame still available?"
+          },
+          {
+            "text": "Order 4155550134 arrived this morning, thanks",
+            "expect": "pass",
+            "result": "delivered",
+            "sellerSaw": "Order 4155550134 arrived this morning, thanks"
+          }
+        ],
+        "misses": 0,
+        "falsePositives": 0,
+        "report": {
+          "local": 1,
+          "remote": 0
+        }
+      },
+      "at": "2026-10-07T15:12:08.983Z"
+    },
+    {
+      "req": 4,
+      "title": "4. Email fallback when the seller is offline (push: see note)",
+      "outcome": "pass",
+      "note": "email to seller arrived in Mailpit (built-webhook; sent 6 s after the seller disconnected); browser push not evaluated (out of scope; see vendor doc)",
+      "durationMs": 8530,
+      "details": {
+        "subject": "[sendbird] New message from Ana",
+        "to": [
+          {
+            "Name": "Ben",
+            "Address": "ben@example.test"
+          }
+        ],
+        "created": "2026-10-07T15:12:17.451Z",
+        "push": "browser push not evaluated (out of scope; see vendor doc)",
+        "settleMs": 6000
+      },
+      "at": "2026-10-07T15:12:17.568Z"
+    },
+    {
+      "req": 5,
+      "title": "5. Auto-translation es<->en",
+      "outcome": "fail",
+      "note": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed",
+      "durationMs": 21961,
+      "at": "2026-10-07T15:12:39.604Z"
+    },
+    {
+      "req": 6,
+      "title": "6. Escalation: \"Get help\" adds agent_sam who can read earlier messages",
+      "outcome": "pass",
+      "note": "agent added to the same channel (members agent_sam,buyer_ana,seller_ben); agent reads 11 earlier message(s)",
+      "durationMs": 2327,
+      "details": {
+        "members": [
+          "agent_sam",
+          "buyer_ana",
+          "seller_ben"
+        ],
+        "agentSees": 11
+      },
+      "at": "2026-10-07T15:12:42.848Z"
+    },
+    {
+      "req": 7,
+      "title": "7. Read receipts, typing indicators, image attachment",
+      "outcome": "pass",
+      "note": "typing, readReceipt, attachment delivered buyer<->seller",
+      "durationMs": 4195,
+      "details": {
+        "typing": {
+          "ok": true
+        },
+        "readReceipt": {
+          "ok": true,
+          "extra": {
+            "readsOnArrival": [
+              {
+                "userId": "seller_ben",
+                "at": 1791385965293
+              }
+            ],
+            "statusLine": " Read by Ben",
+            "messages": [
+              {
+                "id": "10555215327",
+                "senderId": "buyer_ana",
+                "createdAt": 1791385925078,
+                "kind": "order_card"
+              },
+              {
+                "id": "10555215439",
+                "senderId": "buyer_ana",
+                "createdAt": 1791385927142,
+                "kind": "text"
+              },
+              {
+                "id": "10555215450",
+                "senderId": "buyer_ana",
+                "createdAt": 1791385927279,
+                "kind": "text"
+              },
+              {
+                "id": "10555215459",
+                "senderId": "buyer_ana",
+                "createdAt": 1791385927422,
+                "kind": "text"
+              },
+              {
+                "id": "10555215470",
+                "senderId": "buyer_ana",
+                "createdAt": 1791385927601,
+                "kind": "text"
+              },
+              {
+                "id": "10555215472",
+                "senderId": "buyer_ana",
+                "createdAt": 1791385927728,
+                "kind": "text"
+              },
+              {
+                "id": "10555215479",
+                "senderId": "buyer_ana",
+                "createdAt": 1791385927872,
+                "kind": "text"
+              },
+              {
+                "id": "10555215930",
+                "senderId": "buyer_ana",
+                "createdAt": 1791385936802,
+                "kind": "text"
+              },
+              {
+                "id": "10555216059",
+                "senderId": "buyer_ana",
+                "createdAt": 1791385939360,
+                "kind": "text"
+              },
+              {
+                "id": "10555217159",
+                "senderId": "buyer_ana",
+                "createdAt": 1791385961260,
+                "kind": "text"
+              },
+              {
+                "id": "10555217166",
+                "senderId": "buyer_ana",
+                "createdAt": 1791385961444,
+                "kind": "text"
+              },
+              {
+                "id": "10555217309",
+                "senderId": "buyer_ana",
+                "createdAt": 1791385964575,
+                "kind": "text"
+              }
+            ],
+            "after": {
+              "reads": [
+                {
+                  "userId": "seller_ben",
+                  "at": 1791385965293
+                }
+              ],
+              "lastMine": {
+                "id": "10555217309",
+                "createdAt": 1791385964575
+              },
+              "statusLine": " Read by Ben"
+            }
+          }
+        },
+        "attachment": {
+          "ok": true,
+          "extra": {
+            "attachmentHost": "file-us-3.sendbird.com",
+            "dataUrl": false
+          }
+        }
+      },
+      "at": "2026-10-07T15:12:47.131Z"
+    }
+  ]
+}

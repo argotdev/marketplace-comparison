@@ -185,6 +185,8 @@ export function createAdapter(user: AppUser): ChatAdapter {
       await requireChannel().addMembers(['agent_sam'], { text: 'Support agent Sam joined the conversation.' });
     },
 
+    debug: () => ({ client, channel }),
+
     async disconnect() {
       for (const s of subs.splice(0)) s.unsubscribe();
       await client?.disconnectUser();

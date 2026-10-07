@@ -46,5 +46,5 @@ Apple M4 Pro, 48 GB, macOS 27.0.1, Node 24.16.0, Chromium as installed by Playwr
 ## Known limits
 
 - No benchmark numbers exist; see above.
-- The requirement checks ran only where keys existed: the native build and self-hosted Rocket.Chat as of 2026-10-06. The matrix marks everything else `not run`.
+- The requirement checks ran where keys existed: native and self-hosted Rocket.Chat (2026-10-06), Sendbird, Stream and TalkJS (2026-10-07, through an ngrok tunnel for webhooks). CometChat, Twilio, PubNub and Ably are `not run` until their keys arrive. Dashboard-only settings (TalkJS contact masking and webhooks, CometChat moderation rules) are the author's to configure; a check that depends on one records the failure as it stands.
 - No load testing of any kind. The largest thing the checks send is six fixture messages in a row.

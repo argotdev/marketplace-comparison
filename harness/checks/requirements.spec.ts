@@ -173,6 +173,7 @@ test('4. Email fallback when the seller is offline (push: see note)', async ({ b
   // Browser push is out of scope by decision (2026-10-07); the vendor doc records what each platform offers.
   const push = 'browser push not evaluated (out of scope; see vendor doc)';
   if (facts.email === 'native-external') {
+    test.setTimeout(240_000); // the vendor groups offline email after an inactivity window; allow a long wait
     // The vendor emails from its own infrastructure (no custom SMTP), so Mailpit cannot receive it.
     // Evidence is the vendor's notification webhook reaching our server, which needs a public URL.
     const cfg = await api<{ publicUrl: string }>('/config');
@@ -297,13 +298,28 @@ test('7. Read receipts, typing indicators, image attachment', async ({ browser }
 
   try {
     await hook(buyer.page, 'sendText', `Recibo de lectura ${orderId}`);
-    await expect(seller.page.locator('[data-testid=message] [data-testid=text]').last()).toContainText('Recibo');
+    // Platforms with auto-translation show the seller an English rendering, so assert on the order id, not the words.
+    await expect(seller.page.locator('[data-testid=message] [data-testid=text]').last()).toContainText(orderId);
     await hook(seller.page, 'markAsRead');
     await buyer.page.waitForFunction(() => window.__chat!.reads.some((r) => r.userId === 'seller_ben'), null, { timeout: 15000 });
+    // Evidence captured the moment the event lands, before the UI assertion.
+    result.readReceipt.extra = await buyer.page.evaluate(() => ({
+      readsOnArrival: window.__chat!.reads,
+      statusLine: document.querySelector('[data-testid=typing]')?.textContent,
+      messages: (window.__chat!.messages as { id: string; senderId: string; createdAt: number; kind: string }[]).map((m) => ({ id: m.id, senderId: m.senderId, createdAt: m.createdAt, kind: m.kind })),
+    }));
     await expect(buyer.page.locator('[data-testid=typing]')).toContainText(/Read by Ben/, { timeout: 15000 });
     result.readReceipt.ok = true;
   } catch (e) {
     result.readReceipt.error = String((e as Error).message).split('\n')[0];
+  } finally {
+    // Raw evidence either way: the read events the buyer saw and the message they should cover.
+    const after = await buyer.page.evaluate(() => {
+      const h = window.__chat!;
+      const mine = [...(h.messages as { id: string; senderId: string; createdAt: number }[])].reverse().find((m) => m.senderId === h.userId);
+      return { reads: h.reads, lastMine: mine ? { id: mine.id, createdAt: mine.createdAt } : null, statusLine: document.querySelector('[data-testid=typing]')?.textContent };
+    });
+    result.readReceipt.extra = { ...(result.readReceipt.extra as object | undefined), after };
   }
 
   try {

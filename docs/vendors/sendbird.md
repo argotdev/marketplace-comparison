@@ -1,6 +1,6 @@
 # Sendbird
 
-Status: **written, not run**. No `SENDBIRD_APP_ID` / `SENDBIRD_API_TOKEN` in `.env` as of 2026-10-06. Adapter, server half and UIKit view type-check against the pinned SDKs; nothing below has executed against a Sendbird application. Research notes with every URL: `docs/research/sendbird.md`.
+Status: **run** on 2026-10-07 against a Sendbird application (free trial). Checks: 1, 2, 3, 4, 6, 7 pass; 5 fails because the account returns no translations (sales-enabled feature). Results in `results/checks/sendbird.json`. Research notes with every URL: `docs/research/sendbird.md`.
 
 ## Versions
 

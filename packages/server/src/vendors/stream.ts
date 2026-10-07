@@ -57,10 +57,12 @@ export const streamVendor: ServerVendor = {
       notes.push(`channel type "${CHANNEL_TYPE}" created`);
     }
     try {
-      await c.updateChannelType(CHANNEL_TYPE, {
-        grants: { channel_member: ['read-channel', 'create-message', 'update-message-owner', 'delete-message-owner', 'upload-attachment', 'send-typing-event', 'read-message-flag', 'flag-message', 'update-channel-members', 'add-links', 'send-custom-event'] },
-      });
-      notes.push('channel_member grants include update-channel-members (Get help adds the agent client-side)');
+      // Start from the default `messaging` member grants (the permission names are not documented as a list) and
+      // add update-channel-members so a member can bring the support agent in.
+      const messaging = await c.getChannelType('messaging');
+      const memberGrants = new Set([...(messaging.grants?.channel_member ?? []), 'update-channel-members']);
+      await c.updateChannelType(CHANNEL_TYPE, { grants: { ...(messaging.grants ?? {}), channel_member: [...memberGrants] } });
+      notes.push('grants = messaging defaults + update-channel-members for channel_member (Get help adds the agent client-side)');
     } catch (e) {
       notes.push(`grants not updated: ${(e as Error).message}`);
     }

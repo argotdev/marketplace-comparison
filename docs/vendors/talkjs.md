@@ -1,6 +1,6 @@
 # TalkJS
 
-Status: **written, not run**. No `TALKJS_APP_ID` / `TALKJS_SECRET_KEY` in `.env` as of 2026-10-06. Adapter, kit view and server half type-check against the pinned SDKs. Research notes with every URL: `docs/research/talkjs.md`.
+Status: **run** on 2026-10-07 against the TalkJS test app. Checks: 1, 2, 6, 7 pass; 3 fails with 0/4 blocked because contact masking is a per-role dashboard setting not yet configured on this app; 4 cannot complete until the TalkJS webhook is configured in the dashboard (TalkJS emails from its own infrastructure, so the webhook is the only evidence); 5 fails as expected (translation needs Growth). Results in `results/checks/talkjs.json`. Research notes with every URL: `docs/research/talkjs.md`.
 
 ## Versions
 

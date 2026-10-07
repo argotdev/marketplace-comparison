@@ -1,2 +1,5 @@
 platform,vendor_js_bytes,vendor_all_bytes,iframes,note
-rocketchat,2778729,8858143,1,hosts: localhost
+sendbird,0,20891,0,hosts: fonts.googleapis.com api-0b77622a-fc89-440a-a1b2-c12c53c52a7b.sendbird.com
+stream,0,1746,0,hosts: chat.stream-io-api.com
+talkjs,14693,193093,0,hosts: cdn.talkjs.com app.talkjs.com cdn.jsdelivr.net
+rocketchat,2778729,10634029,1,hosts: localhost

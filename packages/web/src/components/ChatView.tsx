@@ -25,6 +25,10 @@ interface Props {
   tokenInfo: { token: string; extra?: Record<string, string> };
 }
 
+// React StrictMode runs effects twice in development; connect must still happen once per adapter instance,
+// otherwise platforms with non-idempotent channel creation (Sendbird) see two racing creates.
+const connectOnce = new WeakMap<ChatAdapter, Promise<ChannelInfo>>();
+
 function upsert(list: ChatMessage[], m: ChatMessage): ChatMessage[] {
   const i = list.findIndex((x) => x.id === m.id);
   if (i === -1) return [...list, m];
@@ -56,6 +60,34 @@ export function ChatView({ adapter, user, order, autoConnect, tokenInfo }: Props
     });
     ready.catch(() => {});
 
+    async function doConnect(): Promise<ChannelInfo> {
+      h.state = 'connecting';
+      setState('connecting');
+      try {
+        await window.__mark?.('connect:start');
+        await adapter.connect(tokenInfo);
+        const ch = await adapter.openOrderChannel(order);
+        await window.__mark?.('connect:ready');
+        h.channel = ch;
+        setChannel(ch);
+        const history = await adapter.getMessages();
+        setMessages(history);
+        h.messages = history.slice();
+        h.state = 'ready';
+        setState('ready');
+        resolveReady(ch);
+        return ch;
+      } catch (e) {
+        const msg = (e as Error).message ?? String(e);
+        h.state = 'error';
+        h.error = msg;
+        setError(msg);
+        setState('error');
+        rejectReady(e as Error);
+        throw e;
+      }
+    }
+
     const h: ChatTestHooks = {
       platform: adapter.platform,
       userId: user.id,
@@ -68,31 +100,37 @@ export function ChatView({ adapter, user, order, autoConnect, tokenInfo }: Props
       typing: [],
       reads: [],
       async connect() {
-        h.state = 'connecting';
-        setState('connecting');
-        try {
-          await window.__mark?.('connect:start');
-          await adapter.connect(tokenInfo);
-          const ch = await adapter.openOrderChannel(order);
-          await window.__mark?.('connect:ready');
-          h.channel = ch;
-          setChannel(ch);
-          const history = await adapter.getMessages();
-          setMessages(history);
-          h.messages = history.slice();
-          h.state = 'ready';
-          setState('ready');
-          resolveReady(ch);
-          return ch;
-        } catch (e) {
-          const msg = (e as Error).message ?? String(e);
-          h.state = 'error';
-          h.error = msg;
-          setError(msg);
-          setState('error');
-          rejectReady(e as Error);
-          throw e;
+        const inflight = connectOnce.get(adapter);
+        if (inflight) {
+          // StrictMode remount: the first mount already started connecting; mirror its outcome into this hooks object.
+          h.state = 'connecting';
+          setState('connecting');
+          return inflight.then(
+            async (ch) => {
+              h.channel = ch;
+              setChannel(ch);
+              const history = await adapter.getMessages();
+              h.messages = history.slice();
+              setMessages(history);
+              h.state = 'ready';
+              setState('ready');
+              resolveReady(ch);
+              return ch;
+            },
+            (e) => {
+              h.state = 'error';
+              h.error = (e as Error).message;
+              setError(h.error);
+              setState('error');
+              rejectReady(e as Error);
+              throw e;
+            },
+          );
         }
+        const p = doConnect();
+        connectOnce.set(adapter, p);
+        p.catch(() => connectOnce.delete(adapter));
+        return p;
       },
       sendText: (t) => adapter.sendText(t),
       async sendCard(card) {
