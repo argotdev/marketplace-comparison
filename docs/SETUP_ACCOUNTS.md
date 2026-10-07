@@ -17,7 +17,6 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
 | Item | What to do | `.env` keys |
 |---|---|---|
 | Public URL for webhooks | Run `ngrok http 4000` (ngrok 3.37 is installed and configured). Paste the HTTPS URL. Every vendor's webhook URL is `<PUBLIC_URL>/api/webhooks/<platform>`. Keep the tunnel running while checks run. | `PUBLIC_URL` |
-| Firebase (optional, for push) | Only Twilio Conversations, TalkJS and CometChat support browser push through FCM. Sendbird, Stream and PubNub do not support web push at all; Ably uses browser Web Push without FCM; Rocket.Chat has no web push. If you want push exercised: Firebase console → project → Project settings → Service accounts → Generate new private key (JSON); Cloud Messaging → Web Push certificates → generate VAPID key; add a web app and copy its config. | `FIREBASE_PROJECT_ID`, `FIREBASE_SERVICE_ACCOUNT_JSON_PATH`, `FIREBASE_WEB_API_KEY`, `FIREBASE_WEB_APP_ID`, `FIREBASE_MESSAGING_SENDER_ID`, `FIREBASE_VAPID_KEY` |
 | Translation provider (optional) | For native, Twilio, PubNub, Ably and Rocket.Chat (and Sendbird/Stream if their translation is plan-gated on your account) translation is done from our server. DeepL API Free (https://www.deepl.com/pro-api, key ends in `:fx`) or Google Cloud Translation v2 key. Leave empty and translation is `not run` on those builds. | `TRANSLATION_PROVIDER=deepl` or `google`, `DEEPL_API_KEY`, `GOOGLE_TRANSLATE_API_KEY` |
 
 ## Sendbird (baseline)
@@ -31,7 +30,7 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
   4. Settings → Chat → Channels → Group channels: "Chat history" on (default) so the agent sees earlier messages.
   5. Moderation (profanity filter with regex, type **replace** or **block**) is set by our setup script through the Platform API per custom channel type `order`; nothing to click. If the API returns a plan error, note it.
   6. Translation: the docs say auto-translation needs "contact our sales team". If the dashboard shows a translation toggle under Settings → Chat, turn it on; otherwise leave it and I will try `translationTargetLanguages` on send and record the error.
-  7. Do **not** configure push: the JS Chat SDK does not support browser push.
+  7. Push: nothing to configure; browser push is out of scope for this build (and the JS Chat SDK does not support it anyway).
 - **Keys:** `SENDBIRD_APP_ID`, `SENDBIRD_API_TOKEN` (master), `SENDBIRD_REGION`, `SENDBIRD_PLAN` (e.g. `free-trial`).
 
 ## Stream
@@ -43,7 +42,7 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
   2. Moderation → Policies: check that a policy for key `chat:order` can be created and whether **Blocklist & Regex Filters**, **AI Text (Platform Circumvention)** and **Semantic Filters** are available on your plan. The setup script creates block lists (regex + email + domain) through the API; if the plan refuses semantic/AI filters it records `gated`. Note what the dashboard shows as locked.
   3. Auto-translation: the Chat pricing page puts it on Elevate+. The setup script calls `updateAppSettings({ auto_translation_enabled: true })` and records the response; if your Build app rejects it, translation falls back to our server provider and is marked `gated`.
   4. Feeds: enable the Feeds product on the same app (Build tier: 5,000 activities/month). Nothing else to click; the script creates the feed group.
-  5. Push: skip. Stream does not support web push.
+  5. Push: nothing to configure; browser push is out of scope (Stream does not support web push).
 - **Keys:** `STREAM_API_KEY`, `STREAM_API_SECRET`, `STREAM_REGION`, `STREAM_PLAN` (e.g. `build` or `maker`).
 
 ## TalkJS
@@ -67,8 +66,7 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
   2. Chat & Messaging → Features → Extensions: enable **Message Translation**.
   3. Application → Webhooks → Create: URL `<PUBLIC_URL>/api/webhooks/cometchat`, enable Basic Auth with a username/password you invent (put them in `.env`), triggers `message_sent`, `message_edited`, `moderation_engine_blocked`, `moderation_engine_approved`, `group_member_added`.
   4. Notifications → Settings → Email: enable, provider **Custom provider**, URL `<PUBLIC_URL>/api/webhooks/cometchat` (same URL as the webhook; our server branches on the payload's `trigger`), Basic Auth same credentials, wait window **1 minute** (the minimum). Our server receives the payload and sends the email to Mailpit.
-  5. Notifications → Settings → Push: only if you set up Firebase; add the FCM service-account JSON and note the **Provider ID**.
-- **Keys:** `COMETCHAT_APP_ID`, `COMETCHAT_REGION`, `COMETCHAT_AUTH_KEY`, `COMETCHAT_REST_API_KEY`, `COMETCHAT_WEBHOOK_USER`, `COMETCHAT_WEBHOOK_PASS`, `COMETCHAT_FCM_PROVIDER_ID` (optional), `COMETCHAT_PLAN=build`.
+- **Keys:** `COMETCHAT_APP_ID`, `COMETCHAT_REGION`, `COMETCHAT_AUTH_KEY`, `COMETCHAT_REST_API_KEY`, `COMETCHAT_WEBHOOK_USER`, `COMETCHAT_WEBHOOK_PASS`, `COMETCHAT_PLAN=build`.
 
 ## Twilio Conversations (classic)
 
@@ -78,15 +76,14 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
   2. Conversations (classic) → Services: use the **Default Conversations Service** or create one; copy its **SID** (`IS…`).
   3. Conversations (classic) → Global webhooks (or Service → Webhooks): **Pre-event** URL `<PUBLIC_URL>/api/webhooks/twilio` with `onMessageAdd`; **Post-event** URL `<PUBLIC_URL>/api/webhooks/twilio` (same URL; our server branches on `EventType`) with `onMessageAdded`, `onMessageUpdated`, `onParticipantAdded`. Method POST. Our setup script can set these through the API too.
   4. Reachability: set by our setup script (`ReachabilityEnabled=true` on the service configuration); nothing to click.
-  5. Push (optional, Firebase): Console → Credentials → FCM push credential; the setup script enables `NewMessage` on the service. Needs the Firebase server key or service account per the credential form.
-  6. **SMS or WhatsApp leg (costs money, your call):** either buy an SMS-capable number (**costs money**), or join the **WhatsApp sandbox** (free of rental; messages count against the 100 trial WhatsApp messages). Sandbox: Messaging → Try it out → Send a WhatsApp message; send `join <keyword>` from your phone to +1 415 523 8886; clear the sandbox "When a message comes in" URL. Put your phone number in `SELLER_PHONE`. I will not add a phone participant until you confirm.
+  5. **SMS or WhatsApp leg (costs money, your call):** either buy an SMS-capable number (**costs money**), or join the **WhatsApp sandbox** (free of rental; messages count against the 100 trial WhatsApp messages). Sandbox: Messaging → Try it out → Send a WhatsApp message; send `join <keyword>` from your phone to +1 415 523 8886; clear the sandbox "When a message comes in" URL. Put your phone number in `SELLER_PHONE`. I will not add a phone participant until you confirm.
 - **Keys:** `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_API_KEY_SID`, `TWILIO_API_KEY_SECRET`, `TWILIO_CONVERSATIONS_SERVICE_SID`, `TWILIO_SMS_FROM` (optional), `TWILIO_WHATSAPP_FROM=whatsapp:+14155238886` (optional), `SELLER_PHONE` (optional), `TWILIO_REGION=us1`, `TWILIO_PLAN=trial`.
 
 ## PubNub
 
 - **Account:** https://admin.pubnub.com/. **Free plan** (200 MAU or 1M transactions, no card, 7-day retention max, 5 Functions, Events & Actions trial with 1 listener). Covers the build except the moderation dashboard (Channel Monitor, paid) and Auto Moderation (paid, beta).
 - **Create app and keyset:** Apps & Keysets → create app → keyset (Testing). Copy **Publish key**, **Subscribe key**, **Secret key**.
-- **Keyset features to enable:** Presence; **Message Persistence** (7 days); **App Context** (pick bucket region `us-east-1`; turn on User, Channel and Membership metadata events; leave "Disallow Get All …" unticked) — if the portal offers **DataSync** instead of App Context on a new account, choose it and tell me; **File Sharing** (region, 7-day retention); **Access Manager**; **Stream Controller**; Mobile Push only with Firebase (web push is not supported anyway, so skip).
+- **Keyset features to enable:** Presence; **Message Persistence** (7 days); **App Context** (pick bucket region `us-east-1`; turn on User, Channel and Membership metadata events; leave "Disallow Get All …" unticked) — if the portal offers **DataSync** instead of App Context on a new account, choose it and tell me; **File Sharing** (region, 7-day retention); **Access Manager**; **Stream Controller**; skip Mobile Push (no browser push on PubNub, and browser push is out of scope).
 - **Functions:** Functions → create module `marketplace` → **Before Publish** function on channel pattern `order-*`. Paste the code from `packages/server/src/vendors/pubnub.function.js` once it exists (I will print it in the build log), then **Start** the module. This is the server-side moderation.
 - **Events & Actions:** create a listener on **Message sent**, JSONPath filter `$.channel` matches `order-*`, action **Webhook** to `<PUBLIC_URL>/api/webhooks/pubnub`, add a custom header `x-pubnub-secret: <any string>` and put the same string in `.env`.
 - **Keys:** `PUBNUB_PUBLISH_KEY`, `PUBNUB_SUBSCRIBE_KEY`, `PUBNUB_SECRET_KEY`, `PUBNUB_WEBHOOK_SECRET`, `PUBNUB_REGION` (bucket region), `PUBNUB_PLAN=free`.
@@ -98,7 +95,7 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
 - **Settings to turn on:**
   1. Integrations → New integration rule → **Webhook**: source `channel.message`, channel filter `.*::\$chat$`, URL `<PUBLIC_URL>/api/webhooks/ably`, enveloped, enable signing (`X-Ably-Signature`).
   2. Integrations → **Moderation** → **Custom (before publish)**: URL `<PUBLIC_URL>/api/webhooks/ably` (same URL as the webhook rule; our server recognises the moderation request shape), room filter `order-.*`, retry timeout 2000 ms, failed action **reject**.
-  3. Nothing for persistence (chat rooms persist by default) or push (Ably generates VAPID keys on first activation; our page registers a service worker).
+  3. Nothing for persistence (chat rooms persist by default). Push: out of scope (Ably's Web Push needs no Firebase; described in its vendor doc only).
 - **Keys:** `ABLY_API_KEY`, `ABLY_PLAN=free`, `ABLY_REGION=nearest-edge` (Ably routes to the nearest datacenter; region is not selectable on Free).
 
 ## Rocket.Chat (self-hosted)

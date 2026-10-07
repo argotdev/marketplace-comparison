@@ -12,3 +12,6 @@ results/video/**/*.webm.tmp
 docker/rocketchat/data/
 docker/postgres/data/
 .tmp/
+harness/bundle/.out/
+.secrets/
+*firebase-adminsdk*.json

@@ -93,7 +93,7 @@
       "req": 4,
       "title": "4. Email fallback when the seller is offline (push: see note)",
       "outcome": "pass",
-      "note": "email to seller arrived in Mailpit (native; sent 65 s after the seller disconnected); push not run: no Firebase credentials in .env",
+      "note": "email to seller arrived in Mailpit (native; sent 65 s after the seller disconnected); browser push not evaluated (out of scope; see vendor doc)",
       "durationMs": 66683,
       "details": {
         "subject": "buyer_ana has posted a message in #order-ord_mux3vvyk",
@@ -104,7 +104,7 @@
           }
         ],
         "created": "2026-10-06T20:04:19.868Z",
-        "push": "push not run: no Firebase credentials in .env",
+        "push": "browser push not evaluated (out of scope; see vendor doc)",
         "settleMs": 65000
       },
       "at": "2026-10-06T20:04:19.998Z"

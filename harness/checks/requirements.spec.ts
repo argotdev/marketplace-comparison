@@ -170,7 +170,8 @@ test('3. Moderation: contact info and off-platform payment blocked; user report 
 
 // ---------------------------------------------------------------------------
 test('4. Email fallback when the seller is offline (push: see note)', async ({ browser }) => {
-  const push = process.env.FIREBASE_SERVICE_ACCOUNT_JSON_PATH ? 'push configured via FCM (see vendor doc)' : 'push not run: no Firebase credentials in .env';
+  // Browser push is out of scope by decision (2026-10-07); the vendor doc records what each platform offers.
+  const push = 'browser push not evaluated (out of scope; see vendor doc)';
   if (facts.email === 'native-external') {
     // The vendor emails from its own infrastructure (no custom SMTP), so Mailpit cannot receive it.
     // Evidence is the vendor's notification webhook reaching our server, which needs a public URL.

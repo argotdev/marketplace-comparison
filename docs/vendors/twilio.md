@@ -20,7 +20,7 @@ Status: **written, not run**. No Twilio credentials in `.env` as of 2026-10-06. 
 - Participants (chat and SMS/WhatsApp bindings): https://www.twilio.com/docs/conversations/api/conversation-participant-resource
 - Reachability: https://www.twilio.com/docs/conversations/reachability ; read horizon: https://www.twilio.com/docs/conversations/read-horizon ; delivery receipts: https://www.twilio.com/docs/conversations/delivery-receipts
 - Media: https://www.twilio.com/docs/conversations/media-support-conversations
-- Web push: https://www.twilio.com/docs/conversations-classic/javascript/push-notifications-web
+- Web push (documented, not evaluated): https://www.twilio.com/docs/conversations-classic/javascript/push-notifications-web
 - Limits: https://www.twilio.com/docs/conversations/conversations-limits
 - WhatsApp sandbox: https://www.twilio.com/docs/conversations-classic/use-twilio-sandbox-for-whatsapp
 - Regions: https://www.twilio.com/docs/global-infrastructure/conversations-api-with-twilio-regions
@@ -41,7 +41,7 @@ No clause about benchmarking, performance testing or publishing comparative resu
 | 1 | native | Conversation per order with `uniqueName` and JSON `attributes`; participants are REST/SDK `add` calls. Similar to Sendbird's group channel with `data`. |
 | 2 | built | No custom message type at all: the card is message `attributes` (4 KB) and our UI renders it; the server edits attributes over REST and clients get `messageUpdated`. Sendbird has `customType` + `data` and a kit that renders custom types. |
 | 3 | built | No content filter, no report API. The pre-event `onMessageAdd` webhook lets our server rewrite the body (`{ body, attributes }` JSON reply) within 5 s, which is the documented mechanism; our regex mask runs there. Needs a public URL. Reports go to our queue. Sendbird: profanity filter + report API + dashboard. |
-| 4 | built (email) / native (push) | No email. Post-event `onMessageAdded` webhook plus Reachability (`User.isOnline`) decides when to mail Mailpit. Browser push via FCM is supported (not run: no Firebase credentials). |
+| 4 | built (email) / native (push, not evaluated) | No email. Post-event `onMessageAdded` webhook plus Reachability (`User.isOnline`) decides when to mail Mailpit. Browser push via FCM is supported per the docs; browser push is out of scope for this build. |
 | 5 | built | No translation; our server provider with translations in attributes. |
 | 6 | native | `conversation.add('agent_sam')` (role permitting) or REST. The Twilio-specific twist: `addPhoneParticipant` binds the seller's phone over SMS or the WhatsApp sandbox so a phone reply lands in the same conversation. It costs money (number rental, message or WhatsApp conversation fees) and is not called until you confirm. |
 | 7 | native, with caveats | Read receipts are a read horizon that the client must advance itself (`setAllMessagesRead`), surfaced to others through `participantUpdated`; delivery receipts exist only for SMS/WhatsApp legs. `typing()` is a signal with a timeout, no explicit stop. Media uploads work, but content URLs are temporary (300 s). |

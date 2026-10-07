@@ -67,8 +67,7 @@ export const twilioVendor: ServerVendor = {
         notes.push(`webhooks not set: ${(e as Error).message}`);
       }
     } else notes.push('webhooks not set: PUBLIC_URL is not https (moderation and email fallback need the pre/post-event webhooks)');
-    if (env.has('FIREBASE_SERVICE_ACCOUNT_JSON_PATH')) notes.push('Firebase credentials present: create an FCM push credential in the console and enable NewMessage on the service notifications (manual step)');
-    else notes.push('push not run: no Firebase credentials in .env');
+    notes.push('browser push not evaluated (out of scope); Twilio supports FCM web push per its docs');
     return { notes };
   },
 
