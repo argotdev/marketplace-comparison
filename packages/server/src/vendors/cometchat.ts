@@ -38,7 +38,8 @@ async function api<T = unknown>(method: string, path: string, body?: unknown, on
 
 async function ensureUser(u: AppUser): Promise<void> {
   try {
-    await api('POST', '/users', { uid: u.id, name: u.name, role: u.role, metadata: { lang: u.lang, '@private': { email: u.email } } });
+    // `role` must name a role that exists in the dashboard ("The selected role is invalid" otherwise); users get the default role.
+    await api('POST', '/users', { uid: u.id, name: u.name, metadata: { lang: u.lang, '@private': { email: u.email } } });
   } catch (e) {
     if ((e as { code?: string }).code !== 'ERR_UID_ALREADY_EXISTS') throw e;
   }
@@ -73,12 +74,14 @@ export const cometchatVendor: ServerVendor = {
   },
 
   async updateOrderCard(ref: CardMessageRef, card: OrderCard) {
-    // The documented REST schema for PUT /messages/{id} lists data.text and data.metadata; customData is unconfirmed.
-    // Send both: the adapter reads metadata.card first, then customData.card.
+    // Only group admins/moderators or the message's author may edit (403 otherwise), so act as the author.
+    // The documented REST schema for PUT /messages/{id} lists data.text and data.metadata; customData is sent too,
+    // and the adapter reads metadata.card first, then customData.card.
+    const author = ref.extra?.senderId ?? 'buyer_ana';
     try {
-      await api('PUT', `/messages/${encodeURIComponent(ref.messageId)}`, { data: { customData: { card }, metadata: { card } } }, 'seller_ben');
+      await api('PUT', `/messages/${encodeURIComponent(ref.messageId)}`, { data: { customData: { card }, metadata: { card } } }, author);
     } catch (e) {
-      if ((e as { status?: number }).status === 400) await api('PUT', `/messages/${encodeURIComponent(ref.messageId)}`, { data: { metadata: { card } } }, 'seller_ben');
+      if ((e as { status?: number }).status === 400) await api('PUT', `/messages/${encodeURIComponent(ref.messageId)}`, { data: { metadata: { card } } }, author);
       else throw e;
     }
   },

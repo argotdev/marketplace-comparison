@@ -7,11 +7,11 @@
     },
     "2": {
       "status": "native",
-      "note": "CustomMessage type order_card with customData {card}; client editMessage(CustomMessage.setId) or server PUT /messages/{id}; onMessageEdited on the other side. REST customData edits unconfirmed: server sends metadata too and the adapter reads either"
+      "note": "CustomMessage type order_card with customData {card}; the order service edits over REST as the message author (PUT /messages/{id} with customData + metadata both persist; non-authors get 403 unless admin/moderator); onMessageEdited on the other side"
     },
     "3": {
       "status": "native",
-      "note": "rule-based moderation in the dashboard (Contact Details Removal, Email Detection, custom regex list), action Block, all plans; getModerationStatus/onMessageModerated. Custom messages bypass moderation. Report: flagMessage on the target's latest message (modern) + our queue; report-user is a legacy extension only"
+      "note": "rule-based moderation (Contact Details Removal, Email Detection, custom regex list; action Block) is a dashboard setting not yet configured on this app: 0/4 blocked at run time. Custom messages bypass moderation. Report: flagMessage on the target's latest message (modern API) mirrored to our queue; report-user is a legacy extension only"
     },
     "4": {
       "status": "native",
@@ -19,7 +19,7 @@
     },
     "5": {
       "status": "native",
-      "note": "Message Translation extension (Build plan): sender-side callExtension v2/translate, stored in metadata['message-translation'] per the docs pattern; reader picks language. Falls back to our provider if the extension is off"
+      "note": "Message Translation extension on the Build plan: sender-side callExtension v2/translate stored in metadata['message-translation']; es->en and en->es verified"
     },
     "6": {
       "status": "native",

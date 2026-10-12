@@ -1,6 +1,6 @@
 # CometChat
 
-Status: **written, not run**. No `COMETCHAT_APP_ID` / `COMETCHAT_REGION` / `COMETCHAT_AUTH_KEY` / `COMETCHAT_REST_API_KEY` in `.env` as of 2026-10-06. Adapter, UI Kit plugin view and REST server half type-check against the pinned packages. Research notes with every URL: `docs/research/cometchat.md`.
+Status: **run** on 2026-10-12 against a CometChat app (Build plan, region us). Checks: 1, 2, 5, 6, 7 pass (translation through the Message Translation extension works on Build); 3 fails with 0/4 blocked because the moderation rules are dashboard settings not yet enabled on this app. Results in `results/checks/cometchat.json`. Research notes with every URL: `docs/research/cometchat.md`.
 
 ## Versions
 
@@ -61,3 +61,5 @@ No WebSocket send limit is documented; REST is 20,000 standard operations per mi
 - Webhooks are protected by Basic Auth only (no signature header).
 - The UI Kit pins `dompurify` to an exact 3.3.1, which `npm audit` flags as moderate; the kit's own peer dependency on the calls SDK must be installed even when calls are unused.
 - There is no Node SDK at all.
+- `POST /users` rejects a `role` that does not exist in the dashboard ("The selected role is invalid"); roles are not free-form strings.
+- `PUT /messages/{id}` is allowed for the author, group admins and moderators only; any other member gets 403. Editing as the author persists both `customData` and `metadata` (the docs list only text/metadata).
