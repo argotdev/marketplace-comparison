@@ -47,9 +47,11 @@ export const talkjsVendor: ServerVendor = {
   async setup() {
     const notes: string[] = [];
     for (const u of Object.values(USERS)) {
-      await api('PUT', `/users/${encodeURIComponent(u.id)}`, { name: u.name, email: [u.email], role: u.role, locale: u.lang, custom: { lang: u.lang } });
+      // Masking and other chat-UI settings are configured per role in the dashboard; this app only has `default`,
+      // so users get that role (a role name that does not exist in the dashboard gets no settings at all).
+      await api('PUT', `/users/${encodeURIComponent(u.id)}`, { name: u.name, email: [u.email], role: 'default', locale: u.lang, custom: { lang: u.lang, marketplaceRole: u.role } });
     }
-    notes.push('users upserted with roles buyer/seller/support (contact masking is configured per role in the dashboard)');
+    notes.push('users upserted on the default role (contact masking is configured per role in the dashboard; this app only has default)');
     notes.push('webhooks are configured in the dashboard (Settings → Webhooks); REST cannot create them');
     notes.push(env.PUBLIC_URL.startsWith('https://') ? `webhook URL to paste: ${env.PUBLIC_URL}/api/webhooks/talkjs` : 'PUBLIC_URL is not https: TalkJS notification webhooks cannot reach this machine');
     return { notes };

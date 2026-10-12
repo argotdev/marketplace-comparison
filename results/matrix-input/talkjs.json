@@ -10,8 +10,8 @@
       "note": "send({ text, custom: { type: 'order_card', card: JSON } }); order service edits with PUT /conversations/{id}/messages/{mid} { custom }; subscribeMessages snapshot diff (editedAt) surfaces the update"
     },
     "3": {
-      "status": "native (filter) / unavailable (report)",
-      "note": "contact masking is a per-role dashboard setting (phone, email, custom regex; all plans) and was not yet configured on this app at run time: 0/4 blocked. No report API or moderation queue"
+      "status": "native (kit UI only) / unavailable (headless, report)",
+      "note": "contact masking (links, phone, email, custom regex; all plans) is applied when TalkJS's own UI renders a message: the Components kit shows '(hidden information)' for the phone, the email and the custom-pattern words (results/screenshots/talkjs-kit-masking.png). The headless Data API (@talkjs/core), which our plain UI uses, delivers the raw text, so the check over the adapter records 0/4. No report API or moderation queue"
     },
     "4": {
       "status": "native",

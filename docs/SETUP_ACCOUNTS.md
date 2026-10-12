@@ -51,7 +51,7 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
 - **Settings to turn on:**
   1. Settings: copy **App ID** (test) and a **Secret key** (`sk_test_…`); mark that key "use for webhooks".
   2. Security: enable **Authentication required** (we issue JWTs).
-  3. Chat UI → Roles: create roles `buyer`, `seller`, `support`. For `buyer` and `seller`, open **Mask unwanted content** and tick phone numbers and email addresses, suppression **Global**; add a custom suppression pattern for the words `venmo`, `paypal`, `zelle`, `cash app`, `whatsapp`, `telegram` (one regex: `\b(venmo|paypal|zelle|cash\s?app|whatsapp|telegram)\b`, case-insensitive). Enable file sharing and typing indicator for all roles.
+  3. Chat UI → Roles → `default` (the only role on a new app; our users use it): open **Mask unwanted content**, tick links, phone numbers and email addresses with suppression **Global**, and add one custom suppression pattern as a JavaScript RegExp literal: `/\b(venmo|paypal|zelle|cash\s?app|whatsapp|telegram)\b/i`. File sharing and typing indicator are on by default.
   4. Settings → Webhooks: URL `<PUBLIC_URL>/api/webhooks/talkjs`, events `message.sent`, `message.updated`, `notification.triggered`, `notification.sent`, `notification.delivered`.
   6. Settings → Localization: paste a Google Cloud Translation API key **only if** the plan allows translation (Growth). Otherwise skip and translation is `gated`.
 - **Keys:** `TALKJS_APP_ID`, `TALKJS_SECRET_KEY`, `TALKJS_PLAN` (e.g. `test-mode`), `TALKJS_REGION=eu` (TalkJS hosts only in the EU).

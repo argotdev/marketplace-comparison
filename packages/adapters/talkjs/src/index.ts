@@ -103,7 +103,7 @@ export function createAdapter(user: AppUser): ChatAdapter {
       const appId = opts.extra?.appId;
       if (!appId) throw new Error('talkjs: appId missing from token response');
       session = getTalkSession({ appId, userId: user.id, token: opts.token, tokenFetcher: () => serverApi.token('talkjs', user.id).then((t) => t.token) });
-      await session.currentUser.createIfNotExists({ name: user.name, role: user.role, locale: user.lang, custom: { lang: user.lang } });
+      await session.currentUser.createIfNotExists({ name: user.name, locale: user.lang, custom: { lang: user.lang, marketplaceRole: user.role } });
     },
 
     async openOrderChannel(o: Order) {
