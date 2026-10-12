@@ -154,7 +154,8 @@ services:
       OVERWRITE_SETTING_API_CORS_Origin: "http://localhost:5173"
       OVERWRITE_SETTING_Statistics_reporting: "false"
     healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://localhost:3000/api/info >/dev/null || exit 1"]
+      # The image has no curl; use node for the health probe.
+      test: ["CMD-SHELL", "node -e \"fetch('http://localhost:3000/api/info').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\""]
       interval: 15s
       timeout: 5s
       retries: 40

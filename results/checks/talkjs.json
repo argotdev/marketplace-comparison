@@ -1,45 +1,45 @@
 {
   "platform": "talkjs",
-  "startedAt": "2026-10-12T18:01:29.500Z",
-  "orderId": "ord_mv5k6f4g",
+  "startedAt": "2026-10-12T18:03:45.041Z",
+  "orderId": "ord_mv5k9chb",
   "results": [
     {
       "req": 1,
       "title": "1. 1:1 buyer/seller channel tied to the order",
       "outcome": "pass",
-      "note": "channel order-ord_mv5k6f4g; members seller_ben,buyer_ana; data keys orderId,listingId",
-      "durationMs": 2424,
+      "note": "channel order-ord_mv5k9chb; members seller_ben,buyer_ana; data keys orderId,listingId",
+      "durationMs": 1873,
       "details": {
-        "id": "order-ord_mv5k6f4g",
+        "id": "order-ord_mv5k9chb",
         "memberIds": [
           "seller_ben",
           "buyer_ana"
         ],
         "data": {
-          "orderId": "ord_mv5k6f4g",
+          "orderId": "ord_mv5k9chb",
           "listingId": "lst_bike_54"
         }
       },
-      "at": "2026-10-12T18:01:29.500Z"
+      "at": "2026-10-12T18:03:45.041Z"
     },
     {
       "req": 2,
       "title": "2. Order card as a custom message with live status",
       "outcome": "pass",
-      "note": "card sent as structured data; status placed->shipped propagated to both users in 802 ms by editing the same message",
-      "durationMs": 5605,
+      "note": "card sent as structured data; status placed->shipped propagated to both users in 792 ms by editing the same message",
+      "durationMs": 4729,
       "details": {
-        "messageId": "msg_0UNnikpToGVraUof2nTtIG",
-        "propagationMs": 802
+        "messageId": "msg_1sYnaOetd984gzj4RrR5Vb",
+        "propagationMs": 792
       },
-      "at": "2026-10-12T18:01:35.190Z"
+      "at": "2026-10-12T18:03:49.859Z"
     },
     {
       "req": 3,
       "title": "3. Moderation: contact info and off-platform payment blocked; user report reaches a queue",
       "outcome": "fail",
       "note": "0/4 blocked or masked, 0 false positive(s) of 2; report reached our moderation queue | Error: missed: Call me at 415-555-0134 / Email me at ben@example.com and we'll sort it out / Pay me on Venmo instead, it's cheaper / Let's move this to WhatsApp, +44 7700 900123",
-      "durationMs": 5713,
+      "durationMs": 5336,
       "details": {
         "outcomes": [
           {
@@ -86,22 +86,22 @@
           "remote": 1
         }
       },
-      "at": "2026-10-12T18:01:41.009Z"
+      "at": "2026-10-12T18:03:55.302Z"
     },
     {
       "req": 5,
       "title": "5. Auto-translation es<->en",
       "outcome": "fail",
       "note": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed",
-      "durationMs": 24752,
-      "at": "2026-10-12T18:02:07.483Z"
+      "durationMs": 24027,
+      "at": "2026-10-12T18:04:20.860Z"
     },
     {
       "req": 6,
       "title": "6. Escalation: \"Get help\" adds agent_sam who can read earlier messages",
       "outcome": "pass",
       "note": "agent added to the same channel (members agent_sam,seller_ben,buyer_ana); agent reads 10 earlier message(s)",
-      "durationMs": 4388,
+      "durationMs": 4652,
       "details": {
         "members": [
           "agent_sam",
@@ -110,14 +110,14 @@
         ],
         "agentSees": 10
       },
-      "at": "2026-10-12T18:02:13.339Z"
+      "at": "2026-10-12T18:04:26.996Z"
     },
     {
       "req": 7,
       "title": "7. Read receipts, typing indicators, image attachment",
       "outcome": "fail",
       "note": "typing, attachment delivered buyer<->seller; failed: readReceipt (\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed) | Error: failed: readReceipt",
-      "durationMs": 20780,
+      "durationMs": 20973,
       "details": {
         "typing": {
           "ok": true
@@ -128,79 +128,79 @@
             "readsOnArrival": [
               {
                 "userId": "seller_ben",
-                "at": 1791828088730
+                "at": 1791828224418
               },
               {
                 "userId": "seller_ben",
-                "at": 1791828131193
+                "at": 1791828264855
               }
             ],
             "statusLine": "Ben is typing…",
             "messages": [
               {
-                "id": "msg_0UNnikpToGVraUof2nTtIG",
+                "id": "msg_1sYnaOetd984gzj4RrR5Vb",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828094112,
+                "createdAt": 1791828228735,
                 "kind": "order_card"
               },
               {
-                "id": "msg_6Y604mcpFmlz8L0ME3avSW",
+                "id": "msg_0ePFtcVtJrDSIAqzi2FRW1",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828099884,
+                "createdAt": 1791828233586,
                 "kind": "text"
               },
               {
-                "id": "msg_46212828KrhzL6C8R1dv0q",
+                "id": "msg_35x67QvtCRJ5sJuQKBbELd",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828100101,
+                "createdAt": 1791828233869,
                 "kind": "text"
               },
               {
-                "id": "msg_41rnxdr3ChoDX6Akrq81d1",
+                "id": "msg_44VJ4lSwl3XKZno0s7Fx9t",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828100287,
+                "createdAt": 1791828234142,
                 "kind": "text"
               },
               {
-                "id": "msg_4NUUXt7JPL5GPJktEQDonT",
+                "id": "msg_7Fo631W6zNmN7d0m1LkouX",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828100437,
+                "createdAt": 1791828234423,
                 "kind": "text"
               },
               {
-                "id": "msg_3C952HprJbwJObK2uxe8OV",
+                "id": "msg_4lHR9LqagyZkHRgHeYdHXj",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828100615,
+                "createdAt": 1791828234707,
                 "kind": "text"
               },
               {
-                "id": "msg_4IlgsbDMLkX6rSbeuTSWHe",
+                "id": "msg_0K9TNDmqyRR3rG6hKeC3bv",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828100815,
+                "createdAt": 1791828234986,
                 "kind": "text"
               },
               {
-                "id": "msg_4QqmEsblCO0hxjKM7j1tUL",
+                "id": "msg_3twPffPxRuDxWTvRJ1zuF1",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828107216,
+                "createdAt": 1791828240547,
                 "kind": "text"
               },
               {
-                "id": "msg_6aEtMX9W2ICeP4CfVIB3Uh",
+                "id": "msg_73yZqCjD9K7nhTBb0w3CoP",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828130877,
+                "createdAt": 1791828264296,
                 "kind": "text"
               },
               {
-                "id": "msg_0wh5j890uCTHTtxob4VCGQ",
+                "id": "msg_1O13xKYrhgpxzNiT7YmLuW",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828131047,
+                "createdAt": 1791828264567,
                 "kind": "text"
               },
               {
-                "id": "msg_2MB9BSzH3e2c55OjzGOca2",
+                "id": "msg_6vyDMdBIbyJ1gVw8Wwtobf",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828137416,
+                "createdAt": 1791828270987,
                 "kind": "text"
               }
             ],
@@ -208,16 +208,16 @@
               "reads": [
                 {
                   "userId": "seller_ben",
-                  "at": 1791828088730
+                  "at": 1791828224418
                 },
                 {
                   "userId": "seller_ben",
-                  "at": 1791828131193
+                  "at": 1791828264855
                 }
               ],
               "lastMine": {
-                "id": "msg_2MB9BSzH3e2c55OjzGOca2",
-                "createdAt": 1791828137416
+                "id": "msg_6vyDMdBIbyJ1gVw8Wwtobf",
+                "createdAt": 1791828270987
               },
               "statusLine": ""
             }
@@ -232,7 +232,7 @@
           }
         }
       },
-      "at": "2026-10-12T18:02:34.220Z"
+      "at": "2026-10-12T18:04:48.074Z"
     }
   ]
 }

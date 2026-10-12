@@ -29,7 +29,7 @@
     },
     "7": {
       "status": "native",
-      "note": "markAsRead + conversation.everyoneReadUntil as the receipt; markAsTyping (no explicit stop) + subscribeTyping; uploadImage -> send({ content: [{ type: 'file', fileToken }] })"
+      "note": "typing (markAsTyping + subscribeTyping) and image upload pass. Read receipts come from the conversation snapshot's everyoneReadUntil (no per-user read event in the Data API): passed in every isolated run but in 2 of 3 full-suite runs the snapshot did not advance within 15 s after the seller read, so the check records a failure; the Components UI shows its own read ticks"
     }
   }
 }

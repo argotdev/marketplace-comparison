@@ -163,6 +163,9 @@ export function createAdapter(user: AppUser): ChatAdapter {
         /* no provider */
       }
       const ref = await c.send({ text, custom });
+      // everyoneReadUntil is the minimum over all participants, including us; mark our own send as read so that,
+      // in a 1:1, the snapshot tracks the other side's read position (what the TalkJS UI does for an open chatbox).
+      await c.markAsRead().catch(() => {});
       return { messageId: ref.id };
     },
 
@@ -174,6 +177,7 @@ export function createAdapter(user: AppUser): ChatAdapter {
         text: `Order ${card.orderId}: ${card.listingTitle}`,
         custom: { type: 'order_card', card: JSON.stringify(card) },
       });
+      await conversation.markAsRead().catch(() => {});
       return { messageId: message.id };
     },
     // snippet:end
@@ -185,6 +189,7 @@ export function createAdapter(user: AppUser): ChatAdapter {
     async sendAttachment(file: File) {
       const token = await session!.uploadImage(file, { filename: file.name });
       const ref = await requireConv().send({ content: [{ type: 'file', fileToken: token }] });
+      await requireConv().markAsRead().catch(() => {});
       return { messageId: ref.id };
     },
 

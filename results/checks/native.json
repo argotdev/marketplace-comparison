@@ -1,31 +1,31 @@
 {
   "platform": "native",
-  "startedAt": "2026-10-12T17:58:55.615Z",
-  "orderId": "ord_mv5k2z6o",
+  "startedAt": "2026-10-12T18:03:38.086Z",
+  "orderId": "ord_mv5k91dh",
   "results": [
     {
       "req": 1,
       "title": "1. 1:1 buyer/seller channel tied to the order",
       "outcome": "fail",
       "note": "Error: adapter error: native: timeout waiting for authed",
-      "durationMs": 10431,
-      "at": "2026-10-12T17:58:55.615Z"
+      "durationMs": 10243,
+      "at": "2026-10-12T18:03:38.086Z"
     },
     {
       "req": 2,
       "title": "2. Order card as a custom message with live status",
       "outcome": "fail",
       "note": "Error: adapter error: native: timeout waiting for authed",
-      "durationMs": 10234,
-      "at": "2026-10-12T17:59:06.189Z"
+      "durationMs": 10219,
+      "at": "2026-10-12T18:03:48.605Z"
     },
     {
       "req": 3,
       "title": "3. Moderation: contact info and off-platform payment blocked; user report reaches a queue",
       "outcome": "fail",
       "note": "Error: adapter error: native: timeout waiting for authed",
-      "durationMs": 10243,
-      "at": "2026-10-12T17:59:16.773Z"
+      "durationMs": 10241,
+      "at": "2026-10-12T18:03:59.153Z"
     },
     {
       "req": 5,
@@ -33,23 +33,23 @@
       "outcome": "skip",
       "note": "not run: platform has no translation feature and no TRANSLATION_PROVIDER is set in .env",
       "durationMs": 0,
-      "at": "2026-10-12T17:59:17.093Z"
+      "at": "2026-10-12T18:03:59.461Z"
     },
     {
       "req": 6,
       "title": "6. Escalation: \"Get help\" adds agent_sam who can read earlier messages",
       "outcome": "fail",
       "note": "Error: adapter error: native: timeout waiting for authed",
-      "durationMs": 10229,
-      "at": "2026-10-12T17:59:27.356Z"
+      "durationMs": 10216,
+      "at": "2026-10-12T18:04:09.700Z"
     },
     {
       "req": 7,
       "title": "7. Read receipts, typing indicators, image attachment",
       "outcome": "fail",
       "note": "Error: adapter error: native: timeout waiting for authed",
-      "durationMs": 10245,
-      "at": "2026-10-12T17:59:37.959Z"
+      "durationMs": 10246,
+      "at": "2026-10-12T18:04:20.293Z"
     }
   ]
 }
