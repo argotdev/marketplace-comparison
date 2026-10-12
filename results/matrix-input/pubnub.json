@@ -3,7 +3,7 @@
   "requirements": {
     "1": {
       "status": "native",
-      "note": "Chat SDK createGroupConversation({ users, channelId: order-<id>, channelData.custom: { orderId, listingId } }); App Context memberships; custom is scalar-only"
+      "note": "BLOCKED: the Chat SDK needs App Context; this new account's keyset offers DataSync instead and the App Context API answers 403 even with DataSync on; PubNub support must enable it. Designed: Chat SDK createGroupConversation({ users, channelId: order-<id>, channelData.custom: { orderId, listingId } }); App Context memberships; custom is scalar-only"
     },
     "2": {
       "status": "native",

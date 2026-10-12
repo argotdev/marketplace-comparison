@@ -92,7 +92,7 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
 - **Create app:** Dashboard → Create new app → copy the root **API key** (`appId.keyId:secret`) from the API Keys tab.
 - **Settings to turn on:**
   1. Integrations → New integration rule → **Webhook**: source `channel.message`, channel filter `.*::\$chat$`, URL `<PUBLIC_URL>/api/webhooks/ably`, enveloped, enable signing (`X-Ably-Signature`).
-  2. Integrations → **Moderation** → **Custom (before publish)**: URL `<PUBLIC_URL>/api/webhooks/ably` (same URL as the webhook rule; our server recognises the moderation request shape), room filter `order-.*`, retry timeout 2000 ms, failed action **reject**.
+  2. Moderation rules: the docs describe **Before publish** / **After publish** rules with Retry timeout, Max retries, Failed action and Room filter fields, but on this app the Integrations page offered no moderation entry at all (2026-10-12), so the rule could not be created. Recorded as gated (needs Ably to enable moderation on the app); if it appears later, point it at `<PUBLIC_URL>/api/webhooks/ably` with room filter `order:.*`.
   3. Nothing for persistence (chat rooms persist by default). Push: out of scope (Ably's Web Push needs no Firebase; described in its vendor doc only).
 - **Keys:** `ABLY_API_KEY`, `ABLY_PLAN=free`, `ABLY_REGION=nearest-edge` (Ably routes to the nearest datacenter; region is not selectable on Free).
 

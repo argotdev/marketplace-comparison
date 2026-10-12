@@ -1,6 +1,6 @@
 # PubNub
 
-Status: **written, not run**. No `PUBNUB_PUBLISH_KEY` / `PUBNUB_SUBSCRIBE_KEY` / `PUBNUB_SECRET_KEY` in `.env` as of 2026-10-06. Adapter, courier demo and server half type-check against the pinned SDKs. Research notes with every URL: `docs/research/pubnub.md`.
+Status: **blocked, not run** (2026-10-12). Keys are in `.env` and publish, subscribe and Access Manager grants work, but the Chat SDK needs App Context and this new account's keyset offers **DataSync** instead; enabling DataSync leaves the App Context API answering `403 App Context is not enabled for this subscribe key`, and the error text says to contact PubNub support to have it enabled. The adapter, courier demo and server half type-check against the pinned SDKs and have not executed. Research notes with every URL: `docs/research/pubnub.md`.
 
 ## Compared with Sendbird
 

@@ -1,6 +1,6 @@
 # Ably
 
-Status: **run** on 2026-10-12 against a Free Ably app. Checks: 1, 2, 6, 7 pass; 3 fails with 0/4 blocked because the custom before-publish moderation rule is a dashboard integration not yet created on this app (no moderation requests reached our server); 5 is unavailable (no translation). Results in `results/checks/ably.json`. Research notes with every URL: `docs/research/ably.md`.
+Status: **run** on 2026-10-12 against a Free Ably app. Checks: 1, 2, 6, 7 pass; 3 fails with 0/4 blocked because the app's Integrations page offers no moderation rule type at all, so the documented before-publish hook could not be configured (gated: Ably would need to enable moderation on the app); 5 is unavailable (no translation). Results in `results/checks/ably.json`. Research notes with every URL: `docs/research/ably.md`.
 
 ## Compared with Sendbird
 

@@ -10,8 +10,9 @@
       "note": "messages.send({ text, metadata: { type: 'order_card', card } }); the server edits as the message's author with a message-update-own token (a default API key lacks message-update-any: 'client is not message owner'); message.updated on both sides"
     },
     "3": {
-      "status": "vendor hook + our rules",
-      "note": "the custom before-publish moderation rule (Ably's documented hook) is a dashboard integration not yet created on this app, so 0/4 blocked at run time (no requests reached our server); once created it calls our server for masked text. Hive/Tisane/Bodyguard/Azure are native alternatives. Reporting, muting and banning: unavailable (pricing page: 'coming soon')"
+      "status": "gated",
+      "note": "the documented custom before-publish moderation hook (and the Hive/Tisane/Bodyguard/Azure integrations) did not appear in this app's Integrations page, so no rule could be created: 0/4 blocked at run time. Reporting, muting and banning: unavailable ('coming soon')",
+      "gate": "moderation rules not offered in the dashboard for this Free app; Ably support"
     },
     "4": {
       "status": "built",
