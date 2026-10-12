@@ -1,6 +1,6 @@
 # CometChat
 
-Status: **run** on 2026-10-12 against a CometChat app (Build plan, region us). Checks: 1, 2, 5, 6, 7 pass (translation through the Message Translation extension works on Build); 3 fails with 0/4 blocked because the moderation rules are dashboard settings not yet enabled on this app. Results in `results/checks/cometchat.json`. Research notes with every URL: `docs/research/cometchat.md`.
+Status: **run** on 2026-10-12 against a CometChat app (Build plan, region us). Checks: 1, 2, 5, 6, 7 pass (translation through the Message Translation extension works on Build); 3 blocks 4/4 of the fixture once the dashboard rules are on, but fails on one false positive: the phone detector blocks the bare 10-digit order number. Results in `results/checks/cometchat.json`. Research notes with every URL: `docs/research/cometchat.md`.
 
 ## Compared with Sendbird
 

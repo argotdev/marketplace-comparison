@@ -11,7 +11,7 @@
     },
     "3": {
       "status": "native",
-      "note": "rule-based moderation (dashboard): Contact Details Removal and Email Detection blocked the phone and the email, the custom pattern rule for off-platform words was present but not enabled at run time (Venmo delivered), and the phone detector also blocked 'Order 4155550134 arrived this morning' (1 false positive: a bare 10-digit order number reads as a US phone number). Custom messages bypass moderation. Report: flagMessage (modern API) mirrored to our queue"
+      "note": "rule-based moderation (dashboard): Contact Details Removal, Email Detection and a custom pattern list, action Block: 4/4 blocked, but the phone detector also blocked 'Order 4155550134 arrived this morning' (1 false positive: a bare 10-digit order number reads as a US phone number, where Sendbird's regex filter needs separators). Custom messages bypass moderation. Report: flagMessage (modern API) mirrored to our queue"
     },
     "4": {
       "status": "native",
