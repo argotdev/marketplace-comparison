@@ -1,58 +1,56 @@
 {
   "platform": "cometchat",
-  "startedAt": "2026-10-12T18:10:28.507Z",
-  "orderId": "ord_mv5ki08x",
+  "startedAt": "2026-10-12T19:31:58.036Z",
+  "orderId": "ord_mv5net3o",
   "results": [
     {
       "req": 1,
       "title": "1. 1:1 buyer/seller channel tied to the order",
       "outcome": "pass",
-      "note": "channel order-ord_mv5ki08x; members buyer_ana,seller_ben; data keys orderId,listingId",
-      "durationMs": 1784,
+      "note": "channel order-ord_mv5net3o; members seller_ben,buyer_ana; data keys orderId,listingId",
+      "durationMs": 1707,
       "details": {
-        "id": "order-ord_mv5ki08x",
+        "id": "order-ord_mv5net3o",
         "memberIds": [
-          "buyer_ana",
-          "seller_ben"
+          "seller_ben",
+          "buyer_ana"
         ],
         "data": {
-          "orderId": "ord_mv5ki08x",
+          "orderId": "ord_mv5net3o",
           "listingId": "lst_bike_54"
         }
       },
-      "at": "2026-10-12T18:10:28.507Z"
+      "at": "2026-10-12T19:31:58.036Z"
     },
     {
       "req": 2,
       "title": "2. Order card as a custom message with live status",
       "outcome": "pass",
-      "note": "card sent as structured data; status placed->shipped propagated to both users in 294 ms by editing the same message",
-      "durationMs": 2540,
+      "note": "card sent as structured data; status placed->shipped propagated to both users in 798 ms by editing the same message",
+      "durationMs": 3389,
       "details": {
-        "messageId": "21",
-        "propagationMs": 294
+        "messageId": "56",
+        "propagationMs": 798
       },
-      "at": "2026-10-12T18:10:31.300Z"
+      "at": "2026-10-12T19:32:01.693Z"
     },
     {
       "req": 3,
       "title": "3. Moderation: contact info and off-platform payment blocked; user report reaches a queue",
       "outcome": "fail",
-      "note": "0/4 blocked or masked, 0 false positive(s) of 2; report reached our moderation queue | Error: missed: Call me at 415-555-0134 / Email me at ben@example.com and we'll sort it out / Pay me on Venmo instead, it's cheaper / Let's move this to WhatsApp, +44 7700 900123",
-      "durationMs": 7124,
+      "note": "3/4 blocked or masked, 1 false positive(s) of 2; report reached our moderation queue | Error: missed: Pay me on Venmo instead, it's cheaper",
+      "durationMs": 28751,
       "details": {
         "outcomes": [
           {
             "text": "Call me at 415-555-0134",
             "expect": "block",
-            "result": "delivered",
-            "sellerSaw": "Call me at 415-555-0134"
+            "result": "blocked"
           },
           {
             "text": "Email me at ben@example.com and we'll sort it out",
             "expect": "block",
-            "result": "delivered",
-            "sellerSaw": "Email me at ben@example.com and we'll sort it out"
+            "result": "blocked"
           },
           {
             "text": "Pay me on Venmo instead, it's cheaper",
@@ -63,8 +61,7 @@
           {
             "text": "Let's move this to WhatsApp, +44 7700 900123",
             "expect": "block",
-            "result": "delivered",
-            "sellerSaw": "Let's move this to WhatsApp, +44 7700 900123"
+            "result": "blocked"
           },
           {
             "text": "Is the 54cm frame still available?",
@@ -75,54 +72,53 @@
           {
             "text": "Order 4155550134 arrived this morning, thanks",
             "expect": "pass",
-            "result": "delivered",
-            "sellerSaw": "Order 4155550134 arrived this morning, thanks"
+            "result": "not delivered"
           }
         ],
-        "misses": 4,
-        "falsePositives": 0,
+        "misses": 1,
+        "falsePositives": 1,
         "report": {
           "local": 1,
           "remote": 0
         }
       },
-      "at": "2026-10-12T18:10:38.756Z"
+      "at": "2026-10-12T19:32:30.742Z"
     },
     {
       "req": 5,
       "title": "5. Auto-translation es<->en",
       "outcome": "pass",
-      "note": "es->en: \"Yes, the frame is still available. Shipping tomorrow.\" | en->es: \"Sí, el marco aún está disponible. Envío mañana.\" (platform feature)",
-      "durationMs": 3554,
+      "note": "es->en: \"Yes, the frame is still available. Shipping tomorrow.\" | en->es: \"¿Todavía está disponible el cuadro de 54 cm?\" (platform feature)",
+      "durationMs": 3539,
       "details": {
         "sellerSaw": "Yes, the frame is still available. Shipping tomorrow.",
-        "buyerSaw": "Sí, el marco aún está disponible. Envío mañana.",
+        "buyerSaw": "¿Todavía está disponible el cuadro de 54 cm?",
         "provider": "platform"
       },
-      "at": "2026-10-12T18:10:43.092Z"
+      "at": "2026-10-12T19:32:35.137Z"
     },
     {
       "req": 6,
       "title": "6. Escalation: \"Get help\" adds agent_sam who can read earlier messages",
       "outcome": "pass",
-      "note": "agent added to the same channel (members agent_sam,buyer_ana,seller_ben); agent reads 15 earlier message(s)",
-      "durationMs": 4228,
+      "note": "agent added to the same channel (members agent_sam,seller_ben,buyer_ana); agent reads 12 earlier message(s)",
+      "durationMs": 4370,
       "details": {
         "members": [
           "agent_sam",
-          "buyer_ana",
-          "seller_ben"
+          "seller_ben",
+          "buyer_ana"
         ],
-        "agentSees": 15
+        "agentSees": 12
       },
-      "at": "2026-10-12T18:10:47.573Z"
+      "at": "2026-10-12T19:32:39.754Z"
     },
     {
       "req": 7,
       "title": "7. Read receipts, typing indicators, image attachment",
       "outcome": "pass",
       "note": "typing, readReceipt, attachment delivered buyer<->seller",
-      "durationMs": 3599,
+      "durationMs": 3883,
       "details": {
         "typing": {
           "ok": true
@@ -133,106 +129,112 @@
             "readsOnArrival": [
               {
                 "userId": "seller_ben",
-                "lastReadMessageId": "35",
-                "at": 1791828650000
+                "lastReadMessageId": "71",
+                "at": 1791833562000
               }
             ],
             "statusLine": " Read by Ben",
             "messages": [
               {
-                "id": "20",
+                "id": "55",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828627000,
+                "createdAt": 1791833517000,
                 "kind": "system"
               },
               {
-                "id": "21",
+                "id": "56",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828630000,
+                "createdAt": 1791833520000,
                 "kind": "order_card"
               },
               {
-                "id": "22",
+                "id": "57",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828630000,
+                "createdAt": 1791833520000,
                 "kind": "system"
               },
               {
-                "id": "23",
+                "id": "58",
+                "senderId": "buyer_ana",
+                "createdAt": 1791833520000,
+                "kind": "system"
+              },
+              {
+                "id": "59",
                 "senderId": "app_system",
-                "createdAt": 1791828633000,
+                "createdAt": 1791833521000,
                 "kind": "system"
               },
               {
-                "id": "24",
+                "id": "60",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828634000,
+                "createdAt": 1791833524000,
                 "kind": "text"
               },
               {
-                "id": "25",
+                "id": "61",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828634000,
+                "createdAt": 1791833529000,
                 "kind": "text"
               },
               {
-                "id": "26",
+                "id": "62",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828635000,
+                "createdAt": 1791833533000,
                 "kind": "text"
               },
               {
-                "id": "27",
+                "id": "63",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828636000,
+                "createdAt": 1791833534000,
                 "kind": "text"
               },
               {
-                "id": "28",
+                "id": "64",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828637000,
+                "createdAt": 1791833539000,
                 "kind": "text"
               },
               {
-                "id": "29",
+                "id": "65",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828637000,
+                "createdAt": 1791833540000,
                 "kind": "text"
               },
               {
-                "id": "30",
+                "id": "66",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828642000,
+                "createdAt": 1791833554000,
                 "kind": "text"
               },
               {
-                "id": "31",
+                "id": "67",
                 "senderId": "seller_ben",
-                "createdAt": 1791828642000,
+                "createdAt": 1791833554000,
                 "kind": "text"
               },
               {
-                "id": "32",
+                "id": "68",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828644000,
+                "createdAt": 1791833556000,
                 "kind": "text"
               },
               {
-                "id": "33",
+                "id": "69",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828645000,
+                "createdAt": 1791833557000,
                 "kind": "text"
               },
               {
-                "id": "34",
+                "id": "70",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828645000,
+                "createdAt": 1791833557000,
                 "kind": "system"
               },
               {
-                "id": "35",
+                "id": "71",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828650000,
+                "createdAt": 1791833562000,
                 "kind": "text"
               }
             ],
@@ -240,13 +242,13 @@
               "reads": [
                 {
                   "userId": "seller_ben",
-                  "lastReadMessageId": "35",
-                  "at": 1791828650000
+                  "lastReadMessageId": "71",
+                  "at": 1791833562000
                 }
               ],
               "lastMine": {
-                "id": "35",
-                "createdAt": 1791828650000
+                "id": "71",
+                "createdAt": 1791833562000
               },
               "statusLine": " Read by Ben"
             }
@@ -260,7 +262,7 @@
           }
         }
       },
-      "at": "2026-10-12T18:10:51.416Z"
+      "at": "2026-10-12T19:32:43.905Z"
     }
   ]
 }

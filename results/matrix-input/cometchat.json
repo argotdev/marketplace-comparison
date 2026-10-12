@@ -11,7 +11,7 @@
     },
     "3": {
       "status": "native",
-      "note": "rule-based moderation (Contact Details Removal, Email Detection, custom regex list; action Block) is a dashboard setting not yet configured on this app: 0/4 blocked at run time. Custom messages bypass moderation. Report: flagMessage on the target's latest message (modern API) mirrored to our queue; report-user is a legacy extension only"
+      "note": "rule-based moderation (dashboard): Contact Details Removal and Email Detection blocked the phone and the email, the custom pattern rule for off-platform words was present but not enabled at run time (Venmo delivered), and the phone detector also blocked 'Order 4155550134 arrived this morning' (1 false positive: a bare 10-digit order number reads as a US phone number). Custom messages bypass moderation. Report: flagMessage (modern API) mirrored to our queue"
     },
     "4": {
       "status": "native",
