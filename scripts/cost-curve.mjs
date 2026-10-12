@@ -12,10 +12,10 @@ const rows = parseCsv(readFileSync(resolve(root, 'data/pricing.csv'), 'utf8')).f
 const VENDOR_ORDER = ['sendbird', 'stream', 'talkjs', 'cometchat', 'twilio', 'pubnub', 'ably', 'rocketchat'];
 const NAMES = { sendbird: 'Sendbird', stream: 'Stream', talkjs: 'TalkJS', cometchat: 'CometChat', twilio: 'Twilio', pubnub: 'PubNub', ably: 'Ably', rocketchat: 'Rocket.Chat' };
 
-const W = 900, H = 520, left = 90, right = 170, top = 80, bottom = 60;
+const W = 900, H = 560, left = 90, right = 170, top = 80, bottom = 100;
 const plotW = W - left - right, plotH = H - top - bottom;
 let b = text(24, 28, 'Monthly cost by monthly active users', { size: 18, weight: 600, fill: PALETTE.inkPrimary });
-b += text(24, 50, 'List prices from each vendor’s pricing page or quote (data/pricing.csv, with source URL and date per point). Points marked “quote” need a sales quote.', { size: 12 });
+b += text(24, 50, 'Monthly list price at each MAU tier, from data/pricing.csv (source URL and date per point).', { size: 12 });
 
 const vendors = VENDOR_ORDER.filter((v) => rows.some((r) => r.vendor === v));
 if (!vendors.length) {
@@ -34,7 +34,8 @@ if (!vendors.length) {
   const ends = [];
   vendors.forEach((v, i) => {
     const color = PALETTE.series[VENDOR_ORDER.indexOf(v)];
-    const pts = rows.filter((r) => r.vendor === v).map((r) => ({ x: Number(r.mau), y: Number(r.monthly_usd), quote: /quote/i.test(r.billing + r.note) })).sort((a, c) => a.x - c.x);
+    // Hollow points: estimates or sales quotes, i.e. anything that is not a list price.
+    const pts = rows.filter((r) => r.vendor === v).map((r) => ({ x: Number(r.mau), y: Number(r.monthly_usd), quote: /quote|estimate/i.test(r.billing + ' ' + r.note) })).sort((a, c) => a.x - c.x);
     b += `<polyline points="${pts.map((p) => `${x(p.x)},${y(p.y)}`).join(' ')}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
     for (const p of pts) b += `<circle cx="${x(p.x)}" cy="${y(p.y)}" r="4" fill="${p.quote ? PALETTE.surface : color}" stroke="${p.quote ? color : PALETTE.surface}" stroke-width="2"/>`;
     const last = pts.at(-1);
@@ -49,7 +50,8 @@ if (!vendors.length) {
     if (Math.abs(ly - e.yy) > 2) b += `<line x1="${e.xx + 6}" y1="${e.yy}" x2="${left + plotW + 10}" y2="${ly}" stroke="${PALETTE.axis}" stroke-width="1"/>`;
     b += `<rect x="${left + plotW + 14}" y="${ly - 5}" width="10" height="10" rx="2" fill="${e.color}"/>` + text(left + plotW + 30, ly, NAMES[e.v], { size: 12, fill: PALETTE.inkPrimary });
   }
-  b += text(24, H - 16, 'Hollow point = sales quote, not a list price. Lines connect the price points that were checked; they are not interpolations of the vendor’s tiers.', { size: 11, fill: PALETTE.inkMuted });
+  b += text(24, H - 28, 'Filled point = list price; hollow point = estimate or sales quote (see the billing and note columns).', { size: 11, fill: PALETTE.inkMuted });
+  b += text(24, H - 12, 'Lines join the tiers that were checked; they are not the vendor\u2019s pricing between tiers. Rocket.Chat (self-hosted) has no list price.', { size: 11, fill: PALETTE.inkMuted });
 }
 const svg = svgDoc(W, H, b);
 writeFileSync(resolve(out, 'cost-curve.svg'), svg);

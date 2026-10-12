@@ -1,10 +1,10 @@
 # Rocket.Chat (self-hosted)
 
-Status: **run locally**. Rocket.Chat 8.9.0 LTS with MongoDB 8.2 in Docker Compose (`--profile rocketchat`), unregistered workspace (Community limits). Checks ran on 2026-10-06 (`results/checks/rocketchat.json`); not benchmarked (author's decision to skip all benchmarks). Research notes with every URL: `docs/research/rocketchat.md`.
+Status: **run locally**. Rocket.Chat 8.9.0 LTS with MongoDB 8.2 in Docker Compose (`--profile rocketchat`), unregistered workspace (Community limits). Checks last ran on 2026-10-12 (`results/checks/rocketchat.json`); not benchmarked (author's decision to skip all benchmarks). Research notes with every URL: `docs/research/rocketchat.md`.
 
 ## Compared with Sendbird
 
-- **Same:** private group per order with custom fields, card in message custom fields with live edits (as the author), escalation by invite, typing and image attachments, report into a moderation console. Four of six checks pass.
+- **Same:** private group per order with custom fields, card in message custom fields with live edits (as the author), escalation by invite, typing and image attachments, report into a moderation console, per-user auto-translate (Google provider). Four of six checks pass.
 - **Sendbird can, Rocket.Chat can't (unregistered Community workspace):** a regex content filter (only a case-sensitive word list; a pre-send hook needs an Apps-Engine app, which needs a registered workspace), read receipts (answer "enterprise feature"), an embeddable SDK (the UI is an iframe or your own DDP client), a desk product in the same user model (Omnichannel is a separate visitor model).
 - **Rocket.Chat can, Sendbird can't:** run on your own hardware with your data (690 MiB plus MongoDB at idle), native email to offline users over your own SMTP, self-hosted auto-translate providers including LibreTranslate.
 
@@ -35,7 +35,7 @@ Status: **run locally**. Rocket.Chat 8.9.0 LTS with MongoDB 8.2 in Docker Compos
 2. Setup wizard skipped with `OVERWRITE_SETTING_Show_Setup_Wizard=completed` and the admin created from `ADMIN_USERNAME` / `ADMIN_PASS` / `ADMIN_EMAIL`; both worked on 8.9.0.
 3. Settings forced at boot through `OVERWRITE_SETTING_*`: message custom fields on with a JSON schema (`type`, `card`, `orderId`, `translations` as strings), read receipts on, REST rate limiter off (default is 10 calls per minute per endpoint), DDP per-method limit raised to 200 per 10 s, SMTP to Mailpit, bad-words filter on with the off-platform word list, **CORS on for `http://localhost:5173`** (without it the browser cannot call the REST API from our app), iframe integration enabled for the kit view, registration form disabled.
 4. `CREATE_TOKENS_FOR_USERS_SECRET` on the container so our API server can mint per-user tokens with `users.createToken`.
-5. Our setup script creates the three users, an outgoing webhook (to `host.docker.internal:4000`, since the container cannot see `localhost`), and would configure auto-translate if a provider key existed.
+5. Our setup script creates the three users, an outgoing webhook (to `host.docker.internal:4000`, since the container cannot see `localhost`), and grants the `auto-translate` permission to the `user` role. Auto-translate itself (provider `google-translate` and the Google key) is set at boot through `OVERWRITE_SETTING_AutoTranslate_*` from `.env`, because `settings/:id` writes over REST answer `TOTP Required` on 8.x even with two-factor disabled for the admin, so the compose file also forces `Accounts_TwoFactorAuthentication_Enabled=false`.
 
 ### What needs a person
 
@@ -53,7 +53,7 @@ Registering the workspace with a Rocket.Chat Cloud account (email + verification
 | 2 | native | `chat.sendMessage` with `customFields {type, card}` (schema-enforced) plus a message attachment so Rocket.Chat's own UI shows a card-like block; `chat.update` with new `customFields`. Only members can edit in a private group, so the server edits as the message author (token minted with `users.createToken`). Live updates arrive on `stream-room-messages`. |
 | 3 | native (word list only) | The built-in filter is a bad-words list that replaces listed words with asterisks: `whatsapp` masked; `Venmo` (capitalised in the fixture), the phone number and the email delivered unmasked (1 of 4 blocked, 0 false positives; the match appears case-sensitive). A regex filter needs an Apps-Engine app (`IPreMessageSentModify`), which an unregistered workspace cannot install. Reports go through `chat.reportMessage` / `moderation.reportUser` into the admin Moderation console (all plans) and were read back from `moderation.reportsByUsers`. Sendbird's regex profanity filter is configuration. |
 | 4 | documented, not tested (was: native) | SMTP settings point at Mailpit; the per-room preference `emailNotifications: all` is set by each member on open (the account default is mentions-only). Email arrives immediately once Rocket.Chat considers the member offline. Caveat measured below: presence stays `online` for a while after the socket closes, so a message sent right after the seller leaves is not emailed. No web push. |
-| 5 | native, not run | Auto-Translate (Google, Microsoft, DeepL paid, LibreTranslate) is built in, per user per room; `not run` because no provider key is configured (and Rocket.Chat refuses DeepL free keys). |
+| 5 | native | Auto-Translate (Google, Microsoft, DeepL paid, LibreTranslate) is built in, per user per room. Run with the Google provider: the adapter calls `autotranslate.saveSettings` for each user on open and reads `message.translations[lang]` from the DDP stream; es→en and en→es both rendered. Rocket.Chat refuses DeepL free keys. |
 | 6 | native | `groups.invite` by a member; `groups.history` gives the agent everything earlier. |
 | 7 | typing native; receipts gated; attachments native | Typing is the `stream-notify-room` `user-activity` stream, as the official client uses. Read receipts answer **"This is an enterprise feature"** on this unregistered workspace, so they are `gated` (Starter includes them per the docs). Image upload is the two-step `rooms.media` + `rooms.mediaConfirm`. |
 

@@ -1,18 +1,18 @@
 {
   "platform": "native",
-  "startedAt": "2026-10-12T18:05:57.663Z",
-  "orderId": "ord_mv5kc8lh",
+  "startedAt": "2026-10-12T20:02:33.933Z",
+  "orderId": "ord_mv5oi6y5",
   "results": [
     {
       "req": 1,
       "title": "1. 1:1 buyer/seller channel tied to the order",
       "outcome": "pass",
-      "note": "channel order-ord_mv5kc8lh; members buyer_ana,seller_ben; data keys orderId,listingId",
+      "note": "channel order-ord_mv5oi6y5; members buyer_ana,seller_ben; data keys orderId,listingId",
       "durationMs": 439,
       "details": {
-        "id": "order-ord_mv5kc8lh",
+        "id": "order-ord_mv5oi6y5",
         "data": {
-          "orderId": "ord_mv5kc8lh",
+          "orderId": "ord_mv5oi6y5",
           "listingId": "lst_bike_54"
         },
         "memberIds": [
@@ -20,26 +20,26 @@
           "seller_ben"
         ]
       },
-      "at": "2026-10-12T18:05:57.663Z"
+      "at": "2026-10-12T20:02:33.933Z"
     },
     {
       "req": 2,
       "title": "2. Order card as a custom message with live status",
       "outcome": "pass",
-      "note": "card sent as structured data; status placed->shipped propagated to both users in 32 ms by editing the same message",
-      "durationMs": 528,
+      "note": "card sent as structured data; status placed->shipped propagated to both users in 33 ms by editing the same message",
+      "durationMs": 585,
       "details": {
-        "messageId": "cbfbef22-fbcc-463c-af36-ed55adab4518",
-        "propagationMs": 32
+        "messageId": "9d52daa8-03ea-443a-987e-1f364c57775d",
+        "propagationMs": 33
       },
-      "at": "2026-10-12T18:05:58.281Z"
+      "at": "2026-10-12T20:02:34.591Z"
     },
     {
       "req": 3,
       "title": "3. Moderation: contact info and off-platform payment blocked; user report reaches a queue",
       "outcome": "pass",
       "note": "4/4 blocked or masked, 0 false positive(s) of 2; report reached our moderation queue",
-      "durationMs": 853,
+      "durationMs": 1684,
       "details": {
         "outcomes": [
           {
@@ -83,41 +83,46 @@
         "falsePositives": 0,
         "report": {
           "local": 0,
-          "remote": 2
+          "remote": 4
         }
       },
-      "at": "2026-10-12T18:05:59.240Z"
+      "at": "2026-10-12T20:02:36.386Z"
     },
     {
       "req": 5,
       "title": "5. Auto-translation es<->en",
-      "outcome": "skip",
-      "note": "not run: platform has no translation feature and no TRANSLATION_PROVIDER is set in .env",
-      "durationMs": 0,
-      "at": "2026-10-12T18:05:59.244Z"
+      "outcome": "pass",
+      "note": "es->en: \"Yes, the frame is still available. Shipping tomorrow.\" | en->es: \"Sí, el marco todavía está disponible. El envío es mañana.\" (built, provider google)",
+      "durationMs": 774,
+      "details": {
+        "sellerSaw": "Yes, the frame is still available. Shipping tomorrow.",
+        "buyerSaw": "Sí, el marco todavía está disponible. El envío es mañana.",
+        "provider": "google"
+      },
+      "at": "2026-10-12T20:02:37.260Z"
     },
     {
       "req": 6,
       "title": "6. Escalation: \"Get help\" adds agent_sam who can read earlier messages",
       "outcome": "pass",
-      "note": "agent added to the same channel (members buyer_ana,seller_ben,agent_sam); agent reads 9 earlier message(s)",
-      "durationMs": 465,
+      "note": "agent added to the same channel (members buyer_ana,seller_ben,agent_sam); agent reads 11 earlier message(s)",
+      "durationMs": 767,
       "details": {
         "members": [
           "buyer_ana",
           "seller_ben",
           "agent_sam"
         ],
-        "agentSees": 9
+        "agentSees": 11
       },
-      "at": "2026-10-12T18:05:59.781Z"
+      "at": "2026-10-12T20:02:38.105Z"
     },
     {
       "req": 7,
       "title": "7. Read receipts, typing indicators, image attachment",
       "outcome": "pass",
       "note": "typing, readReceipt, attachment delivered buyer<->seller",
-      "durationMs": 513,
+      "durationMs": 683,
       "details": {
         "typing": {
           "ok": true
@@ -128,70 +133,82 @@
             "readsOnArrival": [
               {
                 "userId": "seller_ben",
-                "lastReadMessageId": "d5d0473f-8b7a-4e94-a177-11fba6e30b26",
-                "at": 1791828360259
+                "lastReadMessageId": "b5168e79-a6ed-46f3-900d-591cf66d10a2",
+                "at": 1791835358743
               }
             ],
             "statusLine": " Read by Ben",
             "messages": [
               {
-                "id": "cbfbef22-fbcc-463c-af36-ed55adab4518",
+                "id": "9d52daa8-03ea-443a-987e-1f364c57775d",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828358120,
+                "createdAt": 1791835354447,
                 "kind": "order_card"
               },
               {
-                "id": "15b8592f-68ce-4403-a027-6ce450732cf2",
+                "id": "ac656c6c-a581-48c1-a392-227e995e94c5",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828358734,
+                "createdAt": 1791835355311,
                 "kind": "text"
               },
               {
-                "id": "bc16646f-b0d5-40fe-b9b4-e2e0a9ec015a",
+                "id": "00b6bfc3-4258-4373-8c32-f1af7d05cac1",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828358746,
+                "createdAt": 1791835355530,
                 "kind": "text"
               },
               {
-                "id": "73849359-50a6-488e-aeda-e4ca170c68be",
+                "id": "bfc21c07-df22-44a6-b44e-d18650f29089",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828358915,
+                "createdAt": 1791835355694,
                 "kind": "text"
               },
               {
-                "id": "4a7630df-0975-4af3-bfc6-a2208a8be4db",
+                "id": "8cba4c1f-8589-479f-9056-62f57ffef462",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828359091,
+                "createdAt": 1791835355902,
                 "kind": "text"
               },
               {
-                "id": "bd8026bd-5f33-4405-b361-f88a6879469a",
+                "id": "915c2e8d-324c-4b0a-8525-94391d7277bc",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828359108,
+                "createdAt": 1791835356087,
                 "kind": "text"
               },
               {
-                "id": "54c94eb8-f726-4af1-946a-0bb314f9610a",
+                "id": "03f63b42-488a-40bc-b73d-51e4173bdac4",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828359124,
+                "createdAt": 1791835356260,
                 "kind": "text"
               },
               {
-                "id": "3a608fe3-b7f9-44e7-a63b-5f49249308f8",
+                "id": "aa73ca31-f638-429d-b800-facf9c019525",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828359470,
+                "createdAt": 1791835356987,
                 "kind": "text"
               },
               {
-                "id": "cb8515ab-1ee6-454a-801b-332008bb2875",
-                "senderId": "buyer_ana",
-                "createdAt": 1791828359477,
+                "id": "dc661e45-90b4-4aa3-9431-592ed4eae28f",
+                "senderId": "seller_ben",
+                "createdAt": 1791835357133,
                 "kind": "text"
               },
               {
-                "id": "d5d0473f-8b7a-4e94-a177-11fba6e30b26",
+                "id": "ad921a42-6434-44ae-a240-f1510dc31920",
                 "senderId": "buyer_ana",
-                "createdAt": 1791828360242,
+                "createdAt": 1791835357638,
+                "kind": "text"
+              },
+              {
+                "id": "b746b3c3-f3f2-4161-a6b0-53996451c70c",
+                "senderId": "buyer_ana",
+                "createdAt": 1791835357770,
+                "kind": "text"
+              },
+              {
+                "id": "b5168e79-a6ed-46f3-900d-591cf66d10a2",
+                "senderId": "buyer_ana",
+                "createdAt": 1791835358717,
                 "kind": "text"
               }
             ],
@@ -199,13 +216,13 @@
               "reads": [
                 {
                   "userId": "seller_ben",
-                  "lastReadMessageId": "d5d0473f-8b7a-4e94-a177-11fba6e30b26",
-                  "at": 1791828360259
+                  "lastReadMessageId": "b5168e79-a6ed-46f3-900d-591cf66d10a2",
+                  "at": 1791835358743
                 }
               ],
               "lastMine": {
-                "id": "d5d0473f-8b7a-4e94-a177-11fba6e30b26",
-                "createdAt": 1791828360242
+                "id": "b5168e79-a6ed-46f3-900d-591cf66d10a2",
+                "createdAt": 1791835358717
               },
               "statusLine": " Read by Ben"
             }
@@ -219,7 +236,7 @@
           }
         }
       },
-      "at": "2026-10-12T18:06:00.383Z"
+      "at": "2026-10-12T20:02:38.868Z"
     }
   ]
 }

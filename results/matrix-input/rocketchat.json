@@ -19,7 +19,7 @@
     },
     "5": {
       "status": "native",
-      "note": "Auto-Translate (Google/Microsoft/DeepL paid/LibreTranslate) per user per room; not run: no provider key (Rocket.Chat refuses DeepL free keys)"
+      "note": "Auto-Translate (Google/Microsoft/DeepL paid/LibreTranslate) per user per room; Google provider configured at boot via OVERWRITE_SETTING_AutoTranslate_* (REST settings writes need TOTP on 8.x), adapter opts each user in with autotranslate.saveSettings and reads message.translations[lang]"
     },
     "6": {
       "status": "native",

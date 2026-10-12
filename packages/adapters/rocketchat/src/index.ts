@@ -35,7 +35,9 @@ interface RcMessage {
   u: { _id: string; username: string };
   t?: string;
   editedAt?: unknown;
-  customFields?: { type?: string; card?: string; translations?: string };
+  customFields?: { type?: string; card?: string };
+  /** Filled by Rocket.Chat Auto-Translate for subscribers with a target language. */
+  translations?: Record<string, string>;
   attachments?: { title?: string; image_url?: string; title_link?: string }[];
   file?: { _id: string; name: string; type: string };
   files?: { _id: string; name: string; type: string }[];
@@ -76,16 +78,8 @@ export function createAdapter(user: AppUser): ChatAdapter {
     const file = m.file ?? m.files?.[0];
     if (file && !cf.type) return { ...base, kind: 'attachment', attachmentUrl: `${url}/file-upload/${file._id}/${encodeURIComponent(file.name)}`, attachmentName: file.name };
     if (m.t) return { ...base, kind: 'system', text: m.msg };
-    let translations: Partial<Record<Lang, string>> | undefined;
-    if (cf.translations) {
-      try {
-        translations = JSON.parse(cf.translations) as Partial<Record<Lang, string>>;
-      } catch {
-        /* ignore */
-      }
-    }
-    // The bad-words filter replaces listed words with asterisks server-side.
-    return { ...base, kind: 'text', text: pickTranslation(translations, user.lang, m.msg), originalText: m.msg, moderated: /\*{3,}/.test(m.msg) };
+    // The bad-words filter replaces listed words with asterisks server-side; Auto-Translate adds `translations`.
+    return { ...base, kind: 'text', text: pickTranslation(m.translations as Partial<Record<Lang, string>> | undefined, user.lang, m.msg), originalText: m.msg, moderated: /\*{3,}/.test(m.msg) };
   };
 
   async function emitReadReceipts(messageId: string): Promise<void> {
@@ -139,6 +133,9 @@ export function createAdapter(user: AppUser): ChatAdapter {
       }
       // Default email preference is mentions-only; ask for every message in this room (native per-room setting).
       await rest('POST', 'rooms.saveNotification', { roomId: rid, notifications: { emailNotifications: 'all' } }).catch(() => {});
+      // Native Auto-Translate: this user wants the room translated into their language (needs the auto-translate permission).
+      await rest('POST', 'autotranslate.saveSettings', { roomId: rid, field: 'autoTranslate', value: true }).catch(() => {});
+      await rest('POST', 'autotranslate.saveSettings', { roomId: rid, field: 'autoTranslateLanguage', value: user.lang }).catch(() => {});
       // Live messages for the room (new and edited arrive on the same stream).
       unsubs.push(
         ddp!.subscribe('stream-room-messages', rid, (args) => {
@@ -167,14 +164,8 @@ export function createAdapter(user: AppUser): ChatAdapter {
     getChannelInfo: info,
 
     async sendText(text: string) {
-      const customFields: Record<string, string> = {};
-      try {
-        const t = await serverApi.translate(text, user.lang);
-        if (t.available) customFields.translations = JSON.stringify(t.translations);
-      } catch {
-        /* no provider */
-      }
-      const r = await rest<{ message: RcMessage }>('POST', 'chat.sendMessage', { message: { rid, msg: text, ...(Object.keys(customFields).length ? { customFields } : {}) } });
+      // Translation is Rocket.Chat's own Auto-Translate (per-room language set on open); no fallback here.
+      const r = await rest<{ message: RcMessage }>('POST', 'chat.sendMessage', { message: { rid, msg: text } });
       return { messageId: r.message._id, blocked: /\*{3,}/.test(r.message.msg) };
     },
 

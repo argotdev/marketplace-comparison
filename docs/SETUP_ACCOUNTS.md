@@ -17,7 +17,7 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
 | Item | What to do | `.env` keys |
 |---|---|---|
 | Public URL for webhooks | Only needed for Twilio (pre-event moderation hook) and Ably (custom before-publish moderation hook). Run `ngrok http 4000` and paste the HTTPS URL; the hook URL is `<PUBLIC_URL>/api/webhooks/<platform>`. Sendbird and Stream webhooks are optional (reports are read back through their APIs). | `PUBLIC_URL` |
-| Translation provider (optional) | For native, Twilio, PubNub, Ably and Rocket.Chat (and Sendbird/Stream if their translation is plan-gated on your account) translation is done from our server. DeepL API Free (https://www.deepl.com/pro-api, key ends in `:fx`) or Google Cloud Translation v2 key. Leave empty and translation is `not run` on those builds. | `TRANSLATION_PROVIDER=deepl` or `google`, `DEEPL_API_KEY`, `GOOGLE_TRANSLATE_API_KEY` |
+| Translation provider (optional) | Used by the native build (our server calls the provider) and by Rocket.Chat's own Auto-Translate (the Google key is passed into the container; set `ROCKETCHAT_AUTOTRANSLATE_ENABLED=true`). Rocket.Chat refuses DeepL free keys, so Google Cloud Translation v2 is the key that serves both. Leave empty and translation is `not run` on those two builds. Vendor cells never use this fallback. | `TRANSLATION_PROVIDER=google`, `GOOGLE_TRANSLATE_API_KEY`, `ROCKETCHAT_AUTOTRANSLATE_ENABLED` (DeepL vars exist for the native build only) |
 
 ## Sendbird (baseline)
 
@@ -100,7 +100,7 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
 
 - **Nothing to buy.** `docker compose --profile rocketchat up -d` starts Rocket.Chat 8.9.0 with MongoDB 8.2 on http://localhost:3000.
 - **Human step (registration):** the setup wizard requires registering the workspace with a Rocket.Chat Cloud account and clicking a verification email; unregistered workspaces are "no longer supported" and fall to Community limits (0 private apps, 10k push/month). Open http://localhost:3000, create the admin user (username `admin`, pick a password, put it in `.env`), fill the org step, then **Register workspace** with your email and verify. This gives the free **Starter** plan (50 users). If you would rather skip it, set `ROCKETCHAT_SKIP_WIZARD=1` in `.env` before first start and the compose file forces `Setup_Wizard=completed` (Community limits, no marketplace apps).
-- After registration, nothing else to click: our setup script logs in as admin, sets `Message_CustomFields_Enabled`, read receipts, SMTP to Mailpit, offline email notifications, auto-translate provider (only if `TRANSLATION_PROVIDER` is set; Rocket.Chat supports DeepL paid, Google, Microsoft, LibreTranslate), disables the REST rate limiter, creates users and an outgoing webhook.
+- After registration, nothing else to click: our setup script logs in as admin, sets `Message_CustomFields_Enabled`, read receipts, SMTP to Mailpit, offline email notifications, the `auto-translate` permission (the provider itself is forced at boot through compose from `GOOGLE_TRANSLATE_API_KEY`, since REST setting writes need TOTP on 8.x), disables the REST rate limiter, creates users and an outgoing webhook.
 - **Keys:** `ROCKETCHAT_URL=http://localhost:3000`, `ROCKETCHAT_ADMIN_USER`, `ROCKETCHAT_ADMIN_PASSWORD`, `ROCKETCHAT_CREATE_TOKENS_SECRET` (any long string; also passed to the container), `ROCKETCHAT_PLAN=starter` or `community`.
 
 ## When you are done with a vendor

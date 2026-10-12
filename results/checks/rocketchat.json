@@ -1,46 +1,46 @@
 {
   "platform": "rocketchat",
-  "startedAt": "2026-10-12T17:59:39.370Z",
-  "orderId": "ord_mv5k44qz",
+  "startedAt": "2026-10-12T20:02:53.041Z",
+  "orderId": "ord_mv5oiljz",
   "results": [
     {
       "req": 1,
       "title": "1. 1:1 buyer/seller channel tied to the order",
       "outcome": "pass",
-      "note": "channel order-ord_mv5k44qz; members buyer_ana,seller_ben; data keys orderId,listingId,rid",
-      "durationMs": 392,
+      "note": "channel order-ord_mv5oiljz; members buyer_ana,seller_ben; data keys orderId,listingId,rid",
+      "durationMs": 599,
       "details": {
-        "id": "order-ord_mv5k44qz",
+        "id": "order-ord_mv5oiljz",
         "memberIds": [
           "buyer_ana",
           "seller_ben"
         ],
         "data": {
-          "orderId": "ord_mv5k44qz",
+          "orderId": "ord_mv5oiljz",
           "listingId": "lst_bike_54",
-          "rid": "6acd200b3c1e569b53f8dc54"
+          "rid": "6acd3cec03a2f1f8835d4e5f"
         }
       },
-      "at": "2026-10-12T17:59:39.370Z"
+      "at": "2026-10-12T20:02:53.041Z"
     },
     {
       "req": 2,
       "title": "2. Order card as a custom message with live status",
       "outcome": "pass",
-      "note": "card sent as structured data; status placed->shipped propagated to both users in 80 ms by editing the same message",
-      "durationMs": 772,
+      "note": "card sent as structured data; status placed->shipped propagated to both users in 83 ms by editing the same message",
+      "durationMs": 830,
       "details": {
-        "messageId": "X3j7XrFtjdxKHHAR9",
-        "propagationMs": 80
+        "messageId": "g2KRD94WSHRbsRnvB",
+        "propagationMs": 83
       },
-      "at": "2026-10-12T17:59:40.223Z"
+      "at": "2026-10-12T20:02:53.949Z"
     },
     {
       "req": 3,
       "title": "3. Moderation: contact info and off-platform payment blocked; user report reaches a queue",
       "outcome": "fail",
       "note": "1/4 blocked or masked, 0 false positive(s) of 2; report reached the vendor's moderation queue | Error: missed: Call me at 415-555-0134 / Email me at ben@example.com and we'll sort it out / Let's move this to WhatsApp, +44 7700 900123",
-      "durationMs": 804,
+      "durationMs": 853,
       "details": {
         "outcomes": [
           {
@@ -87,38 +87,43 @@
           "remote": 1
         }
       },
-      "at": "2026-10-12T17:59:41.142Z"
+      "at": "2026-10-12T20:02:54.909Z"
     },
     {
       "req": 5,
       "title": "5. Auto-translation es<->en",
-      "outcome": "skip",
-      "note": "not run: the platform translates natively but needs a provider API key, and none is set in .env",
-      "durationMs": 0,
-      "at": "2026-10-12T17:59:41.483Z"
+      "outcome": "pass",
+      "note": "es->en: \"Yes, the frame is still available. Shipping tomorrow.\" | en->es: \"Sí, el marco todavía está disponible. El envío es mañana.\" (platform feature)",
+      "durationMs": 1071,
+      "details": {
+        "sellerSaw": "Yes, the frame is still available. Shipping tomorrow.",
+        "buyerSaw": "Sí, el marco todavía está disponible. El envío es mañana.",
+        "provider": "platform"
+      },
+      "at": "2026-10-12T20:02:56.480Z"
     },
     {
       "req": 6,
       "title": "6. Escalation: \"Get help\" adds agent_sam who can read earlier messages",
       "outcome": "pass",
-      "note": "agent added to the same channel (members buyer_ana,seller_ben,agent_sam); agent reads 10 earlier message(s)",
-      "durationMs": 674,
+      "note": "agent added to the same channel (members buyer_ana,seller_ben,agent_sam); agent reads 12 earlier message(s)",
+      "durationMs": 709,
       "details": {
         "members": [
           "buyer_ana",
           "seller_ben",
           "agent_sam"
         ],
-        "agentSees": 10
+        "agentSees": 12
       },
-      "at": "2026-10-12T17:59:42.275Z"
+      "at": "2026-10-12T20:02:57.274Z"
     },
     {
       "req": 7,
       "title": "7. Read receipts, typing indicators, image attachment",
       "outcome": "fail",
       "note": "typing, attachment delivered buyer<->seller; failed: readReceipt (page.waitForFunction: Timeout 15000ms exceeded.) | Error: failed: readReceipt",
-      "durationMs": 15757,
+      "durationMs": 15851,
       "details": {
         "typing": {
           "ok": true
@@ -130,8 +135,8 @@
             "after": {
               "reads": [],
               "lastMine": {
-                "id": "MBHKCCzRyc4ioXQbv",
-                "createdAt": 1791827982834
+                "id": "wbyoF7yPdyNjSpnd8",
+                "createdAt": 1791835377919
               },
               "statusLine": ""
             }
@@ -145,7 +150,7 @@
           }
         }
       },
-      "at": "2026-10-12T17:59:58.141Z"
+      "at": "2026-10-12T20:03:13.229Z"
     }
   ]
 }

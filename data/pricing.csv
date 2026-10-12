@@ -1,1 +1,28 @@
 vendor,mau,monthly_usd,billing,source_url,date_checked,note
+sendbird,5000,499,annual,https://sendbird.com/pricing/chat,2026-10-12,Pro 5K (599 on monthly billing). Starter 5K is 349.
+sendbird,10000,579,annual,https://sendbird.com/pricing/chat,2026-10-12,Pro 10K (699 on monthly billing). Starter 10K is 429.
+sendbird,25000,1399,annual,https://sendbird.com/pricing/chat,2026-10-12,"Pro 25K (1,649 on monthly billing). Starter 25K is 1,119. The page shows Contact sales at 50K and 100K+."
+stream,5000,599,annual,https://getstream.io/chat/pricing/,2026-10-12,"Elevate, smallest plan includes 10K MAU (675 on monthly billing). Start is 399."
+stream,10000,599,annual,https://getstream.io/chat/pricing/,2026-10-12,Elevate 10K (675 on monthly billing). Start 10K is 399.
+stream,25000,1299,annual,https://getstream.io/chat/pricing/,2026-10-12,"Elevate 25K (1,599 on monthly billing). Start 25K is 1,049."
+stream,50000,2299,annual,https://getstream.io/chat/pricing/,2026-10-12,"Elevate 50K (2,799 on monthly billing). Start 50K is 1,849. Translation is metered at 2.00 per 1,000."
+talkjs,5000,499,annual,https://talkjs.com/pricing/,2026-10-12,"Growth, includes 25K MAU (569 on monthly billing). Basic is 239 with 10K MAU."
+talkjs,10000,499,annual,https://talkjs.com/pricing/,2026-10-12,"Growth, includes 25K MAU (569 on monthly billing). Basic is 239 with 10K MAU."
+talkjs,25000,499,annual,https://talkjs.com/pricing/,2026-10-12,"Growth, includes 25K MAU (569 on monthly billing). The page shows 499 a month but also 5,748 a year for Growth, which is 479 a month."
+talkjs,50000,1249,annual,https://talkjs.com/pricing/,2026-10-12,"Growth plus 25,000 additional MAU at 0.03, from the page calculator (1,319 on monthly billing)."
+cometchat,5000,399,annual,https://www.cometchat.com/pricing,2026-10-12,"Advanced 10K tier, there is no 5K tier (498.75 on monthly billing). Basic 10K is 299."
+cometchat,10000,399,annual,https://www.cometchat.com/pricing,2026-10-12,Advanced 10K (498.75 on monthly billing). Basic 10K is 299.
+cometchat,25000,949,annual,https://www.cometchat.com/pricing,2026-10-12,"Advanced 25K (1,186.25 on monthly billing). Basic 25K is 699."
+cometchat,50000,1649,annual,https://www.cometchat.com/pricing,2026-10-12,"Advanced 50K (2,061.25 on monthly billing). Basic 50K is 1,349."
+twilio,5000,240,usage,https://www.twilio.com/en-us/messaging/pricing/conversations-api,2026-10-12,"First 200 users free, then 4,800 at 0.05. SMS, MMS and WhatsApp fees are extra."
+twilio,10000,477.5,usage,https://www.twilio.com/en-us/messaging/pricing/conversations-api,2026-10-12,"Adds 5,000 users at 0.0475, assuming marginal tiers. The page does not say how tiers apply. 465.50 if one rate covers every user."
+twilio,20000,927.5,usage,https://www.twilio.com/en-us/messaging/pricing/conversations-api,2026-10-12,"Adds 10,000 users at 0.045, assuming marginal tiers. 891.00 if one rate covers every user. Custom pricing above 20,000."
+pubnub,5000,370,annual estimate,https://www.pubnub.com/pricing/,2026-10-12,Platform Pro estimate from the pricing page slider.
+pubnub,10000,550,annual estimate,https://www.pubnub.com/pricing/,2026-10-12,Platform Pro estimate from the pricing page slider.
+pubnub,15000,750,annual estimate,https://www.pubnub.com/pricing/,2026-10-12,Platform Pro estimate from the pricing page slider.
+pubnub,25000,1130,annual estimate,https://www.pubnub.com/pricing/,2026-10-12,Platform Pro estimate from the pricing page slider.
+pubnub,43750,1850,annual estimate,https://www.pubnub.com/pricing/,2026-10-12,"Last value the slider shows. 50,000 and above is custom pricing."
+ably,5000,406,usage estimate,https://ably.com/pricing,2026-10-12,"Pro package 399 plus 7.00 of usage. Usage is Ably's support chat example (5 conversations per user a month, 20 messages and 20 minutes each) at 5,000 users: 2M messages at 2.50 per million, 1M connection minutes and 1M channel minutes at 1.00 per million, each rounded up to the next million. Standard (29) keeps 30 days of history."
+ably,10000,409.5,usage estimate,https://ably.com/pricing,2026-10-12,"Pro package 399 plus 10.50 of usage. Usage is Ably's support chat example (5 conversations per user a month, 20 messages and 20 minutes each) at 10,000 users: 3M messages at 2.50 per million, 2M connection minutes and 1M channel minutes at 1.00 per million, each rounded up to the next million."
+ably,25000,427,usage estimate,https://ably.com/pricing,2026-10-12,"Pro package 399 plus 28.00 of usage. Usage is Ably's support chat example (5 conversations per user a month, 20 messages and 20 minutes each) at 25,000 users: 8M messages at 2.50 per million, 5M connection minutes and 3M channel minutes at 1.00 per million, each rounded up to the next million."
+ably,50000,451.5,usage estimate,https://ably.com/pricing,2026-10-12,"Pro package 399 plus 52.50 of usage. Usage is Ably's support chat example (5 conversations per user a month, 20 messages and 20 minutes each) at 50,000 users: 15M messages at 2.50 per million, 10M connection minutes and 5M channel minutes at 1.00 per million, each rounded up to the next million. 52.50 is the total Ably publishes for this example. Stored messages, typing indicators and presence events also count as messages and are not in it."

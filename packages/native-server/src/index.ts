@@ -181,6 +181,7 @@ async function handle(s: Session, msg: ClientMsg): Promise<void> {
       if (!(await members(msg.channelId)).includes(s.userId)) return send(s.ws, { type: 'error', error: 'not a member', clientId: msg.clientId });
       let text = msg.text ?? null;
       let moderated = false;
+      const data: Record<string, unknown> = { ...(msg.data ?? {}) };
       if (msg.kind === 'text' && text) {
         const m = moderate(text);
         if (!m.allowed) {
@@ -188,11 +189,15 @@ async function handle(s: Session, msg: ClientMsg): Promise<void> {
           text = m.masked;
           moderated = true;
         }
+        // Translations are produced from the raw text before it reaches us; mask each of them as well,
+        // or the reader in the other language gets the contact details back.
+        const tr = data.translations as Record<string, string> | undefined;
+        if (tr) data.translations = Object.fromEntries(Object.entries(tr).map(([k, v]) => [k, moderate(v).masked]));
       }
       const id = randomUUID();
       const { rows } = await pool.query<Row>(
         'INSERT INTO messages (id, channel_id, sender_id, kind, text, data, moderated) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *',
-        [id, msg.channelId, s.userId, msg.kind, text, msg.data ?? {}, moderated],
+        [id, msg.channelId, s.userId, msg.kind, text, data, moderated],
       );
       const message = rowToMessage(rows[0]);
       send(s.ws, { type: 'sent', clientId: msg.clientId, message });

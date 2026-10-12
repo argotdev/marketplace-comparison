@@ -12,7 +12,6 @@ import type { ServerVendor, WebhookOutcome } from './types.ts';
 import type { CardMessageRef } from '../orders.ts';
 import { moderationStore, type Report } from '../moderation.ts';
 import { orders } from '../orders.ts';
-import { translationProvider } from '../translate.ts';
 
 const REQUIRED = ['ROCKETCHAT_URL', 'ROCKETCHAT_ADMIN_USER', 'ROCKETCHAT_ADMIN_PASSWORD', 'ROCKETCHAT_CREATE_TOKENS_SECRET'];
 const base = () => env.get('ROCKETCHAT_URL').replace(/\/$/, '');
@@ -94,14 +93,13 @@ export const rocketchatVendor: ServerVendor = {
     notes.push('users ensured (users.create)');
     const info = await fetch(`${base()}/api/info`).then((r) => r.json() as Promise<{ version: string }>);
     notes.push(`Rocket.Chat ${info.version}`);
-    // Auto-translate needs a provider key; Rocket.Chat refuses DeepL free keys.
-    const provider = translationProvider();
-    if (provider === 'google' || (provider === 'deepl' && !env.DEEPL_API_KEY.endsWith(':fx'))) {
-      const settings: Record<string, unknown> = provider === 'google' ? { AutoTranslate_Enabled: true, AutoTranslate_ServiceProvider: 'google-translate', AutoTranslate_GoogleAPIKey: env.GOOGLE_TRANSLATE_API_KEY } : { AutoTranslate_Enabled: true, AutoTranslate_ServiceProvider: 'deepl-translate', AutoTranslate_DeepLAPIKey: env.DEEPL_API_KEY };
-      for (const [k, v] of Object.entries(settings)) await api('POST', `settings/${k}`, { value: v }).catch((e) => notes.push(`setting ${k}: ${(e as Error).message}`));
-      await api('POST', 'permissions.update', { permissions: [{ _id: 'auto-translate', roles: ['admin', 'user'] }] }).catch(() => {});
-      notes.push(`auto-translate configured with ${provider} (per-room language is set when the group is created)`);
-    } else notes.push(provider === 'deepl' ? 'auto-translate not configured: Rocket.Chat does not support DeepL free (:fx) keys' : 'auto-translate not configured: no TRANSLATION_PROVIDER');
+    // Auto-translate settings are forced at boot by docker-compose (REST setting writes need TOTP on 8.x);
+    // here we only grant the `auto-translate` permission to users, which the per-room language setting needs.
+    const at = await api<{ value?: boolean }>('GET', 'settings/AutoTranslate_Enabled').catch(() => ({ value: false }));
+    if (at.value) {
+      await api('POST', 'permissions.update', { permissions: [{ _id: 'auto-translate', roles: ['admin', 'user'] }] }).catch((e) => notes.push(`auto-translate permission: ${(e as Error).message}`));
+      notes.push('auto-translate is on (Google, from compose env); auto-translate permission granted to users');
+    } else notes.push('auto-translate off: set ROCKETCHAT_AUTOTRANSLATE_ENABLED=true and GOOGLE_TRANSLATE_API_KEY, then recreate the container');
     // Outgoing webhook so message events reach our log (email itself is native via SMTP → Mailpit).
     const target = env.PUBLIC_URL.startsWith('http://localhost') ? env.PUBLIC_URL.replace('localhost', 'host.docker.internal') : env.PUBLIC_URL;
     try {
