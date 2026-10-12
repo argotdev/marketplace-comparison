@@ -2,37 +2,32 @@
   "platform": "ably",
   "requirements": {
     "1": {
-      "status": "built",
-      "note": "room order:<id> (channel order:<id>::$chat); Ably rooms have no membership list or metadata: membership = token capability order:* + a server-side member list + presence; orderId/listingId ride in message headers and our server",
-      "loc": 25
+      "status": "partial",
+      "note": "rooms exist (order:<id>) but have no membership list and no metadata; access is a token capability, so \"who is in the channel\" is our server's list plus presence. Sendbird has members and data on the channel"
     },
     "2": {
       "status": "native",
       "note": "messages.send({ text, metadata: { type: 'order_card', card } }); server messages.update(serial, { metadata }) with a Node ChatClient; message.updated event on both sides"
     },
     "3": {
-      "status": "built",
-      "note": "custom before-publish moderation rule (native hook) calling our server, which replies accept with masked text; Hive/Tisane/Bodyguard/Azure are native alternatives. No reporting (pricing: 'coming soon'): our queue",
-      "loc": 20
+      "status": "vendor hook + our rules",
+      "note": "the custom before-publish moderation rule (Ably's documented hook) calls our server, which answers with masked text; Hive/Tisane/Bodyguard/Azure are native alternatives. Reporting, muting and banning: unavailable (pricing page: \"coming soon\")"
     },
     "4": {
       "status": "built",
       "note": "no email; browser push via the Web Push API with Ably-generated VAPID keys; webhooks for your own notifier"
     },
     "5": {
-      "status": "built",
-      "note": "no translation: our server provider, translations in metadata",
-      "loc": 10
+      "status": "unavailable",
+      "note": "no translation feature"
     },
     "6": {
-      "status": "built",
-      "note": "no membership: the agent's token already covers order:* rooms; 'Get help' records the agent server-side; history({ orderBy: OldestFirst }) gives earlier messages (Free plan: 1-day retention vs 30-day Chat default, to verify)",
-      "loc": 10
+      "status": "partial",
+      "note": "no membership to add anyone to: the agent's token already covers order:* rooms, so escalation is an access-control fact plus the agent attaching; history is messages.history (Free plan: 1-day retention)"
     },
     "7": {
-      "status": "built (receipts, attachments) / native (typing)",
-      "note": "read receipts are not a Chat SDK feature: lastReadSerial in presence data; typing.keystroke/stop + typing.subscribe (native); no uploads: image inlined as a data URL in metadata for the test (production: object storage + URL)",
-      "loc": 30
+      "status": "partial",
+      "note": "typing is native (keystroke/stop/subscribe). Read receipts: not a Chat SDK feature (we put lastReadSerial in presence data to run the check; counts as unavailable for the comparison). Attachments: no upload or storage (we inlined a data URL; unavailable for the comparison)"
     }
   }
 }

@@ -2,6 +2,12 @@
 
 Status: **run locally**. Rocket.Chat 8.9.0 LTS with MongoDB 8.2 in Docker Compose (`--profile rocketchat`), unregistered workspace (Community limits). Checks ran on 2026-10-06 (`results/checks/rocketchat.json`); not benchmarked (author's decision to skip all benchmarks). Research notes with every URL: `docs/research/rocketchat.md`.
 
+## Compared with Sendbird
+
+- **Same:** private group per order with custom fields, card in message custom fields with live edits (as the author), escalation by invite, typing and image attachments, report into a moderation console. Four of six checks pass.
+- **Sendbird can, Rocket.Chat can't (unregistered Community workspace):** a regex content filter (only a case-sensitive word list; a pre-send hook needs an Apps-Engine app, which needs a registered workspace), read receipts (answer "enterprise feature"), an embeddable SDK (the UI is an iframe or your own DDP client), a desk product in the same user model (Omnichannel is a separate visitor model).
+- **Rocket.Chat can, Sendbird can't:** run on your own hardware with your data (690 MiB plus MongoDB at idle), native email to offline users over your own SMTP, self-hosted auto-translate providers including LibreTranslate.
+
 ## Versions
 
 | Piece | Version |

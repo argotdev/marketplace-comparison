@@ -10,8 +10,8 @@
       "note": "chat.sendMessage with schema-validated customFields {type, card} + an attachment for Rocket.Chat's own UI; chat.update as the message author (only members can edit in a private group); stream-room-messages delivers the edit"
     },
     "3": {
-      "status": "native",
-      "note": "built-in bad-words list masks listed words only: `whatsapp` masked; `Venmo` (capitalised in the fixture), the phone number and the email delivered (1/4 blocked, 0 false positives; the list match appears case-sensitive). A regex filter needs an Apps-Engine app, which an unregistered (Community) workspace cannot install. Reports via chat.reportMessage into the admin Moderation console (read back with moderation.reportsByUsers)"
+      "status": "native (partial)",
+      "note": "built-in bad-words list masks listed words only (case-sensitive: `whatsapp` masked, `Venmo`, the phone number and the email delivered: 1/4). A regex filter needs an Apps-Engine app, which an unregistered (Community) workspace cannot install. Reports via chat.reportMessage into the admin Moderation console"
     },
     "4": {
       "status": "native",

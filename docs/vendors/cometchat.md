@@ -2,6 +2,12 @@
 
 Status: **run** on 2026-10-12 against a CometChat app (Build plan, region us). Checks: 1, 2, 5, 6, 7 pass (translation through the Message Translation extension works on Build); 3 fails with 0/4 blocked because the moderation rules are dashboard settings not yet enabled on this app. Results in `results/checks/cometchat.json`. Research notes with every URL: `docs/research/cometchat.md`.
 
+## Compared with Sendbird
+
+- **Same:** private group per order with metadata, custom message type for the card with live edits (author or admin only), escalation by adding a member, read receipts, typing and image attachments. Five of six checks pass.
+- **Sendbird can, CometChat can't:** a desk product (CometChat bridges to Chatwoot or Intercom); moderate custom messages (CometChat skips them by design); edit a message as any member (CometChat: author, admin or moderator only).
+- **CometChat can, Sendbird can't (on the accounts used):** translation on the free Build plan (Sendbird: Pro plus sales); a rules engine with phone and email detection, regex lists and AI rules on every plan (Sendbird: Enterprise add-on), once enabled in the dashboard; native email and SMS notifications; a kit with a plugin system for custom message types.
+
 ## Versions
 
 | Package | Version | Role |

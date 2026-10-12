@@ -8,6 +8,12 @@ Status: adapter written and run. Checks: 6 pass, 1 not run (translation, no prov
 - `packages/adapters/native`: the browser adapter, a JSON protocol over the browser `WebSocket` API. No third-party code in the client bundle.
 - Token: HMAC-signed `userId.exp.sig` issued by our API server with a shared secret.
 
+## Compared with Sendbird
+
+- **Same, by construction:** every requirement is implemented because we wrote it: channel with metadata, card with live edits, regex filter and a reports table, escalation, read state, typing and uploads. Five of six checks pass; translation needs a provider key.
+- **What Sendbird gives that this build does not:** everything listed under "What this build does not handle" below: offline sync, multi-device read state, presence at scale, abuse tooling, push delivery, search, retention, and the operations. The six-day stale-process failure in the build log is the small version of that cost.
+- **What this build gives that Sendbird does not:** no per-MAU bill, no plan gates, no vendor terms, and a 3 KB client.
+
 ## Versions
 
 | Piece | Version |

@@ -2,6 +2,12 @@
 
 Status: **written, not run**. No `PUBNUB_PUBLISH_KEY` / `PUBNUB_SUBSCRIBE_KEY` / `PUBNUB_SECRET_KEY` in `.env` as of 2026-10-06. Adapter, courier demo and server half type-check against the pinned SDKs. Research notes with every URL: `docs/research/pubnub.md`.
 
+## Compared with Sendbird
+
+- **Same:** group conversation per order with (scalar) custom data, card in message meta with live updates through message actions, escalation by invite, read receipts, typing and file attachments.
+- **Sendbird can, PubNub can't:** a content filter as configuration (PubNub: a Function you write), a moderation dashboard on the free plan (Channel Monitor is paid), translation, a message type that can be rewritten after publish, nested custom data on channels, a maintained React kit (archived 2026), a desk product.
+- **PubNub can, Sendbird can't:** carry non-chat real-time data on the same connection, shown here by the courier location demo moving a marker on the order page.
+
 ## Versions
 
 | Package | Version | Role |

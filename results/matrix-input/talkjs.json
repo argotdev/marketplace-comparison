@@ -10,9 +10,8 @@
       "note": "send({ text, custom: { type: 'order_card', card: JSON } }); order service edits with PUT /conversations/{id}/messages/{mid} { custom }; subscribeMessages snapshot diff (editedAt) surfaces the update"
     },
     "3": {
-      "status": "native",
-      "note": "contact masking is a per-role dashboard setting (phone, email, custom regex; all plans) and was not configured on this app at run time: 0/4 blocked. No report API: reportUser goes to our own queue",
-      "loc": 3
+      "status": "native (filter) / unavailable (report)",
+      "note": "contact masking is a per-role dashboard setting (phone, email, custom regex; all plans) and was not yet configured on this app at run time: 0/4 blocked. No report API or moderation queue"
     },
     "4": {
       "status": "native",

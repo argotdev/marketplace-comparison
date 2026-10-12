@@ -2,6 +2,12 @@
 
 Status: **written, not run**. No Twilio credentials in `.env` as of 2026-10-06. Adapter and server half type-check against `@twilio/conversations@3.0.1` and `twilio@6.1.2`. Research notes with every URL: `docs/research/twilio.md`.
 
+## Compared with Sendbird
+
+- **Same:** conversation per order with JSON attributes, structured card in message attributes with live edits, escalation by adding a participant, typing and media attachments.
+- **Sendbird can, Twilio can't:** a custom message type (attributes only, our UI renders them); any content filter or report API (moderation is your webhook, run in Twilio's pre-event hook); translation; read receipts as events (a read horizon the client must advance itself; delivery receipts only for SMS/WhatsApp legs); a React UI kit; a desk product.
+- **Twilio can, Sendbird can't:** put the seller's phone in the same conversation over SMS or WhatsApp so a phone reply lands in the thread (costs money; written, not run).
+
 ## Versions
 
 | Package | Version | Role |

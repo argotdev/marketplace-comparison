@@ -2,6 +2,12 @@
 
 Status: **written, not run**. No `ABLY_API_KEY` in `.env` as of 2026-10-06. Adapter, UI kit view and server half type-check against the pinned SDKs. Research notes with every URL: `docs/research/ably.md`.
 
+## Compared with Sendbird
+
+- **Same:** a room per order, structured card in message metadata with native message edits, typing indicators.
+- **Sendbird can, Ably can't:** channel membership and metadata (Ably rooms are channels; access is a token capability), read receipts, file uploads, translation, user reporting or banning ("coming soon" on the pricing page), a kit that renders custom messages, a desk product. Moderation exists only as a hook: your endpoint or Hive, Tisane, Bodyguard, Azure.
+- **Ably can, Sendbird can't:** documented ordering and exactly-once delivery guarantees per channel (not measured here), browser push without Firebase, and terms that explicitly allow publishing benchmarks.
+
 ## Versions
 
 | Package | Version | Role |

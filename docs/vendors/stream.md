@@ -2,6 +2,12 @@
 
 Status: **run** on 2026-10-07 against a Stream app (Build plan). Checks: all seven pass, including auto-translation (the Build app accepted `auto_translation_enabled`) and moderation (4/4 blocked, 0 false positives). Results in `results/checks/stream.json`. Research notes with every URL: `docs/research/stream.md`.
 
+## Compared with Sendbird
+
+- **Same:** 1:1 order channel with custom data, custom message type for the card with live edits, regex-based filter plus user reporting into a moderation queue, escalation by adding the agent to the channel, read receipts, typing and image attachments. All six checks pass.
+- **Sendbird can, Stream can't:** a support desk product (Desk); Stream has no first-party equivalent.
+- **Stream can, Sendbird can't (on the accounts used):** auto-translation worked on the free Build app where Sendbird's needs Pro plus sales enablement; regex and email block-list types plus AI platform-circumvention rules on the free plan, where Sendbird's rules engine is an Enterprise add-on; typed JSON custom fields instead of a `data` string; an activity feed for listing updates (Feeds).
+
 ## Versions
 
 | Package | Version | Role |

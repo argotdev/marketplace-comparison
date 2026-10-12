@@ -2,6 +2,12 @@
 
 Status: **run** on 2026-10-07 against the TalkJS test app. Checks: 1, 2, 6, 7 pass; 3 fails with 0/4 blocked because contact masking is a per-role dashboard setting not yet configured on this app; 4 cannot complete until the TalkJS webhook is configured in the dashboard (TalkJS emails from its own infrastructure, so the webhook is the only evidence); 5 fails as expected (translation needs Growth). Results in `results/checks/talkjs.json`. Research notes with every URL: `docs/research/talkjs.md`.
 
+## Compared with Sendbird
+
+- **Same:** order conversation with custom data, custom message with live edits, escalation by adding a participant, typing and image attachments. Read receipts exist (the Data API exposes one `everyoneReadUntil` value, not a per-user event).
+- **Sendbird can, TalkJS can't:** report a user or message into a moderation queue (TalkJS has none); translation on the test plan (TalkJS needs Growth plus a Google key; Sendbird needs Pro plus sales, so neither worked here); a desk product; US hosting (TalkJS is EU-only).
+- **TalkJS can, Sendbird can't:** contact masking (phone, email, links, custom regex) as a per-role dashboard setting on every plan, with no server code; a React kit that renders in the page with a one-component override for the card; native email to offline participants.
+
 ## Versions
 
 | Package | Version | Role |
