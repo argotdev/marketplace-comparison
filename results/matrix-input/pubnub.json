@@ -1,12 +1,36 @@
 {
   "platform": "pubnub",
   "requirements": {
-    "1": { "status": "native", "note": "Chat SDK createGroupConversation({ users, channelId: order-<id>, channelData.custom: { orderId, listingId } }); App Context memberships; custom is scalar-only" },
-    "2": { "status": "built", "note": "card in message meta (SDK); meta is immutable, so the update is a message action of type order_card (same primitive the SDK uses for edits) added by the server; clients fold the latest action into the card via message.onUpdated", "loc": 30 },
-    "3": { "status": "built", "note": "Before Publish Function with our regex mask (pubnub.function.js, pasted into the Admin Portal); Chat SDK message.report lands on PUBNUB_INTERNAL_MODERATION_<channel> (SDK) and is mirrored to our queue. Channel Monitor dashboard and Auto Moderation are paid", "loc": 35 },
-    "4": { "status": "built", "note": "no email, no web push: Events & Actions 'Message sent' webhook + whereNow presence -> Mailpit (needs https PUBLIC_URL and a configured listener)", "loc": 20 },
-    "5": { "status": "built", "note": "no translation: our server provider, translations in meta; PubNub's path would be a Function calling Google/Amazon/Microsoft Translate", "loc": 10 },
-    "6": { "status": "native", "note": "channel.invite(agentUser) (needs manage in the PAM token, granted); getHistory for earlier messages (25 per call, paginated)" },
-    "7": { "status": "native", "note": "read receipts: membership.setLastReadMessage + onReadReceiptReceived (SDK, stored as membership custom); typing: startTyping/stopTyping/onTypingChanged (SDK, signals); files: MessageDraft.files (SDK, 5 MB)" }
+    "1": {
+      "status": "native",
+      "note": "Chat SDK createGroupConversation({ users, channelId: order-<id>, channelData.custom: { orderId, listingId } }); App Context memberships; custom is scalar-only"
+    },
+    "2": {
+      "status": "built",
+      "note": "card in message meta (SDK); meta is immutable, so the update is a message action of type order_card (same primitive the SDK uses for edits) added by the server; clients fold the latest action into the card via message.onUpdated",
+      "loc": 30
+    },
+    "3": {
+      "status": "built",
+      "note": "Before Publish Function with our regex mask (pubnub.function.js, pasted into the Admin Portal); Chat SDK message.report lands on PUBNUB_INTERNAL_MODERATION_<channel> (SDK) and is mirrored to our queue. Channel Monitor dashboard and Auto Moderation are paid",
+      "loc": 35
+    },
+    "4": {
+      "status": "built",
+      "note": "no email and no browser push (FCM/APNs only); Events & Actions or Functions to call your own notifier"
+    },
+    "5": {
+      "status": "built",
+      "note": "no translation: our server provider, translations in meta; PubNub's path would be a Function calling Google/Amazon/Microsoft Translate",
+      "loc": 10
+    },
+    "6": {
+      "status": "native",
+      "note": "channel.invite(agentUser) (needs manage in the PAM token, granted); getHistory for earlier messages (25 per call, paginated)"
+    },
+    "7": {
+      "status": "native",
+      "note": "read receipts: membership.setLastReadMessage + onReadReceiptReceived (SDK, stored as membership custom); typing: startTyping/stopTyping/onTypingChanged (SDK, signals); files: MessageDraft.files (SDK, 5 MB)"
+    }
   }
 }

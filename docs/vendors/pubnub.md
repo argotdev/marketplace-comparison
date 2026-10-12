@@ -41,7 +41,7 @@ PubNub Terms and Conditions §3.1(g): no disclosing or publishing "performance o
 | 1 | native | `createGroupConversation` with a chosen channel id and scalar custom data; memberships in App Context | nothing (custom is scalar-only, fine for two ids) |
 | 2 | built | message `meta` carries the card on send; `message.onUpdated` fires on message actions | the update: meta cannot change after publish, so the server adds a message action `order_card` with the new JSON and the adapter picks the latest action over the original meta (~30 lines) |
 | 3 | built | `message.report(reason)` publishes to `PUBNUB_INTERNAL_MODERATION_<channel>`; `setRestrictions` for mute/ban (server, Access Manager) | the filter itself: a Before Publish Function with our regex set, pasted into the portal; no dashboard queue on Free (Channel Monitor is paid), so reports are mirrored to our queue |
-| 4 | built | nothing (no email; push is FCM/APNs only, no browser tokens) | Events & Actions webhook → `whereNow` presence → Mailpit |
+| 4 | documented, not tested (was: built) | nothing (no email; push is FCM/APNs only, no browser tokens) | Events & Actions webhook → `whereNow` presence → Mailpit |
 | 5 | built | nothing | server provider, translations in meta |
 | 6 | native | `channel.invite(user)` (needs `manage` in the token) and `getHistory` | the PAM grant that includes `manage` on `order-*` |
 | 7 | native | `setLastReadMessage` + `onReadReceiptReceived` (receipts stored as membership custom); `startTyping` / `onTypingChanged` (signals); `MessageDraft.files` | pagination over `getHistory`'s 25-message cap |

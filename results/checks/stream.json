@@ -1,45 +1,45 @@
 {
   "platform": "stream",
-  "startedAt": "2026-10-07T15:12:51.210Z",
-  "orderId": "ord_muy8yaza",
+  "startedAt": "2026-10-12T18:00:42.272Z",
+  "orderId": "ord_mv5k5fai",
   "results": [
     {
       "req": 1,
       "title": "1. 1:1 buyer/seller channel tied to the order",
       "outcome": "pass",
-      "note": "channel order-ord_muy8yaza; members buyer_ana,seller_ben; data keys orderId,listingId",
-      "durationMs": 770,
+      "note": "channel order-ord_mv5k5fai; members buyer_ana,seller_ben; data keys orderId,listingId",
+      "durationMs": 894,
       "details": {
-        "id": "order-ord_muy8yaza",
+        "id": "order-ord_mv5k5fai",
         "memberIds": [
           "buyer_ana",
           "seller_ben"
         ],
         "data": {
-          "orderId": "ord_muy8yaza",
+          "orderId": "ord_mv5k5fai",
           "listingId": "lst_bike_54"
         }
       },
-      "at": "2026-10-07T15:12:51.210Z"
+      "at": "2026-10-12T18:00:42.272Z"
     },
     {
       "req": 2,
       "title": "2. Order card as a custom message with live status",
       "outcome": "pass",
       "note": "card sent as structured data; status placed->shipped propagated to both users in 184 ms by editing the same message",
-      "durationMs": 2129,
+      "durationMs": 2089,
       "details": {
-        "messageId": "18522208-28b4-451a-8ba6-0d6a1106ad30",
+        "messageId": "67b8b850-8bdd-4b3a-837d-a4e71930388b",
         "propagationMs": 184
       },
-      "at": "2026-10-07T15:12:55.436Z"
+      "at": "2026-10-12T18:00:46.496Z"
     },
     {
       "req": 3,
       "title": "3. Moderation: contact info and off-platform payment blocked; user report reaches a queue",
       "outcome": "pass",
       "note": "4/4 blocked or masked, 0 false positive(s) of 2; report reached the vendor's moderation queue",
-      "durationMs": 20487,
+      "durationMs": 20801,
       "details": {
         "outcomes": [
           {
@@ -79,66 +79,46 @@
         "falsePositives": 0,
         "report": {
           "local": 0,
-          "remote": 10
+          "remote": 15
         }
       },
-      "at": "2026-10-07T15:13:18.038Z"
-    },
-    {
-      "req": 4,
-      "title": "4. Email fallback when the seller is offline (push: see note)",
-      "outcome": "pass",
-      "note": "email to seller arrived in Mailpit (built-webhook; sent 6 s after the seller disconnected); browser push not evaluated (out of scope; see vendor doc)",
-      "durationMs": 9405,
-      "details": {
-        "subject": "[stream] New message from Ana",
-        "to": [
-          {
-            "Name": "Ben",
-            "Address": "ben@example.test"
-          }
-        ],
-        "created": "2026-10-07T15:13:27.033Z",
-        "push": "browser push not evaluated (out of scope; see vendor doc)",
-        "settleMs": 6000
-      },
-      "at": "2026-10-07T15:13:28.505Z"
+      "at": "2026-10-12T18:01:09.447Z"
     },
     {
       "req": 5,
       "title": "5. Auto-translation es<->en",
       "outcome": "pass",
       "note": "es->en: \"Yes, the frame is still available. Shipping tomorrow.\" | en->es: \"Sí, el marco todavía está disponible. El envío es mañana.\" (platform feature)",
-      "durationMs": 2003,
+      "durationMs": 2801,
       "details": {
         "sellerSaw": "Yes, the frame is still available. Shipping tomorrow.",
         "buyerSaw": "Sí, el marco todavía está disponible. El envío es mañana.",
         "provider": "platform"
       },
-      "at": "2026-10-07T15:13:32.617Z"
+      "at": "2026-10-12T18:01:14.386Z"
     },
     {
       "req": 6,
       "title": "6. Escalation: \"Get help\" adds agent_sam who can read earlier messages",
       "outcome": "pass",
-      "note": "agent added to the same channel (members buyer_ana,seller_ben,agent_sam); agent reads 9 earlier message(s)",
-      "durationMs": 2431,
+      "note": "agent added to the same channel (members buyer_ana,seller_ben,agent_sam); agent reads 8 earlier message(s)",
+      "durationMs": 2385,
       "details": {
         "members": [
           "buyer_ana",
           "seller_ben",
           "agent_sam"
         ],
-        "agentSees": 9
+        "agentSees": 8
       },
-      "at": "2026-10-07T15:13:37.164Z"
+      "at": "2026-10-12T18:01:18.902Z"
     },
     {
       "req": 7,
       "title": "7. Read receipts, typing indicators, image attachment",
       "outcome": "pass",
       "note": "typing, readReceipt, attachment delivered buyer<->seller",
-      "durationMs": 2657,
+      "durationMs": 3667,
       "details": {
         "typing": {
           "ok": true
@@ -149,69 +129,63 @@
             "readsOnArrival": [
               {
                 "userId": "seller_ben",
-                "at": 1791386019360
+                "at": 1791828081237
               }
             ],
             "statusLine": " Read by Ben",
             "messages": [
               {
-                "id": "18522208-28b4-451a-8ba6-0d6a1106ad30",
+                "id": "67b8b850-8bdd-4b3a-837d-a4e71930388b",
                 "senderId": "buyer_ana",
-                "createdAt": 1791385973066,
+                "createdAt": 1791828044065,
                 "kind": "order_card"
               },
               {
-                "id": "cf164eca-1453-41ea-b83a-c9fc8b0fc355",
+                "id": "b542a77e-5848-4107-a651-4145b00b67d0",
                 "senderId": "buyer_ana",
-                "createdAt": 1791385995169,
+                "createdAt": 1791828066444,
                 "kind": "text"
               },
               {
-                "id": "6f416f6f-fc13-446c-a15c-b38c642ceec2",
+                "id": "36666cb9-d0c4-466e-b5be-8daa043970e0",
                 "senderId": "buyer_ana",
-                "createdAt": 1791385995591,
+                "createdAt": 1791828066878,
                 "kind": "text"
               },
               {
-                "id": "0e7d964d-6909-41ec-9735-46b991c8e534",
+                "id": "3f22e956-5997-490d-9d8f-826e75f58891",
                 "senderId": "buyer_ana",
-                "createdAt": 1791386006892,
+                "createdAt": 1791828071867,
                 "kind": "text"
               },
               {
-                "id": "eb1f2108-2f10-4213-bc57-80a4f790409a",
-                "senderId": "buyer_ana",
-                "createdAt": 1791386010174,
-                "kind": "text"
-              },
-              {
-                "id": "9afe35a0-1f04-4b0f-9900-ced5e5ac1a07",
+                "id": "e6f21dd5-fb5c-4939-8497-bea208f56158",
                 "senderId": "seller_ben",
-                "createdAt": 1791386010448,
+                "createdAt": 1791828072166,
                 "kind": "text"
               },
               {
-                "id": "703e999b-8580-44ff-a062-e7e587d23e46",
+                "id": "7906d7aa-28d2-4773-ba41-833a1d712d76",
                 "senderId": "buyer_ana",
-                "createdAt": 1791386013803,
+                "createdAt": 1791828075309,
                 "kind": "text"
               },
               {
-                "id": "255164fa-6e04-4681-ba76-56740c615226",
+                "id": "244decfc-79d2-42b3-a00b-3b5cb175d8f5",
                 "senderId": "buyer_ana",
-                "createdAt": 1791386014009,
+                "createdAt": 1791828075549,
                 "kind": "text"
               },
               {
-                "id": "44a6591a-11b7-40fd-9d66-ad1294af656e",
+                "id": "e9f686c7-2abe-408d-a8f1-45cf32b26b71",
                 "senderId": "buyer_ana",
-                "createdAt": 1791386014122,
+                "createdAt": 1791828075675,
                 "kind": "system"
               },
               {
-                "id": "9e2c8357-0f43-42c5-9cd3-717cc0929c88",
+                "id": "76f3acc6-385f-46d9-90b0-a9192359d735",
                 "senderId": "buyer_ana",
-                "createdAt": 1791386019185,
+                "createdAt": 1791828081060,
                 "kind": "text"
               }
             ],
@@ -219,12 +193,12 @@
               "reads": [
                 {
                   "userId": "seller_ben",
-                  "at": 1791386019360
+                  "at": 1791828081237
                 }
               ],
               "lastMine": {
-                "id": "9e2c8357-0f43-42c5-9cd3-717cc0929c88",
-                "createdAt": 1791386019185
+                "id": "76f3acc6-385f-46d9-90b0-a9192359d735",
+                "createdAt": 1791828081060
               },
               "statusLine": " Read by Ben"
             }
@@ -238,7 +212,7 @@
           }
         }
       },
-      "at": "2026-10-07T15:13:41.950Z"
+      "at": "2026-10-12T18:01:24.701Z"
     }
   ]
 }

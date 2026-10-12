@@ -16,7 +16,7 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
 
 | Item | What to do | `.env` keys |
 |---|---|---|
-| Public URL for webhooks | Run `ngrok http 4000` (ngrok 3.37 is installed and configured). Paste the HTTPS URL. Every vendor's webhook URL is `<PUBLIC_URL>/api/webhooks/<platform>`. Keep the tunnel running while checks run. | `PUBLIC_URL` |
+| Public URL for webhooks | Only needed for Twilio (pre-event moderation hook) and Ably (custom before-publish moderation hook). Run `ngrok http 4000` and paste the HTTPS URL; the hook URL is `<PUBLIC_URL>/api/webhooks/<platform>`. Sendbird and Stream webhooks are optional (reports are read back through their APIs). | `PUBLIC_URL` |
 | Translation provider (optional) | For native, Twilio, PubNub, Ably and Rocket.Chat (and Sendbird/Stream if their translation is plan-gated on your account) translation is done from our server. DeepL API Free (https://www.deepl.com/pro-api, key ends in `:fx`) or Google Cloud Translation v2 key. Leave empty and translation is `not run` on those builds. | `TRANSLATION_PROVIDER=deepl` or `google`, `DEEPL_API_KEY`, `GOOGLE_TRANSLATE_API_KEY` |
 
 ## Sendbird (baseline)
@@ -53,7 +53,6 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
   2. Security: enable **Authentication required** (we issue JWTs).
   3. Chat UI → Roles: create roles `buyer`, `seller`, `support`. For `buyer` and `seller`, open **Mask unwanted content** and tick phone numbers and email addresses, suppression **Global**; add a custom suppression pattern for the words `venmo`, `paypal`, `zelle`, `cash app`, `whatsapp`, `telegram` (one regex: `\b(venmo|paypal|zelle|cash\s?app|whatsapp|telegram)\b`, case-insensitive). Enable file sharing and typing indicator for all roles.
   4. Settings → Webhooks: URL `<PUBLIC_URL>/api/webhooks/talkjs`, events `message.sent`, `message.updated`, `notification.triggered`, `notification.sent`, `notification.delivered`.
-  5. Notifications → Email: leave enabled. TalkJS sends email itself through Postmark and has **no custom SMTP**, so Mailpit cannot receive it. Set a real inbox you control for `seller_ben` if you want to see the email; I verify the trigger through the `notification.*` webhooks and record that Mailpit was not reachable by design.
   6. Settings → Localization: paste a Google Cloud Translation API key **only if** the plan allows translation (Growth). Otherwise skip and translation is `gated`.
 - **Keys:** `TALKJS_APP_ID`, `TALKJS_SECRET_KEY`, `TALKJS_PLAN` (e.g. `test-mode`), `TALKJS_REGION=eu` (TalkJS hosts only in the EU).
 
@@ -65,7 +64,6 @@ Written 2026-10-06 from each vendor's current docs (details and URLs in `docs/re
   1. Moderation → Rules: enable the default **Contact Details Removal** (phone), **Email Detection** and **Profanity Filter** rules with action **Block**; create one custom rule with a regex list for `venmo|paypal|zelle|cash ?app|whatsapp|telegram`, action Block. Do **not** enable the legacy Data Masking / Profanity extensions (the docs warn running both causes problems).
   2. Chat & Messaging → Features → Extensions: enable **Message Translation**.
   3. Application → Webhooks → Create: URL `<PUBLIC_URL>/api/webhooks/cometchat`, enable Basic Auth with a username/password you invent (put them in `.env`), triggers `message_sent`, `message_edited`, `moderation_engine_blocked`, `moderation_engine_approved`, `group_member_added`.
-  4. Notifications → Settings → Email: enable, provider **Custom provider**, URL `<PUBLIC_URL>/api/webhooks/cometchat` (same URL as the webhook; our server branches on the payload's `trigger`), Basic Auth same credentials, wait window **1 minute** (the minimum). Our server receives the payload and sends the email to Mailpit.
 - **Keys:** `COMETCHAT_APP_ID`, `COMETCHAT_REGION`, `COMETCHAT_AUTH_KEY`, `COMETCHAT_REST_API_KEY`, `COMETCHAT_WEBHOOK_USER`, `COMETCHAT_WEBHOOK_PASS`, `COMETCHAT_PLAN=build`.
 
 ## Twilio Conversations (classic)

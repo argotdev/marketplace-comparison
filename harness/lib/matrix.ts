@@ -26,7 +26,7 @@ const REQ_TITLES: Record<string, string> = {
   '1': '1:1 order channel',
   '2': 'Order card with live status',
   '3': 'Moderation + user report',
-  '4': 'Push + email fallback',
+  '4': 'Offline notification (documented, not tested)',
   '5': 'Auto-translation',
   '6': 'Escalation to agent',
   '7': 'Receipts, typing, attachments',
@@ -47,6 +47,11 @@ for (const platform of PLATFORMS) {
     if (r?.status === 'built' && r.loc !== undefined) note = `${note} (${r.loc} LOC)`;
     if (r?.status === 'gated' && r.gate) note = `${note} [needs: ${r.gate}]`;
     if (c?.outcome === 'skip' && status !== 'gated' && status !== 'unavailable') status = 'not run';
+    // Requirement 4 is documented only (decision 2026-10-12): the cell carries the vendor-doc note, never a check outcome.
+    if (req === '4' && input) {
+      matrixLines.push([platform, req, REQ_TITLES[req], `documented: ${r?.status ?? 'unknown'}`, 'not tested', note].map(csvEscape).join(','));
+      continue;
+    }
     // One status per cell: until the check has run, the cell is `not run` and the note says why and what was designed.
     if (!c && input) {
       status = 'not run';

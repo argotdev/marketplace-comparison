@@ -16,13 +16,12 @@
     },
     "4": {
       "status": "built",
-      "note": "JS SDK has no browser push; email built from group_channel:message_send webhook + GET /v3/users/{id} is_online -> Mailpit",
-      "loc": 40
+      "note": "no browser push in the JS SDK and no email; docs point to webhooks (group_channel:message_send) for your own notifier. Mobile push (FCM/APNs) is native"
     },
     "5": {
       "status": "gated",
       "note": "translationTargetLanguages sent on every message; message.translations came back empty on this account, consistent with the docs' 'contact our sales team'. Built fallback inactive (no provider)",
-      "gate": "Pro plan + sales enablement"
+      "gate": "Pro or Enterprise plan (pricing page lists translation there) plus sales enablement"
     },
     "6": {
       "status": "native",

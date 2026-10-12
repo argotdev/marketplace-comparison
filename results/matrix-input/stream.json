@@ -15,8 +15,7 @@
     },
     "4": {
       "status": "built",
-      "note": "Stream has no web push and no email; message.new webhook + queryUsers presence -> Mailpit",
-      "loc": 30
+      "note": "no browser push and no email; webhooks (message.new) or unread-reminder events for your own notifier. Mobile push (Firebase/APNs/Huawei/Xiaomi) is native"
     },
     "5": {
       "status": "native",

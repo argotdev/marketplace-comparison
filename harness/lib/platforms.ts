@@ -9,18 +9,10 @@ export interface PlatformFacts {
    * TRANSLATION_PROVIDER (or the vendor's own provider key) in .env, otherwise the check is `not run`.
    */
   translation: 'native' | 'native-needs-provider' | 'built' | 'none';
-  /**
-   * How the email fallback is satisfied. `native-external` = the vendor sends email itself from its own
-   * infrastructure, so Mailpit cannot receive it; the check records the vendor's notification webhook instead.
-   */
+  /** Offline notification (push + email) is documented per vendor, not tested; kept for the matrix note. */
   email: 'native' | 'native-external' | 'built-webhook' | 'built-client' | 'none';
   /** Documented client-side send rate limit used to pace the ordering burst (messages per second). */
   maxSendPerSec: number;
-  /**
-   * How long the email check waits after the seller disconnects before the buyer sends, so the platform's
-   * presence has settled to offline. Default 6 s (our own registry's TTL is 5 s). Measured per platform when longer.
-   */
-  offlineSettleMs?: number;
   /** npm package whose version is reported in results. */
   sdkPackage: string;
   kitPackage?: string;
@@ -115,8 +107,6 @@ export const PLATFORM_FACTS: Record<string, PlatformFacts> = {
     maxSendPerSec: 5,
     sdkPackage: '@mkt/adapter-rocketchat',
     kitPackage: '@mkt/adapter-rocketchat',
-    // Measured 2026-10-06: presence flips to offline 60 s after the socket closes (with UserPresence:online announced).
-    offlineSettleMs: 65000,
     vendorHosts: ['localhost:3000'],
   },
 };

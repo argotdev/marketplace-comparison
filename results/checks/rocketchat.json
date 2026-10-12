@@ -1,46 +1,46 @@
 {
   "platform": "rocketchat",
-  "startedAt": "2026-10-07T15:17:11.018Z",
-  "orderId": "ord_muy93xkk",
+  "startedAt": "2026-10-12T17:59:39.370Z",
+  "orderId": "ord_mv5k44qz",
   "results": [
     {
       "req": 1,
       "title": "1. 1:1 buyer/seller channel tied to the order",
       "outcome": "pass",
-      "note": "channel order-ord_muy93xkk; members buyer_ana,seller_ben; data keys orderId,listingId,rid",
-      "durationMs": 352,
+      "note": "channel order-ord_mv5k44qz; members buyer_ana,seller_ben; data keys orderId,listingId,rid",
+      "durationMs": 392,
       "details": {
-        "id": "order-ord_muy93xkk",
+        "id": "order-ord_mv5k44qz",
         "memberIds": [
           "buyer_ana",
           "seller_ben"
         ],
         "data": {
-          "orderId": "ord_muy93xkk",
+          "orderId": "ord_mv5k44qz",
           "listingId": "lst_bike_54",
-          "rid": "6ac662767635988413f5fc6f"
+          "rid": "6acd200b3c1e569b53f8dc54"
         }
       },
-      "at": "2026-10-07T15:17:11.018Z"
+      "at": "2026-10-12T17:59:39.370Z"
     },
     {
       "req": 2,
       "title": "2. Order card as a custom message with live status",
       "outcome": "pass",
-      "note": "card sent as structured data; status placed->shipped propagated to both users in 81 ms by editing the same message",
-      "durationMs": 764,
+      "note": "card sent as structured data; status placed->shipped propagated to both users in 80 ms by editing the same message",
+      "durationMs": 772,
       "details": {
-        "messageId": "dDDmQhBA6fQyyNEEE",
-        "propagationMs": 81
+        "messageId": "X3j7XrFtjdxKHHAR9",
+        "propagationMs": 80
       },
-      "at": "2026-10-07T15:17:11.846Z"
+      "at": "2026-10-12T17:59:40.223Z"
     },
     {
       "req": 3,
       "title": "3. Moderation: contact info and off-platform payment blocked; user report reaches a queue",
       "outcome": "fail",
       "note": "1/4 blocked or masked, 0 false positive(s) of 2; report reached the vendor's moderation queue | Error: missed: Call me at 415-555-0134 / Email me at ben@example.com and we'll sort it out / Let's move this to WhatsApp, +44 7700 900123",
-      "durationMs": 810,
+      "durationMs": 804,
       "details": {
         "outcomes": [
           {
@@ -87,27 +87,7 @@
           "remote": 1
         }
       },
-      "at": "2026-10-07T15:17:12.740Z"
-    },
-    {
-      "req": 4,
-      "title": "4. Email fallback when the seller is offline (push: see note)",
-      "outcome": "pass",
-      "note": "email to seller arrived in Mailpit (native; sent 65 s after the seller disconnected); browser push not evaluated (out of scope; see vendor doc)",
-      "durationMs": 66659,
-      "details": {
-        "subject": "buyer_ana has posted a message in #order-ord_muy93xkk",
-        "to": [
-          {
-            "Name": "seller_ben",
-            "Address": "ben@example.test"
-          }
-        ],
-        "created": "2026-10-07T15:18:19.327Z",
-        "push": "browser push not evaluated (out of scope; see vendor doc)",
-        "settleMs": 65000
-      },
-      "at": "2026-10-07T15:18:19.778Z"
+      "at": "2026-10-12T17:59:41.142Z"
     },
     {
       "req": 5,
@@ -115,30 +95,30 @@
       "outcome": "skip",
       "note": "not run: the platform translates natively but needs a provider API key, and none is set in .env",
       "durationMs": 0,
-      "at": "2026-10-07T15:18:19.784Z"
+      "at": "2026-10-12T17:59:41.483Z"
     },
     {
       "req": 6,
       "title": "6. Escalation: \"Get help\" adds agent_sam who can read earlier messages",
       "outcome": "pass",
-      "note": "agent added to the same channel (members buyer_ana,agent_sam,seller_ben); agent reads 11 earlier message(s)",
-      "durationMs": 665,
+      "note": "agent added to the same channel (members buyer_ana,seller_ben,agent_sam); agent reads 10 earlier message(s)",
+      "durationMs": 674,
       "details": {
         "members": [
           "buyer_ana",
-          "agent_sam",
-          "seller_ben"
+          "seller_ben",
+          "agent_sam"
         ],
-        "agentSees": 11
+        "agentSees": 10
       },
-      "at": "2026-10-07T15:18:20.516Z"
+      "at": "2026-10-12T17:59:42.275Z"
     },
     {
       "req": 7,
       "title": "7. Read receipts, typing indicators, image attachment",
       "outcome": "fail",
       "note": "typing, attachment delivered buyer<->seller; failed: readReceipt (page.waitForFunction: Timeout 15000ms exceeded.) | Error: failed: readReceipt",
-      "durationMs": 15708,
+      "durationMs": 15757,
       "details": {
         "typing": {
           "ok": true
@@ -150,8 +130,8 @@
             "after": {
               "reads": [],
               "lastMine": {
-                "id": "HC4GrK28tGPNSxFZg",
-                "createdAt": 1791386301071
+                "id": "MBHKCCzRyc4ioXQbv",
+                "createdAt": 1791827982834
               },
               "statusLine": ""
             }
@@ -165,7 +145,7 @@
           }
         }
       },
-      "at": "2026-10-07T15:18:36.326Z"
+      "at": "2026-10-12T17:59:58.141Z"
     }
   ]
 }

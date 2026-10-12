@@ -5,7 +5,7 @@
 import { test, expect, type Browser } from '@playwright/test';
 import { LISTING, MUST_BLOCK, MUST_PASS, channelIdForOrder, type ChannelInfo, type ChatMessage, type OrderCard } from '@mkt/shared';
 import { PLATFORM } from '../lib/env.ts';
-import { api, post, mailpit, waitFor, sleep } from '../lib/api.ts';
+import { api, post, waitFor, sleep } from '../lib/api.ts';
 import { openChat, hook, visibleTexts, TINY_PNG_BASE64, waitReady, type ChatPage } from '../lib/pages.ts';
 import { recordCheck } from '../lib/results.ts';
 import { PLATFORM_FACTS } from '../lib/platforms.ts';
@@ -169,67 +169,8 @@ test('3. Moderation: contact info and off-platform payment blocked; user report 
 });
 
 // ---------------------------------------------------------------------------
-test('4. Email fallback when the seller is offline (push: see note)', async ({ browser }) => {
-  // Browser push is out of scope by decision (2026-10-07); the vendor doc records what each platform offers.
-  const push = 'browser push not evaluated (out of scope; see vendor doc)';
-  if (facts.email === 'native-external') {
-    test.setTimeout(240_000); // the vendor groups offline email after an inactivity window; allow a long wait
-    // The vendor emails from its own infrastructure (no custom SMTP), so Mailpit cannot receive it.
-    // Evidence is the vendor's notification webhook reaching our server, which needs a public URL.
-    const cfg = await api<{ publicUrl: string }>('/config');
-    if (!cfg.publicUrl.startsWith('https://')) {
-      note(`not run: vendor sends email itself and cannot target Mailpit; its notification webhook needs an https PUBLIC_URL (ngrok). ${push}`);
-      test.skip();
-    }
-    const buyer = await open(browser, 'buyer_ana');
-    const seller = await open(browser, 'seller_ben');
-    await hook(seller.page, 'disconnect');
-    await seller.ctx.close();
-    pages.splice(pages.indexOf(seller), 1);
-    await sleep(6000);
-    const text = `Hola Ben, ¿sigue disponible? (${orderId})`;
-    await hook(buyer.page, 'sendText', text);
-    const evt = await waitFor(
-      async () => {
-        const log = await api<{ event: string; body: { body?: { type?: string; data?: unknown } } }[]>(`/webhooks-log/${PLATFORM}`);
-        return log.find((w) => /^notification\.(triggered|sent|delivered)$/.test(String(w.body?.body?.type ?? w.event)));
-      },
-      120000,
-      1000,
-      'vendor notification webhook (email trigger) within 120 s',
-    );
-    details({ event: evt.event, body: evt.body?.body, push });
-    note(`vendor-sent email: ${String(evt.body?.body?.type ?? evt.event)} webhook received (Mailpit not reachable by design); ${push}`);
-    return;
-  }
-  await mailpit.clear();
-  const buyer = await open(browser, 'buyer_ana');
-  // Seller: open once so the platform knows the user, then go offline for real.
-  const seller = await open(browser, 'seller_ben');
-  await hook(seller.page, 'disconnect');
-  await seller.ctx.close();
-  pages.splice(pages.indexOf(seller), 1);
-  // > presence TTL on our server (5 s); platforms with slower presence declare a longer settle time in platforms.ts.
-  const settleMs = facts.offlineSettleMs ?? 6000;
-  await sleep(settleMs);
-
-  const text = `Hola Ben, ¿sigue disponible? (${orderId})`;
-  await hook(buyer.page, 'sendText', text);
-  const mail = await waitFor(
-    async () => {
-      const list = await mailpit.list();
-      const m = list.find((x) => x.To.some((t) => t.Address === 'ben@example.test'));
-      if (!m) return undefined;
-      const body = await mailpit.text(m.ID);
-      return body.includes(orderId) ? { m, body } : undefined;
-    },
-    30000,
-    500,
-    'email in Mailpit containing the message',
-  );
-  details({ subject: mail.m.Subject, to: mail.m.To, created: mail.m.Created, push, settleMs });
-  note(`email to seller arrived in Mailpit (${facts.email}; sent ${settleMs / 1000} s after the seller disconnected); ${push}`);
-});
+// Requirement 4 (offline notification: push + email) is documented per vendor, not tested (author's decision, 2026-10-12).
+// Each docs/vendors/<vendor>.md records what the platform offers; the matrix row carries that note.
 
 // ---------------------------------------------------------------------------
 test('5. Auto-translation es<->en', async ({ browser }) => {

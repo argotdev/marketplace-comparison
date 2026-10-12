@@ -1,111 +1,31 @@
 {
   "platform": "native",
-  "startedAt": "2026-10-06T18:40:10.225Z",
-  "orderId": "ord_mux0x4qq",
+  "startedAt": "2026-10-12T17:58:55.615Z",
+  "orderId": "ord_mv5k2z6o",
   "results": [
     {
       "req": 1,
       "title": "1. 1:1 buyer/seller channel tied to the order",
-      "outcome": "pass",
-      "note": "channel order-ord_mux0x4qq; members buyer_ana,seller_ben; data keys orderId,listingId",
-      "durationMs": 291,
-      "details": {
-        "id": "order-ord_mux0x4qq",
-        "data": {
-          "orderId": "ord_mux0x4qq",
-          "listingId": "lst_bike_54"
-        },
-        "memberIds": [
-          "buyer_ana",
-          "seller_ben"
-        ]
-      },
-      "at": "2026-10-06T18:40:10.225Z"
+      "outcome": "fail",
+      "note": "Error: adapter error: native: timeout waiting for authed",
+      "durationMs": 10431,
+      "at": "2026-10-12T17:58:55.615Z"
     },
     {
       "req": 2,
       "title": "2. Order card as a custom message with live status",
-      "outcome": "pass",
-      "note": "card sent as structured data; status placed->shipped propagated to both users in 31 ms by editing the same message",
-      "durationMs": 548,
-      "details": {
-        "messageId": "88ba477a-5388-4b0c-a8a2-a7098e72afd2",
-        "propagationMs": 31
-      },
-      "at": "2026-10-06T18:40:10.852Z"
+      "outcome": "fail",
+      "note": "Error: adapter error: native: timeout waiting for authed",
+      "durationMs": 10234,
+      "at": "2026-10-12T17:59:06.189Z"
     },
     {
       "req": 3,
       "title": "3. Moderation: contact info and off-platform payment blocked; user report reaches a queue",
-      "outcome": "pass",
-      "note": "4/4 blocked or masked, 0 false positive(s) of 2; report reached vendor queue",
-      "durationMs": 693,
-      "details": {
-        "outcomes": [
-          {
-            "text": "Call me at 415-555-0134",
-            "expect": "block",
-            "result": "masked",
-            "sellerSaw": "Call me at ***"
-          },
-          {
-            "text": "Email me at ben@example.com and we'll sort it out",
-            "expect": "block",
-            "result": "masked",
-            "sellerSaw": "Email me at *** and we'll sort it out"
-          },
-          {
-            "text": "Pay me on Venmo instead, it's cheaper",
-            "expect": "block",
-            "result": "masked",
-            "sellerSaw": "Pay me on *** instead, it's cheaper"
-          },
-          {
-            "text": "Let's move this to WhatsApp, +44 7700 900123",
-            "expect": "block",
-            "result": "masked",
-            "sellerSaw": "Let's move this to ***, +*** 900123"
-          },
-          {
-            "text": "Is the 54cm frame still available?",
-            "expect": "pass",
-            "result": "delivered",
-            "sellerSaw": "Is the 54cm frame still available?"
-          },
-          {
-            "text": "Order 4155550134 arrived this morning, thanks",
-            "expect": "pass",
-            "result": "delivered",
-            "sellerSaw": "Order 4155550134 arrived this morning, thanks"
-          }
-        ],
-        "misses": 0,
-        "falsePositives": 0,
-        "report": {
-          "local": 0,
-          "remote": 1
-        }
-      },
-      "at": "2026-10-06T18:40:11.613Z"
-    },
-    {
-      "req": 4,
-      "title": "4. Email fallback when the seller is offline (push: see note)",
-      "outcome": "pass",
-      "note": "email to seller arrived in Mailpit (native); browser push not evaluated (out of scope; see vendor doc)",
-      "durationMs": 7014,
-      "details": {
-        "subject": "[native] New message from Ana",
-        "to": [
-          {
-            "Name": "Ben",
-            "Address": "ben@example.test"
-          }
-        ],
-        "created": "2026-10-06T18:40:18.209Z",
-        "push": "browser push not evaluated (out of scope; see vendor doc)"
-      },
-      "at": "2026-10-06T18:40:18.694Z"
+      "outcome": "fail",
+      "note": "Error: adapter error: native: timeout waiting for authed",
+      "durationMs": 10243,
+      "at": "2026-10-12T17:59:16.773Z"
     },
     {
       "req": 5,
@@ -113,34 +33,23 @@
       "outcome": "skip",
       "note": "not run: platform has no translation feature and no TRANSLATION_PROVIDER is set in .env",
       "durationMs": 0,
-      "at": "2026-10-06T18:40:18.700Z"
+      "at": "2026-10-12T17:59:17.093Z"
     },
     {
       "req": 6,
       "title": "6. Escalation: \"Get help\" adds agent_sam who can read earlier messages",
-      "outcome": "pass",
-      "note": "agent added to the same channel (members buyer_ana,seller_ben,agent_sam); agent reads 10 earlier message(s)",
-      "durationMs": 474,
-      "details": {
-        "members": [
-          "buyer_ana",
-          "seller_ben",
-          "agent_sam"
-        ],
-        "agentSees": 10
-      },
-      "at": "2026-10-06T18:40:19.231Z"
+      "outcome": "fail",
+      "note": "Error: adapter error: native: timeout waiting for authed",
+      "durationMs": 10229,
+      "at": "2026-10-12T17:59:27.356Z"
     },
     {
       "req": 7,
       "title": "7. Read receipts, typing indicators, image attachment",
-      "outcome": "pass",
-      "note": "typing indicator, read receipt and image attachment all delivered buyer<->seller",
-      "durationMs": 507,
-      "details": {
-        "attachmentHost": "localhost:4101"
-      },
-      "at": "2026-10-06T18:40:19.801Z"
+      "outcome": "fail",
+      "note": "Error: adapter error: native: timeout waiting for authed",
+      "durationMs": 10245,
+      "at": "2026-10-12T17:59:37.959Z"
     }
   ]
 }

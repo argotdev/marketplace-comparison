@@ -16,7 +16,7 @@
     },
     "4": {
       "status": "native",
-      "note": "TalkJS emails offline participants itself (Postmark) after an inactivity window; no custom SMTP, so Mailpit cannot receive it. Check observes the notification.* webhook instead. Browser push (FCM + service worker) exists per the docs; not evaluated (out of scope)"
+      "note": "native email to offline participants (Postmark, custom sender domain on Growth) and SMS; browser push via FCM + service worker"
     },
     "5": {
       "status": "gated",

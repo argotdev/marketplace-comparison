@@ -1,12 +1,34 @@
 {
   "platform": "rocketchat",
   "requirements": {
-    "1": { "status": "native", "note": "private group order-<id> with customFields {orderId, listingId}, members buyer+seller (groups.create by the buyer; admin reads rooms via rooms.adminRooms since it is not a member)" },
-    "2": { "status": "native", "note": "chat.sendMessage with schema-validated customFields {type, card} + an attachment for Rocket.Chat's own UI; chat.update as the message author (only members can edit in a private group); stream-room-messages delivers the edit" },
-    "3": { "status": "native", "note": "built-in bad-words list masks listed words only: `whatsapp` masked; `Venmo` (capitalised in the fixture), the phone number and the email delivered (1/4 blocked, 0 false positives; the list match appears case-sensitive). A regex filter needs an Apps-Engine app, which an unregistered (Community) workspace cannot install. Reports via chat.reportMessage into the admin Moderation console (read back with moderation.reportsByUsers)" },
-    "4": { "status": "native", "note": "SMTP to Mailpit + per-room emailNotifications=all set by each member on open; arrives immediately once the member counts as offline. Presence stays online for a while after a disconnect (measured, see vendor doc). No web push" },
-    "5": { "status": "native", "note": "Auto-Translate (Google/Microsoft/DeepL paid/LibreTranslate) per user per room; not run: no provider key (Rocket.Chat refuses DeepL free keys)" },
-    "6": { "status": "native", "note": "groups.invite by a member; groups.history for earlier messages" },
-    "7": { "status": "gated", "note": "typing (stream-notify-room user-activity) and image upload (rooms.media + rooms.mediaConfirm) work; read receipts answer 'This is an enterprise feature' on the unregistered Community workspace", "gate": "registered Starter workspace (free, needs a Rocket.Chat Cloud account) for read receipts" }
+    "1": {
+      "status": "native",
+      "note": "private group order-<id> with customFields {orderId, listingId}, members buyer+seller (groups.create by the buyer; admin reads rooms via rooms.adminRooms since it is not a member)"
+    },
+    "2": {
+      "status": "native",
+      "note": "chat.sendMessage with schema-validated customFields {type, card} + an attachment for Rocket.Chat's own UI; chat.update as the message author (only members can edit in a private group); stream-room-messages delivers the edit"
+    },
+    "3": {
+      "status": "native",
+      "note": "built-in bad-words list masks listed words only: `whatsapp` masked; `Venmo` (capitalised in the fixture), the phone number and the email delivered (1/4 blocked, 0 false positives; the list match appears case-sensitive). A regex filter needs an Apps-Engine app, which an unregistered (Community) workspace cannot install. Reports via chat.reportMessage into the admin Moderation console (read back with moderation.reportsByUsers)"
+    },
+    "4": {
+      "status": "native",
+      "note": "native email via SMTP (offline users, per-room preference) and mobile push via the Rocket.Chat gateway (registration required); no browser push"
+    },
+    "5": {
+      "status": "native",
+      "note": "Auto-Translate (Google/Microsoft/DeepL paid/LibreTranslate) per user per room; not run: no provider key (Rocket.Chat refuses DeepL free keys)"
+    },
+    "6": {
+      "status": "native",
+      "note": "groups.invite by a member; groups.history for earlier messages"
+    },
+    "7": {
+      "status": "gated",
+      "note": "typing (stream-notify-room user-activity) and image upload (rooms.media + rooms.mediaConfirm) work; read receipts answer 'This is an enterprise feature' on the unregistered Community workspace",
+      "gate": "registered Starter workspace (free, needs a Rocket.Chat Cloud account) for read receipts"
+    }
   }
 }

@@ -33,7 +33,7 @@ npm run dev:native              # native WebSocket instances on :4101 and :4102
 npm run dev:web                 # Vite on :5173
 ```
 
-Open http://localhost:5173 and pick a platform and user. Buyer and seller pages side by side show the chat; the seller's page has the order status buttons.
+Open http://localhost:5173 and pick a platform and user. (Requirement 4, offline notification, is documented per vendor and not tested, so Mailpit is only used by the Rocket.Chat SMTP setting.) Buyer and seller pages side by side show the chat; the seller's page has the order status buttons.
 
 Vendor webhooks need a public URL. Run `ngrok http 4000` and put the HTTPS URL in `PUBLIC_URL` in `.env`, then paste `<PUBLIC_URL>/api/webhooks/<platform>` into each vendor dashboard as described in `docs/SETUP_ACCOUNTS.md`.
 
