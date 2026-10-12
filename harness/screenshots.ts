@@ -37,9 +37,11 @@ async function main() {
     const orderId = `ord_shot_${Date.now().toString(36)}`;
     await post(`/vendors/${platform}/setup`).catch(() => {});
     await post(`/orders/${orderId}/reset`);
+    // Buyer and seller get separate contexts: SDKs that keep one session per origin (CometChat) would otherwise share it.
+    const buyerCtx = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 2 });
     const ctx = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 2 });
     try {
-      const buyer = await ctx.newPage();
+      const buyer = await buyerCtx.newPage();
       await buyer.goto(`${WEB_URL}/adapter/${platform}?user=buyer_ana&order=${orderId}`);
       await buyer.waitForFunction(() => window.__chat?.state === 'ready', null, { timeout: 60000 });
       const card = await api<OrderCard>(`/order-card/${orderId}`);
@@ -47,11 +49,14 @@ async function main() {
       await buyer.evaluate(() => window.__chat!.sendText('¡Hola Ben! ¿Puedes enviarla esta semana?'));
       const seller = await ctx.newPage();
       await seller.goto(`${WEB_URL}/kit/${platform}?user=seller_ben&order=${orderId}`);
-      // Wait for the kit to render the card (or give it 15 s and shoot whatever is there, noting it).
-      const sawCard = await seller
-        .waitForSelector('[data-testid=order-card], [data-kit] iframe', { timeout: 20000 })
-        .then(() => true)
-        .catch(() => false);
+      // Wait for the kit to render the card; kits that load history asynchronously (CometChat) sometimes need a
+      // second attempt right after the group was created, so reload once before giving up and shooting anyway.
+      const waitCard = () => seller.waitForSelector('[data-testid=order-card], [data-kit] iframe', { timeout: 25000 }).then(() => true).catch(() => false);
+      let sawCard = await waitCard();
+      if (!sawCard) {
+        await seller.reload();
+        sawCard = await waitCard();
+      }
       await seller.waitForTimeout(2500);
       const file = resolve(out, `${platform}-kit.png`);
       await seller.screenshot({ path: file, clip: { x: 0, y: 0, ...VIEWPORT } });
@@ -61,6 +66,7 @@ async function main() {
     } catch (e) {
       skipped.push(`${platform}: failed: ${(e as Error).message.split('\n')[0]}`);
     } finally {
+      await buyerCtx.close();
       await ctx.close();
     }
   }

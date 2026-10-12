@@ -24,6 +24,26 @@ const OrderCardPlugin: CometChatMessagePlugin = {
   getLastMessagePreview: () => 'Order card',
 };
 
+// One init+login per user, shared across StrictMode's double mount (a second concurrent login makes the SDK
+// answer "Please wait until the previous login request ends").
+const loginOnce = new Map<string, Promise<void>>();
+function ensureLoggedIn(userId: string): Promise<void> {
+  let p = loginOnce.get(userId);
+  if (!p) {
+    p = (async () => {
+      const t = await serverApi.token('cometchat', userId as UserId);
+      const settings = new UIKitSettingsBuilder().setAppId(t.extra?.appId ?? '').setRegion(t.extra?.region ?? 'us').subscribePresenceForAllUsers().build();
+      await CometChatUIKit.init(settings);
+      const current = CometChatUIKit.getLoggedInUser()?.getUid();
+      if (current && current !== userId) await CometChatUIKit.logout(); // the SDK keeps one session per origin
+      if (current !== userId) await CometChatUIKit.loginWithAuthToken(t.token);
+    })();
+    loginOnce.set(userId, p);
+    p.catch(() => loginOnce.delete(userId));
+  }
+  return p;
+}
+
 export default function CometChatKit({ userId, orderId }: { userId: string; orderId: string }) {
   const [group, setGroup] = useState<CometChat.Group | null>(null);
   const [error, setError] = useState<string>();
@@ -31,10 +51,7 @@ export default function CometChatKit({ userId, orderId }: { userId: string; orde
   useEffect(() => {
     (async () => {
       try {
-        const t = await serverApi.token('cometchat', userId as UserId);
-        const settings = new UIKitSettingsBuilder().setAppId(t.extra?.appId ?? '').setRegion(t.extra?.region ?? 'us').subscribePresenceForAllUsers().build();
-        await CometChatUIKit.init(settings);
-        if (CometChatUIKit.getLoggedInUser()?.getUid() !== userId) await CometChatUIKit.loginWithAuthToken(t.token);
+        await ensureLoggedIn(userId);
         setGroup(await CometChat.getGroup(channelIdForOrder(orderId)));
       } catch (e) {
         setError((e as Error).message);
@@ -45,10 +62,15 @@ export default function CometChatKit({ userId, orderId }: { userId: string; orde
   if (error) return <div className="error">{error}</div>;
   if (!group) return <div>Loading CometChat UI Kit…</div>;
   return (
+    // The kit's components fill their parent (height: 100%); the list needs a sized flex child or it collapses to 0 px.
     <div className="kit-frame" data-kit="cometchat" style={{ display: 'flex', flexDirection: 'column' }}>
       <CometChatProvider plugins={[OrderCardPlugin]}>
-        <CometChatMessageList group={group} />
-        <CometChatMessageComposer group={group} />
+        <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
+          <CometChatMessageList group={group} />
+        </div>
+        <div style={{ flex: '0 0 auto' }}>
+          <CometChatMessageComposer group={group} />
+        </div>
       </CometChatProvider>
     </div>
   );

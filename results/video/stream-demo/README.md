@@ -1,6 +1,6 @@
 # Stream demo recording
 
-Recorded 2026-10-07T15:20:50.852Z, 48 s wall clock, order ord_demo_muy97is0. Translation provider: Stream auto-translation only.
+Recorded 2026-10-12T19:10:41.206Z, 48 s wall clock, order ord_demo_mv5mmd6r. Translation provider: Stream auto-translation only.
 
 Files: buyer.webm, seller.webm, stream-demo.mp4.
 

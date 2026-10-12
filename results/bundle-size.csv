@@ -7,13 +7,13 @@ stream,core,stream-chat,9.54.0,453895,113037,2026-10-06T19:03:07.133Z,"Stream: s
 stream,kit,stream-chat-react,14.12.2,2627240,610306,2026-10-06T19:03:07.133Z,"stream-chat-react: Chat + Channel + Window + MessageList + MessageComposer + CSS, React externalised."
 talkjs,core,@talkjs/core,1.12.0,274766,63178,2026-10-06T19:24:52.149Z,"TalkJS: @talkjs/core headless Data API (session, conversation, send, subscribe). The Components SDK is in the kit entry."
 talkjs,kit,@talkjs/react-components,0.3.9,1484008,370753,2026-10-06T19:24:52.149Z,"TalkJS Components SDK: @talkjs/react-components Chatbox + default.css (renders in the page, not an iframe), React externalised."
-cometchat,core,@cometchat/chat-sdk-javascript,4.2.0,920059,133684,2026-10-06T19:29:29.700Z,CometChat: @cometchat/chat-sdk-javascript init + login + send + listener.
-cometchat,kit,@cometchat/chat-uikit-react,7.2.3,6746318,1654612,2026-10-06T19:29:29.700Z,"CometChat UI Kit v7: CometChatProvider + MessageList + MessageComposer (CSS is injected by the kit), React externalised."
 twilio,core,@twilio/conversations,3.0.1,902090,166158,2026-10-06T19:32:42.354Z,Twilio Conversations (classic): @twilio/conversations Client + getConversationByUniqueName + sendMessage + messageAdded.
 twilio,kit,,,not run,not run,2026-10-06T19:32:42.354Z,no React UI kit for this platform
 pubnub,core,@pubnub/chat,1.0.4,1143256,229985,2026-10-06T19:36:44.293Z,PubNub: @pubnub/chat (Chat SDK) over pubnub core; init + getChannel + sendText + onMessageReceived.
 pubnub,kit,,,not run,not run,2026-10-06T19:36:44.293Z,no React UI kit for this platform
-ably,core,@ably/chat,1.4.0,375691,83874,2026-10-06T19:41:12.220Z,Ably: ably-js Realtime + @ably/chat ChatClient; rooms.get + attach + send + subscribe.
-ably,kit,@ably/chat-react-ui-kit,0.3.0,513147,114922,2026-10-06T19:41:12.220Z,"Ably Chat React UI Kit: providers + ChatWindow + style.css (experimental kit), React externalised."
 rocketchat,core,@mkt/adapter-rocketchat,0.1.0,12261,4066,2026-10-06T20:02:32.802Z,"Rocket.Chat: no installable npm client (the official ddp-client needs a yarn-only patch), so this is our own DDP + REST adapter code."
 rocketchat,kit,@mkt/adapter-rocketchat,0.1.0,298,234,2026-10-06T20:02:32.802Z,"Rocket.Chat prebuilt UI in an iframe (?layout=embedded); the JS is served by the Rocket.Chat server, so kit-network.csv is the real measure."
+cometchat,core,@cometchat/chat-sdk-javascript,4.2.0,920059,133684,2026-10-12T19:16:22.083Z,CometChat: @cometchat/chat-sdk-javascript init + login + send + listener.
+cometchat,kit,@cometchat/chat-uikit-react,7.2.3,6746318,1654612,2026-10-12T19:16:22.083Z,"CometChat UI Kit v7: CometChatProvider + MessageList + MessageComposer (CSS is injected by the kit), React externalised."
+ably,core,@ably/chat,1.4.0,375691,83874,2026-10-12T19:16:22.083Z,Ably: ably-js Realtime + @ably/chat ChatClient; rooms.get + attach + send + subscribe.
+ably,kit,@ably/chat-react-ui-kit,0.3.0,513209,114947,2026-10-12T19:16:22.083Z,"Ably Chat React UI Kit: providers + ChatWindow + style.css (experimental kit), React externalised."

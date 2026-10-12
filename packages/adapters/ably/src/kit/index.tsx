@@ -8,7 +8,7 @@
 import { useEffect, useState } from 'react';
 import * as Ably from 'ably';
 import { ChatClient, type Message } from '@ably/chat';
-import { ChatClientProvider } from '@ably/chat/react';
+import { ChatClientProvider, ChatRoomProvider } from '@ably/chat/react';
 import { AvatarProvider, ChatSettingsProvider, ChatWindow, ThemeProvider } from '@ably/chat-react-ui-kit';
 import '@ably/chat-react-ui-kit/dist/style.css';
 import { serverApi, type OrderCard as OrderCardData, type UserId } from '@mkt/shared';
@@ -53,7 +53,9 @@ export default function AblyKit({ userId, orderId }: { userId: string; orderId: 
         <ThemeProvider>
           <AvatarProvider>
             <ChatSettingsProvider>
-              <ChatWindow roomName={roomNameForOrder(orderId)} customHeaderContent={card ? <OrderCard card={card} /> : <span>Order {orderId}</span>} />
+              <ChatRoomProvider name={roomNameForOrder(orderId)}>
+                <ChatWindow roomName={roomNameForOrder(orderId)} customHeaderContent={card ? <OrderCard card={card} /> : <span>Order {orderId}</span>} />
+              </ChatRoomProvider>
             </ChatSettingsProvider>
           </AvatarProvider>
         </ThemeProvider>
