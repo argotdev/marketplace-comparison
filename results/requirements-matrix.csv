@@ -1,11 +1,11 @@
 platform,requirement,title,status,check_outcome,note
-native,1,1:1 order channel,built,fail,channels + channel_members tables keyed by order id; data holds orderId and listingId (379 LOC) | check: Error: adapter error: native: timeout waiting for authed
-native,2,Order card with live status,built,fail,message kind order_card with JSONB data; order service PATCHes the row and Redis fans out message_updated (379 LOC) | check: Error: adapter error: native: timeout waiting for authed
-native,3,Moderation + user report,built,fail,server-side regex mask (phone/email/off-platform payment) + reports table; no image or AI moderation (379 LOC) | check: Error: adapter error: native: timeout waiting for authed
+native,1,1:1 order channel,built,pass,channels + channel_members tables keyed by order id; data holds orderId and listingId (379 LOC)
+native,2,Order card with live status,built,pass,message kind order_card with JSONB data; order service PATCHes the row and Redis fans out message_updated (379 LOC)
+native,3,Moderation + user report,built,pass,server-side regex mask (phone/email/off-platform payment) + reports table; no image or AI moderation (379 LOC)
 native,4,"Offline notification (documented, not tested)",documented: built,not tested,no vendor: a native build would need its own push pipeline and mailer; nothing provided
 native,5,Auto-translation,not run,skip,sender attaches translations from server provider; reader picks their language. Not run: no TRANSLATION_PROVIDER in .env (60 LOC) | check: not run: platform has no translation feature and no TRANSLATION_PROVIDER is set in .env
-native,6,Escalation to agent,built,fail,add_member inserts agent into channel_members; history query returns all earlier rows (379 LOC) | check: Error: adapter error: native: timeout waiting for authed
-native,7,"Receipts, typing, attachments",built,fail,read_state table + typing fan-out over Redis; attachments stored as BYTEA and served over HTTP (379 LOC) | check: Error: adapter error: native: timeout waiting for authed
+native,6,Escalation to agent,built,pass,add_member inserts agent into channel_members; history query returns all earlier rows (379 LOC)
+native,7,"Receipts, typing, attachments",built,pass,read_state table + typing fan-out over Redis; attachments stored as BYTEA and served over HTTP (379 LOC)
 sendbird,1,1:1 order channel,native,pass,"group channel with deterministic channelUrl, customType order, data {orderId, listingId}, invitedUserIds buyer+seller"
 sendbird,2,Order card with live status,native,pass,user message with customType order_card and JSON data; order service edits it with PUT /v3/group_channels/{url}/messages/{id}; onMessageUpdated on both clients
 sendbird,3,Moderation + user report,native,pass,"profanity filter regex_filters (RE2) type=replace on channel type order via Platform API; channel.reportUser -> dashboard + user:report webhook. Advanced Moderation (rules, tickets, keyword detection) is an Enterprise add-on"
