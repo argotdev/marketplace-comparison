@@ -73,7 +73,7 @@ export const PLATFORM_FACTS: Record<string, PlatformFacts> = {
   },
   twilio: {
     name: 'Twilio Conversations (classic)',
-    translation: 'built',
+    translation: 'none',
     email: 'built-webhook',
     // Documented: 30 actions per second per conversation. Paced at 20/s.
     maxSendPerSec: 20,
@@ -82,7 +82,7 @@ export const PLATFORM_FACTS: Record<string, PlatformFacts> = {
   },
   pubnub: {
     name: 'PubNub (Chat SDK)',
-    translation: 'built',
+    translation: 'none',
     email: 'built-webhook',
     // Documented guidance: keep publish rates at 10 to 15 messages per second per channel. Paced at 10/s.
     maxSendPerSec: 10,
@@ -91,7 +91,7 @@ export const PLATFORM_FACTS: Record<string, PlatformFacts> = {
   },
   ably: {
     name: 'Ably (Chat SDK)',
-    translation: 'built',
+    translation: 'none',
     email: 'built-webhook',
     // Documented: 50 messages per second per channel and per connection on every plan. Paced at 25/s.
     maxSendPerSec: 25,

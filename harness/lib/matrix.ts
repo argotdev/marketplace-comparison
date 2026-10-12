@@ -46,7 +46,7 @@ for (const platform of PLATFORMS) {
     let note = r?.note ?? (input ? 'not assessed' : 'adapter not written');
     if (r?.status === 'built' && r.loc !== undefined) note = `${note} (${r.loc} LOC)`;
     if (r?.status === 'gated' && r.gate) note = `${note} [needs: ${r.gate}]`;
-    if (c?.outcome === 'skip' && status !== 'gated' && status !== 'unavailable') status = 'not run';
+    if (c?.outcome === 'skip' && status !== 'gated' && status !== 'unavailable' && !c.note.startsWith('unavailable')) status = 'not run';
     // Requirement 4 is documented only (decision 2026-10-12): the cell carries the vendor-doc note, never a check outcome.
     if (req === '4' && input) {
       matrixLines.push([platform, req, REQ_TITLES[req], `documented: ${r?.status ?? 'unknown'}`, 'not tested', note].map(csvEscape).join(','));

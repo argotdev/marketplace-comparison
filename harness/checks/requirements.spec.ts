@@ -175,7 +175,7 @@ test('3. Moderation: contact info and off-platform payment blocked; user report 
 // ---------------------------------------------------------------------------
 test('5. Auto-translation es<->en', async ({ browser }) => {
   if (facts.translation === 'none') {
-    note('platform has no translation and the adapter does not implement a fallback');
+    note('unavailable: the platform has no translation feature (our server-side fallback exists in the code but does not count for the comparison)');
     test.skip();
   }
   if (facts.translation === 'built' && !translationProvider) {

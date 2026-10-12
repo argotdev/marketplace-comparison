@@ -28,10 +28,25 @@ function restClient(): Ably.Rest {
   if (!rest) rest = new Ably.Rest({ key: env.get('ABLY_API_KEY') });
   return rest;
 }
-let chat: ChatClient | null = null;
-function chatClient(): ChatClient {
-  if (!chat) chat = new ChatClient(new Ably.Realtime({ key: env.get('ABLY_API_KEY'), clientId: 'system' }));
-  return chat;
+// Chat clients per clientId. Message updates need `message-update-any` (not granted to a default API key)
+// or `message-update-own` as the author, so the server edits as the message's author with a token for that clientId.
+const chats = new Map<string, ChatClient>();
+function chatClientAs(clientId: string): ChatClient {
+  let c = chats.get(clientId);
+  if (!c) {
+    const realtime = new Ably.Realtime({
+      clientId,
+      authCallback: (_params, cb) => {
+        restClient()
+          .auth.createTokenRequest({ clientId, ttl: 3600 * 1000, capability: { 'order:*': ['publish', 'subscribe', 'presence', 'history', 'message-update-own', 'message-delete-own'] } })
+          .then((req) => cb(null, req))
+          .catch((e) => cb(String(e), null));
+      },
+    });
+    c = new ChatClient(realtime);
+    chats.set(clientId, c);
+  }
+  return c;
 }
 function membersOf(room: string): Set<UserId> {
   let s = members.get(room);
@@ -63,7 +78,7 @@ export const ablyVendor: ServerVendor = {
   },
 
   async updateOrderCard(ref: CardMessageRef, card: OrderCard) {
-    const room = await chatClient().rooms.get(ref.channelId);
+    const room = await chatClientAs(ref.extra?.senderId ?? 'buyer_ana').rooms.get(ref.channelId);
     await room.attach();
     const current = await room.messages.get(ref.messageId);
     await room.messages.update(ref.messageId, { text: current.text, metadata: { type: 'order_card', card: { ...card } }, headers: current.headers }, { description: `status ${card.status}` });

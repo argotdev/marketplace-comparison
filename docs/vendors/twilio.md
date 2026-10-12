@@ -1,6 +1,6 @@
 # Twilio Conversations (classic)
 
-Status: **written, not run**. No Twilio credentials in `.env` as of 2026-10-06. Adapter and server half type-check against `@twilio/conversations@3.0.1` and `twilio@6.1.2`. Research notes with every URL: `docs/research/twilio.md`.
+Status: **run** on 2026-10-12 against a Twilio trial account (US1). Checks: 1, 2, 3, 6, 7 pass; 5 is unavailable (no translation). Moderation ran through Twilio's pre-event `onMessageAdd` webhook with our regex: 4/4 blocked, 0 false positives. Results in `results/checks/twilio.json`. Research notes with every URL: `docs/research/twilio.md`.
 
 ## Compared with Sendbird
 

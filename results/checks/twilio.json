@@ -1,0 +1,224 @@
+{
+  "platform": "twilio",
+  "startedAt": "2026-10-12T18:50:54.668Z",
+  "orderId": "ord_mv5lxzbg",
+  "results": [
+    {
+      "req": 1,
+      "title": "1. 1:1 buyer/seller channel tied to the order",
+      "outcome": "pass",
+      "note": "channel order-ord_mv5lxzbg; members buyer_ana,seller_ben; data keys orderId,listingId,sid",
+      "durationMs": 2780,
+      "details": {
+        "id": "order-ord_mv5lxzbg",
+        "memberIds": [
+          "buyer_ana",
+          "seller_ben"
+        ],
+        "data": {
+          "orderId": "ord_mv5lxzbg",
+          "listingId": "lst_bike_54",
+          "sid": "CH56a3f5c12d1a43ec87452f6b43566c14"
+        }
+      },
+      "at": "2026-10-12T18:50:54.668Z"
+    },
+    {
+      "req": 2,
+      "title": "2. Order card as a custom message with live status",
+      "outcome": "pass",
+      "note": "card sent as structured data; status placed->shipped propagated to both users in 291 ms by editing the same message",
+      "durationMs": 2727,
+      "details": {
+        "messageId": "IMc3beb9a4609c4a849397d96b4364c07b",
+        "propagationMs": 291
+      },
+      "at": "2026-10-12T18:50:57.491Z"
+    },
+    {
+      "req": 3,
+      "title": "3. Moderation: contact info and off-platform payment blocked; user report reaches a queue",
+      "outcome": "pass",
+      "note": "4/4 blocked or masked, 0 false positive(s) of 2; report reached our moderation queue",
+      "durationMs": 3891,
+      "details": {
+        "outcomes": [
+          {
+            "text": "Call me at 415-555-0134",
+            "expect": "block",
+            "result": "masked",
+            "sellerSaw": "Call me at ***"
+          },
+          {
+            "text": "Email me at ben@example.com and we'll sort it out",
+            "expect": "block",
+            "result": "masked",
+            "sellerSaw": "Email me at *** and we'll sort it out"
+          },
+          {
+            "text": "Pay me on Venmo instead, it's cheaper",
+            "expect": "block",
+            "result": "masked",
+            "sellerSaw": "Pay me on *** instead, it's cheaper"
+          },
+          {
+            "text": "Let's move this to WhatsApp, +44 7700 900123",
+            "expect": "block",
+            "result": "masked",
+            "sellerSaw": "Let's move this to ***, +*** 900123"
+          },
+          {
+            "text": "Is the 54cm frame still available?",
+            "expect": "pass",
+            "result": "delivered",
+            "sellerSaw": "Is the 54cm frame still available?"
+          },
+          {
+            "text": "Order 4155550134 arrived this morning, thanks",
+            "expect": "pass",
+            "result": "delivered",
+            "sellerSaw": "Order 4155550134 arrived this morning, thanks"
+          }
+        ],
+        "misses": 0,
+        "falsePositives": 0,
+        "report": {
+          "local": 1,
+          "remote": 1
+        }
+      },
+      "at": "2026-10-12T18:51:01.478Z"
+    },
+    {
+      "req": 5,
+      "title": "5. Auto-translation es<->en",
+      "outcome": "skip",
+      "note": "unavailable: the platform has no translation feature (our server-side fallback exists in the code but does not count for the comparison)",
+      "durationMs": 0,
+      "at": "2026-10-12T18:51:01.483Z"
+    },
+    {
+      "req": 6,
+      "title": "6. Escalation: \"Get help\" adds agent_sam who can read earlier messages",
+      "outcome": "pass",
+      "note": "agent added to the same channel (members buyer_ana,seller_ben,agent_sam); agent reads 9 earlier message(s)",
+      "durationMs": 3048,
+      "details": {
+        "members": [
+          "buyer_ana",
+          "seller_ben",
+          "agent_sam"
+        ],
+        "agentSees": 9
+      },
+      "at": "2026-10-12T18:51:04.631Z"
+    },
+    {
+      "req": 7,
+      "title": "7. Read receipts, typing indicators, image attachment",
+      "outcome": "pass",
+      "note": "typing, readReceipt, attachment delivered buyer<->seller",
+      "durationMs": 3568,
+      "details": {
+        "typing": {
+          "ok": true
+        },
+        "readReceipt": {
+          "ok": true,
+          "extra": {
+            "readsOnArrival": [
+              {
+                "userId": "seller_ben",
+                "at": 1791831067263
+              }
+            ],
+            "statusLine": "Ben is typing… Read by Ben",
+            "messages": [
+              {
+                "id": "IMc3beb9a4609c4a849397d96b4364c07b",
+                "senderId": "buyer_ana",
+                "createdAt": 1791831056825,
+                "kind": "order_card"
+              },
+              {
+                "id": "IM04f4c778efe649af93982700d34915a0",
+                "senderId": "buyer_ana",
+                "createdAt": 1791831059569,
+                "kind": "text"
+              },
+              {
+                "id": "IMb78fe093c786408abbb4a2b179d0740b",
+                "senderId": "buyer_ana",
+                "createdAt": 1791831059934,
+                "kind": "text"
+              },
+              {
+                "id": "IM1d88c9ada4a841a38aff04a6f3fce421",
+                "senderId": "buyer_ana",
+                "createdAt": 1791831060247,
+                "kind": "text"
+              },
+              {
+                "id": "IM893730d76931496892f34d87a0d3d5c0",
+                "senderId": "buyer_ana",
+                "createdAt": 1791831060558,
+                "kind": "text"
+              },
+              {
+                "id": "IM9763d9844ee743c48d01b9847c11da73",
+                "senderId": "buyer_ana",
+                "createdAt": 1791831060818,
+                "kind": "text"
+              },
+              {
+                "id": "IMb2d84bf35aaf41c6b2490728f8453fcb",
+                "senderId": "buyer_ana",
+                "createdAt": 1791831061133,
+                "kind": "text"
+              },
+              {
+                "id": "IMe7394ed1c79e40f3a1a4510099f25871",
+                "senderId": "buyer_ana",
+                "createdAt": 1791831062563,
+                "kind": "text"
+              },
+              {
+                "id": "IM20079d9f027743159e35deee504e0162",
+                "senderId": "buyer_ana",
+                "createdAt": 1791831062876,
+                "kind": "text"
+              },
+              {
+                "id": "IM82edf7db45db4c569b71d2f6b6a38a38",
+                "senderId": "buyer_ana",
+                "createdAt": 1791831066839,
+                "kind": "text"
+              }
+            ],
+            "after": {
+              "reads": [
+                {
+                  "userId": "seller_ben",
+                  "at": 1791831067263
+                }
+              ],
+              "lastMine": {
+                "id": "IM82edf7db45db4c569b71d2f6b6a38a38",
+                "createdAt": 1791831066839
+              },
+              "statusLine": "Ben is typing… Read by Ben"
+            }
+          }
+        },
+        "attachment": {
+          "ok": true,
+          "extra": {
+            "attachmentHost": "media.us1.twilio.com",
+            "dataUrl": false
+          }
+        }
+      },
+      "at": "2026-10-12T18:51:08.303Z"
+    }
+  ]
+}

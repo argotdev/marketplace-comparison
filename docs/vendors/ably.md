@@ -1,6 +1,6 @@
 # Ably
 
-Status: **written, not run**. No `ABLY_API_KEY` in `.env` as of 2026-10-06. Adapter, UI kit view and server half type-check against the pinned SDKs. Research notes with every URL: `docs/research/ably.md`.
+Status: **run** on 2026-10-12 against a Free Ably app. Checks: 1, 2, 6, 7 pass; 3 fails with 0/4 blocked because the custom before-publish moderation rule is a dashboard integration not yet created on this app (no moderation requests reached our server); 5 is unavailable (no translation). Results in `results/checks/ably.json`. Research notes with every URL: `docs/research/ably.md`.
 
 ## Compared with Sendbird
 

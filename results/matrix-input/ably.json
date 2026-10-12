@@ -7,11 +7,11 @@
     },
     "2": {
       "status": "native",
-      "note": "messages.send({ text, metadata: { type: 'order_card', card } }); server messages.update(serial, { metadata }) with a Node ChatClient; message.updated event on both sides"
+      "note": "messages.send({ text, metadata: { type: 'order_card', card } }); the server edits as the message's author with a message-update-own token (a default API key lacks message-update-any: 'client is not message owner'); message.updated on both sides"
     },
     "3": {
       "status": "vendor hook + our rules",
-      "note": "the custom before-publish moderation rule (Ably's documented hook) calls our server, which answers with masked text; Hive/Tisane/Bodyguard/Azure are native alternatives. Reporting, muting and banning: unavailable (pricing page: \"coming soon\")"
+      "note": "the custom before-publish moderation rule (Ably's documented hook) is a dashboard integration not yet created on this app, so 0/4 blocked at run time (no requests reached our server); once created it calls our server for masked text. Hive/Tisane/Bodyguard/Azure are native alternatives. Reporting, muting and banning: unavailable (pricing page: 'coming soon')"
     },
     "4": {
       "status": "built",

@@ -21,8 +21,14 @@ const { AccessToken } = twilio.jwt;
 const { ChatGrant } = AccessToken;
 
 let client: twilio.Twilio | null = null;
+// The twilio SDK reads TWILIO_REGION / TWILIO_EDGE from the environment and builds regional hosts from them
+// ("us1" yields conversations.us1.twilio.com, which does not resolve). Ours is only a label for the result files:
+// remember it, then remove it from the environment before the client is built.
+const REGION_LABEL = process.env.TWILIO_REGION ?? 'us1';
+delete process.env.TWILIO_REGION;
+delete process.env.TWILIO_EDGE;
 function rest(): twilio.Twilio {
-  if (!client) client = twilio(env.get('TWILIO_API_KEY_SID'), env.get('TWILIO_API_KEY_SECRET'), { accountSid: env.get('TWILIO_ACCOUNT_SID') });
+  if (!client) client = twilio(env.get('TWILIO_API_KEY_SID'), env.get('TWILIO_API_KEY_SECRET'), { accountSid: env.get('TWILIO_ACCOUNT_SID'), ...(REGION_LABEL !== 'us1' ? { region: REGION_LABEL } : {}) });
   return client;
 }
 const service = () => rest().conversations.v1.services(env.get('TWILIO_CONVERSATIONS_SERVICE_SID'));
@@ -75,7 +81,7 @@ export const twilioVendor: ServerVendor = {
     const token = new AccessToken(env.get('TWILIO_ACCOUNT_SID'), env.get('TWILIO_API_KEY_SID'), env.get('TWILIO_API_KEY_SECRET'), { identity: user.id, ttl: 3600 });
     token.addGrant(new ChatGrant({ serviceSid: env.get('TWILIO_CONVERSATIONS_SERVICE_SID') }));
     const extra: Record<string, string> = {};
-    if (env.get('TWILIO_REGION') && env.get('TWILIO_REGION') !== 'us1') extra.region = env.get('TWILIO_REGION');
+    if (REGION_LABEL !== 'us1') extra.region = REGION_LABEL;
     return { token: token.toJwt(), extra };
   },
 
@@ -139,7 +145,7 @@ export const twilioVendor: ServerVendor = {
   },
 
   describe() {
-    return { region: env.get('TWILIO_REGION') || 'us1', plan: env.get('TWILIO_PLAN') || 'not set', smsFrom: env.get('TWILIO_SMS_FROM') ? 'set' : 'not set', whatsappFrom: env.get('TWILIO_WHATSAPP_FROM') ? 'set' : 'not set' };
+    return { region: REGION_LABEL, plan: env.get('TWILIO_PLAN') || 'not set', smsFrom: env.get('TWILIO_SMS_FROM') ? 'set' : 'not set', whatsappFrom: env.get('TWILIO_WHATSAPP_FROM') ? 'set' : 'not set' };
   },
 };
 
