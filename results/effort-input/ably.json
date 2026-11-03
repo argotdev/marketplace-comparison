@@ -1,5 +1,0 @@
-{
-  "dashboardStepsBeforeFirstMessage": 2,
-  "backendNeededForFirstMessage": "no (an API key in the browser works); yes for TokenRequests as used here",
-  "notes": "Steps: create app, copy the API key. Webhook and moderation integration rules are dashboard (or Control API) steps our data key cannot perform."
-}

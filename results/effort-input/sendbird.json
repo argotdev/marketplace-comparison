@@ -1,5 +1,0 @@
-{
-  "dashboardStepsBeforeFirstMessage": 4,
-  "backendNeededForFirstMessage": "no for a first message (access-token permission can allow token-less login); yes for session tokens as used here",
-  "notes": "Steps: create app + region, copy App ID, copy master API token, create users (or let the SDK create them). Profanity filter and webhook are set by our setup script over the Platform API."
-}

@@ -1,5 +1,0 @@
-{
-  "dashboardStepsBeforeFirstMessage": 0,
-  "backendNeededForFirstMessage": true,
-  "notes": "No dashboard, but nothing works without the WebSocket server, Postgres and Redis (docker compose up + npm run dev:native). LOC counts include the native server (379) separately in results/loc.json."
-}
